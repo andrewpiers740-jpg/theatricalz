@@ -1,0 +1,41 @@
+# Theatricalz
+> Australia's Premier Pro Cinema, Photo, Video & Audio Specialists
+
+Founded in 2016 in Melbourne, Australia, Theatricalz is an authorized pro cinema, photo, broadcast video, and location audio equipment retailer supplying production houses, DP cinematographers, and creators nationwide.
+
+## Contact & Location
+- Address: 3 Kirks Lane, Melbourne VIC 3000, Australia
+- Phone: +61 489 989 442 (0489 989 442)
+- WhatsApp Gear Desk: https://wa.me/61489989442
+- Email: sales@theatricalz.com.au
+- ABN: 28 614 589 481 · ACN: 614 589 481
+
+## Order Rules & Policies
+- Free Shipping: Orders over $500 AUD receive complimentary StarTrack Express freight with transit insurance.
+- Shipping Fee: Standard $15 AUD / Express $25 AUD.
+- Crypto Discount: 10% instant discount when paying with BTC, USDT, ETH, BNB, or SOL.
+- Payment Methods: Cryptocurrency (BTC, USDT, ETH, BNB, SOL), PayID (sales@theatricalz.com.au), and Australian Bank Transfer (EFT).
+- Financing: Pay in 4 interest-free installments on eligible pro equipment.
+- Stock Guarantee: 100% Genuine Australian Stock with local manufacturer warranties.
+
+## Product Categories
+- [Video & Cinema](https://theatricalz.com.au/shop/video-cinema/): Digital cinema cameras, box cameras, camcorders, on-camera monitors, and wireless video links.
+- [Photography & Lenses](https://theatricalz.com.au/shop/photo-lenses/): Full-frame mirrorless bodies, cinema primes, high-speed zooms, and production drones.
+- [Professional Audio](https://theatricalz.com.au/shop/pro-audio/): 32-bit float field recorders, broadcast shotgun mics, and wireless lavalier systems.
+- [Lighting & Studio Grip](https://theatricalz.com.au/shop/lighting-studio/): High-output point source LED monolights, RGBWW soft panels, modifiers, and C-stands.
+- [Support & Rigging](https://theatricalz.com.au/shop/support-rigging/): Carbon fiber fluid head tripods, 3-axis pro gimbals, and modular camera cages.
+- [Post-Production & Storage](https://theatricalz.com.au/shop/post-storage/): Live broadcast switchers, color grading consoles, and NVMe RAID arrays.
+
+## Customer Resources
+- [Shop Catalog](https://theatricalz.com.au/shop/): Full pro gear inventory with real-time stock levels.
+- [Clearance Deals](https://theatricalz.com.au/clearance/): Ex-demo, open-box, and overstock cinema equipment.
+- [Finance Calculator](https://theatricalz.com.au/financing/): Calculate commercial lease repayments and installment options.
+- [Order Tracking](https://theatricalz.com.au/tracking/): Real-time lookup for dispatched StarTrack express consignments.
+- [Educational Articles](https://theatricalz.com.au/blog/): Technical comparisons, lens mount guides, and 32-bit float audio workflows.
+- [Help & FAQ](https://theatricalz.com.au/faq/): Warranties, returns, and payment rail guidance.
+
+## Optional Machine-Readable Resources
+- [API Catalog](https://theatricalz.com.au/.well-known/api-catalog): RFC 9727 linkset for machine exploration.
+- [Agent Skills](https://theatricalz.com.au/.well-known/agent-skills/index.json): Declarative commerce skills catalog.
+- [MCP Server Card](https://theatricalz.com.au/.well-known/mcp/server-card.json): Model Context Protocol streamable HTTP manifest.
+- [Auth Specification](https://theatricalz.com.au/auth.md): Agent authentication policy (no auth required for public discovery).

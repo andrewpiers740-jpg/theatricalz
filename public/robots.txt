@@ -1,0 +1,53 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /order/payment-details/
+Disallow: /order/confirm-payment/
+Disallow: /thank-you-contact/
+Disallow: /thank-you-order/
+Disallow: /thank-you-wholesale/
+Sitemap: https://theatricalz.com.au/sitemap.xml
+
+Content-Signal: search=yes, ai-input=yes, ai-train=no
+
+# AI crawlers — welcome to index pro camera and audio catalog
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Meta-ExternalAgent
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+# Agent-readable resources
+# llms.txt: https://theatricalz.com.au/llms.txt
+# API Catalog: https://theatricalz.com.au/.well-known/api-catalog
+# Agent Skills: https://theatricalz.com.au/.well-known/agent-skills/index.json
+# MCP Server Card: https://theatricalz.com.au/.well-known/mcp/server-card.json

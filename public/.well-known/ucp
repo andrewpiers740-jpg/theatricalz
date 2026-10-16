@@ -1,0 +1,68 @@
+{
+  "ucp": "1.0",
+  "protocol_version": "1.0",
+  "spec": "https://ucp.dev/specification/overview/",
+  "schema": "https://ucp.dev/schema/v1.json",
+  "site": "https://theatricalz.com.au",
+  "name": "Theatricalz",
+  "description": "Australia's Premier Pro Cinema, Photo, Video & Audio Specialists",
+  "services": [
+    {
+      "id": "product-catalog",
+      "type": "catalog",
+      "url": "https://theatricalz.com.au/shop/",
+      "description": "Full professional cinema, photo, and audio catalog"
+    },
+    {
+      "id": "mcp-server",
+      "type": "mcp",
+      "url": "https://theatricalz.com.au/api/mcp",
+      "description": "MCP Streamable HTTP server for autonomous pro gear discovery"
+    },
+    {
+      "id": "order",
+      "type": "commerce",
+      "url": "https://wa.me/61489989442",
+      "description": "Place equipment orders via WhatsApp or online checkout"
+    },
+    {
+      "id": "financing",
+      "type": "finance",
+      "url": "https://theatricalz.com.au/financing/",
+      "description": "Pay in 4 interest-free equipment financing"
+    }
+  ],
+  "capabilities": [
+    "browse",
+    "search",
+    "inquiry",
+    "financing",
+    "content",
+    "mcp"
+  ],
+  "endpoints": {
+    "mcp": "https://theatricalz.com.au/api/mcp",
+    "catalog": "https://theatricalz.com.au/shop/",
+    "contact": "https://theatricalz.com.au/contact/",
+    "agent_skills": "https://theatricalz.com.au/.well-known/agent-skills/index.json",
+    "mcp_server_card": "https://theatricalz.com.au/.well-known/mcp/server-card.json",
+    "api_catalog": "https://theatricalz.com.au/.well-known/api-catalog",
+    "llms_txt": "https://theatricalz.com.au/llms.txt"
+  },
+  "currency": "AUD",
+  "minimum_order_aud": 0,
+  "payment_methods": [
+    "crypto-BTC",
+    "crypto-USDT",
+    "crypto-ETH",
+    "crypto-BNB",
+    "crypto-SOL",
+    "payid",
+    "bank-transfer"
+  ],
+  "legal": {
+    "country": "Australia",
+    "abn": "28 614 589 481",
+    "compliance": "Australian Consumer Law (ACL)"
+  }
+}

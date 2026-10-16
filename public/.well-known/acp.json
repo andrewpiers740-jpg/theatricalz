@@ -1,0 +1,47 @@
+{
+  "protocol": {
+    "name": "acp",
+    "version": "0.1.0"
+  },
+  "name": "Theatricalz",
+  "description": "Australia's Premier Pro Cinema, Photo, Video & Audio Specialists",
+  "api_base_url": "https://theatricalz.com.au",
+  "homepage": "https://theatricalz.com.au",
+  "transports": [
+    "https"
+  ],
+  "capabilities": {
+    "services": [
+      "product-catalog",
+      "mcp-server",
+      "financing",
+      "blog",
+      "faq"
+    ],
+    "ordering": "human-assisted",
+    "payment_methods": [
+      "crypto-BTC",
+      "crypto-USDT",
+      "crypto-ETH",
+      "crypto-BNB",
+      "crypto-SOL",
+      "payid",
+      "bank-transfer"
+    ],
+    "currency": "AUD",
+    "minimum_order_aud": 0,
+    "free_shipping_threshold_aud": 500
+  },
+  "contact": {
+    "whatsapp": "https://wa.me/61489989442",
+    "email": "sales@theatricalz.com.au"
+  },
+  "legal": {
+    "region": "Australia",
+    "ships_to": [
+      "Australia",
+      "New Zealand"
+    ],
+    "compliance": "Australian Consumer Law (ACL), Australian GST Included"
+  }
+}

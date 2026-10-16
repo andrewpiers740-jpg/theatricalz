@@ -1,0 +1,125 @@
+{
+  "$schema": "https://modelcontextprotocol.io/schemas/server-card/v1.json",
+  "serverInfo": {
+    "name": "Theatricalz",
+    "version": "1.0.0",
+    "description": "Founded in Melbourne in 2016, Theatricalz is Australia’s leading specialist supplier of cinema cameras, broadcast lenses, wireless audio, professional studio lighting, and post-production systems for cinematographers, production companies, and rental houses.",
+    "homepage": "https://theatricalz.com.au",
+    "contact": {
+      "email": "sales@theatricalz.com.au",
+      "whatsapp": "+61489989442"
+    }
+  },
+  "transport": {
+    "type": "streamable-http",
+    "endpoint": "https://theatricalz.com.au/api/mcp"
+  },
+  "capabilities": {
+    "tools": [
+      {
+        "name": "search_products",
+        "description": "Search professional cinema, photo, video, and audio products by keyword, category, or maximum price.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "query": {
+              "type": "string"
+            },
+            "category": {
+              "type": "string"
+            },
+            "max_price": {
+              "type": "number"
+            }
+          }
+        }
+      },
+      {
+        "name": "get_product",
+        "description": "Get complete technical specifications, pricing, and stock status for a pro gear product by slug.",
+        "inputSchema": {
+          "type": "object",
+          "required": [
+            "slug"
+          ],
+          "properties": {
+            "slug": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      {
+        "name": "list_categories",
+        "description": "List all professional gear categories, descriptions, and current inventory counts.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {}
+        }
+      },
+      {
+        "name": "get_policies",
+        "description": "Get Australian shipping, transit insurance, payment rails, warranty, and returns policies.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {}
+        }
+      },
+      {
+        "name": "create_order_draft",
+        "description": "Prepare a structured pro gear order draft with live prefilled WhatsApp and checkout links. Human completes payment.",
+        "inputSchema": {
+          "type": "object",
+          "required": [
+            "items"
+          ],
+          "properties": {
+            "items": {
+              "type": "array"
+            },
+            "notes": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    ],
+    "resources": [
+      {
+        "name": "product-catalog",
+        "description": "Full professional equipment catalog",
+        "uri": "https://theatricalz.com.au/shop/"
+      },
+      {
+        "name": "financing",
+        "description": "Equipment financing and Pay in 4 interest-free payment plans",
+        "uri": "https://theatricalz.com.au/financing/"
+      },
+      {
+        "name": "blog",
+        "description": "Production technology articles and comparisons",
+        "uri": "https://theatricalz.com.au/blog/"
+      }
+    ],
+    "commerce": {
+      "ordering": "human-assisted-whatsapp-or-form",
+      "payment": [
+        "crypto-BTC",
+        "crypto-USDT",
+        "crypto-ETH",
+        "crypto-BNB",
+        "crypto-SOL",
+        "payid",
+        "bank-transfer"
+      ],
+      "currency": "AUD",
+      "minimumOrder": "0 AUD",
+      "freeShipping": "500 AUD"
+    }
+  },
+  "legal": {
+    "abn": "28 614 589 481",
+    "acn": "614 589 481",
+    "compliance": "Australian Consumer Law (ACL), 100% Genuine Australian Stock"
+  }
+}

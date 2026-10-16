@@ -1,0 +1,6 @@
+{
+  "name": "Theatricalz Pro Cinema & Audio Gear",
+  "description": "Australia's premier pro cinema, photo, video and audio equipment store in Melbourne VIC.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

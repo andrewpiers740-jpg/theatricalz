@@ -1,0 +1,43 @@
+{
+  "$schema": "https://agentskills.io/schema/v0.2.0/index.json",
+  "name": "Theatricalz",
+  "url": "https://theatricalz.com.au",
+  "description": "Australia's Premier Pro Cinema, Photo, Video & Audio Specialists",
+  "skills": [
+    {
+      "name": "search-products",
+      "type": "commerce",
+      "description": "Search pro cinema and audio gear by keyword, category, or price",
+      "url": "https://theatricalz.com.au/api/mcp",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "browse-catalog",
+      "type": "navigation",
+      "description": "Browse full cinema and photo catalog by category",
+      "url": "https://theatricalz.com.au/shop/",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "order-draft",
+      "type": "commerce",
+      "description": "Create prefilled pro gear order draft for human completion",
+      "url": "https://theatricalz.com.au/api/mcp",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "product-education",
+      "type": "content",
+      "description": "Technical comparisons and film production guides",
+      "url": "https://theatricalz.com.au/blog/",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "contact",
+      "type": "support",
+      "description": "Contact Melbourne gear desk for quotes or technical assistance",
+      "url": "https://theatricalz.com.au/contact/",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}

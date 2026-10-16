@@ -1,0 +1,48 @@
+{
+  "linkset": [
+    {
+      "anchor": "https://theatricalz.com.au/",
+      "https://www.iana.org/assignments/link-relations/service-doc": [
+        {
+          "href": "https://theatricalz.com.au/faq/"
+        }
+      ],
+      "title": "Theatricalz — Australia's Premier Pro Cinema, Photo, Video & Audio Specialists"
+    },
+    {
+      "anchor": "https://theatricalz.com.au/shop/",
+      "type": "text/html",
+      "title": "Theatricalz Pro Equipment Catalog"
+    },
+    {
+      "anchor": "https://theatricalz.com.au/financing/",
+      "type": "text/html",
+      "title": "Theatricalz Equipment Financing & Pay in 4"
+    },
+    {
+      "anchor": "https://theatricalz.com.au/api/products",
+      "type": "application/json",
+      "title": "Theatricalz Products API"
+    },
+    {
+      "anchor": "https://theatricalz.com.au/api/categories",
+      "type": "application/json",
+      "title": "Theatricalz Categories API"
+    },
+    {
+      "anchor": "https://theatricalz.com.au/api/search",
+      "type": "application/json",
+      "title": "Theatricalz Search API"
+    },
+    {
+      "anchor": "https://theatricalz.com.au/api/mcp",
+      "type": "application/json",
+      "https://www.iana.org/assignments/link-relations/service-desc": [
+        {
+          "href": "https://theatricalz.com.au/.well-known/mcp/server-card.json"
+        }
+      ],
+      "title": "Theatricalz MCP Server"
+    }
+  ]
+}

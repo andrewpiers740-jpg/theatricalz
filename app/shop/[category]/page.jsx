@@ -1,0 +1,125 @@
+import Link from 'next/link';
+import { notFound } from 'next/navigation';
+import { ChevronRight, Film, Tag } from 'lucide-react';
+import { SITE, CATEGORIES, PRODUCTS } from '@/config/site';
+import ProductCard from '@/components/ProductCard';
+import JsonLd from '@/components/JsonLd';
+
+export async function generateStaticParams() {
+  return CATEGORIES.map((c) => ({ category: c.slug }));
+}
+
+export async function generateMetadata({ params }) {
+  const { category: catSlug } = await params;
+  const category = CATEGORIES.find((c) => c.slug === catSlug);
+
+  if (!category) {
+    return { title: 'Category Not Found' };
+  }
+
+  return {
+    title: `${category.name} — Pro Cinema & Audio Gear Australia`,
+    description: category.description,
+    alternates: {
+      canonical: `https://${SITE.domain}/shop/${category.slug}/`,
+    },
+    other: {
+      'og:updated_time': new Date().toISOString(),
+    },
+  };
+}
+
+export default async function CategoryPage({ params }) {
+  const { category: catSlug } = await params;
+  const category = CATEGORIES.find((c) => c.slug === catSlug);
+
+  if (!category) {
+    notFound();
+  }
+
+  const categoryProducts = PRODUCTS.filter((p) => p.category === category.slug);
+
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: `https://${SITE.domain}/`,
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Shop',
+        item: `https://${SITE.domain}/shop/`,
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: category.name,
+        item: `https://${SITE.domain}/shop/${category.slug}/`,
+      },
+    ],
+  };
+
+  return (
+    <>
+      <JsonLd data={breadcrumbSchema} />
+
+      <div className="bg-slate-950 min-h-screen py-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-8">
+        {/* Breadcrumb */}
+        <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs text-slate-400">
+          <Link href="/" className="hover:text-amber-400 transition">
+            Home
+          </Link>
+          <ChevronRight className="w-3.5 h-3.5 text-slate-600" />
+          <Link href="/shop/" className="hover:text-amber-400 transition">
+            Shop
+          </Link>
+          <ChevronRight className="w-3.5 h-3.5 text-slate-600" />
+          <span className="text-white font-medium">{category.name}</span>
+        </nav>
+
+        {/* Category Header */}
+        <div className="pb-6 border-b border-slate-800 space-y-2">
+          <div className="text-xs font-bold uppercase tracking-wider text-amber-400">
+            Australian Warehouse Stock
+          </div>
+          <h1 className="text-2xl sm:text-4xl font-black text-white uppercase tracking-tight">
+            {category.name}
+          </h1>
+          <p className="text-xs sm:text-sm text-slate-400 max-w-2xl leading-relaxed">
+            {category.description}
+          </p>
+
+          {/* Subcategories tags */}
+          {category.subcategories && (
+            <div className="flex flex-wrap items-center gap-2 pt-3">
+              <span className="text-xs text-slate-500 font-semibold mr-1 flex items-center gap-1">
+                <Tag className="w-3.5 h-3.5 text-amber-500" />
+                <span>Ranges:</span>
+              </span>
+              {category.subcategories.map((sub, idx) => (
+                <span
+                  key={idx}
+                  className="px-3 py-1 rounded-lg bg-slate-900 border border-slate-800 text-xs text-slate-300 font-medium"
+                >
+                  {sub}
+                </span>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Product Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {categoryProducts.map((product) => (
+            <ProductCard key={product.slug} product={product} />
+          ))}
+        </div>
+      </div>
+    </>
+  );
+}

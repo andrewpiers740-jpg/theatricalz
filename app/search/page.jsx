@@ -1,0 +1,161 @@
+'use client';
+
+import { useState, useEffect, Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
+import Link from 'next/link';
+import { Search, Film, ArrowRight, Sparkles } from 'lucide-react';
+import { PRODUCTS, POSTS, CATEGORIES } from '@/config/site';
+import ProductCard from '@/components/ProductCard';
+
+function SearchContent() {
+  const searchParams = useSearchParams();
+  const initialQuery = searchParams.get('q') || '';
+  const [query, setQuery] = useState(initialQuery);
+
+  useEffect(() => {
+    setQuery(searchParams.get('q') || '');
+  }, [searchParams]);
+
+  const cleanQ = query.trim().toLowerCase();
+
+  const matchingProducts = cleanQ
+    ? PRODUCTS.filter(
+        (p) =>
+          p.name.toLowerCase().includes(cleanQ) ||
+          p.description.toLowerCase().includes(cleanQ) ||
+          p.category.toLowerCase().includes(cleanQ) ||
+          p.brand?.toLowerCase().includes(cleanQ) ||
+          p.sku?.toLowerCase().includes(cleanQ)
+      )
+    : [];
+
+  const matchingPosts = cleanQ
+    ? POSTS.filter(
+        (post) =>
+          post.title.toLowerCase().includes(cleanQ) ||
+          post.excerpt.toLowerCase().includes(cleanQ) ||
+          post.category.toLowerCase().includes(cleanQ)
+      )
+    : [];
+
+  return (
+    <div className="bg-slate-950 min-h-screen py-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-8">
+      {/* Search Header */}
+      <div className="max-w-3xl mx-auto text-center space-y-4">
+        <h1 className="text-2xl sm:text-4xl font-black text-white uppercase tracking-tight">
+          Search Pro Gear Catalog
+        </h1>
+        <p className="text-xs sm:text-sm text-slate-400">
+          Find pro cinema cameras, cine lenses, audio recorders, LED lighting, and broadcast gear.
+        </p>
+
+        {/* Search Input Box */}
+        <div className="relative">
+          <Search className="w-5 h-5 text-slate-400 absolute left-4 top-3.5 pointer-events-none" />
+          <input
+            type="text"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Search by model, brand, or feature (e.g. FX3, C70, Rode, 32-bit float, Aputure)..."
+            className="w-full bg-slate-900 border border-slate-700 rounded-2xl py-3 pl-12 pr-4 text-white placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500"
+            autoFocus
+          />
+        </div>
+
+        {/* Quick Filter Tags */}
+        <div className="flex flex-wrap items-center justify-center gap-2 text-xs text-slate-400 pt-1">
+          <span>Popular:</span>
+          {['Sony FX3', 'Canon C70', 'Blackmagic', 'Cooke SP3', 'Rode Wireless', 'Aputure CS15', 'OConnor'].map((tag) => (
+            <button
+              key={tag}
+              type="button"
+              onClick={() => setQuery(tag)}
+              className="px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-amber-400 border border-slate-800 transition"
+            >
+              {tag}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Results Section */}
+      {cleanQ ? (
+        <div className="space-y-8 pt-4">
+          <div className="flex items-center justify-between pb-3 border-b border-slate-800 text-xs">
+            <span className="text-slate-400">
+              Found <strong className="text-amber-400 font-mono">{matchingProducts.length}</strong> matching products and <strong className="text-amber-400 font-mono">{matchingPosts.length}</strong> articles for &ldquo;{query}&rdquo;
+            </span>
+          </div>
+
+          {/* Matching Products */}
+          {matchingProducts.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {matchingProducts.map((product) => (
+                <ProductCard key={product.slug} product={product} />
+              ))}
+            </div>
+          ) : (
+            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-8 text-center space-y-2">
+              <p className="text-sm text-slate-300 font-semibold">No direct product matches for &ldquo;{query}&rdquo;.</p>
+              <p className="text-xs text-slate-400">Try searching for generic terms like &ldquo;camera&rdquo;, &ldquo;audio&rdquo;, or &ldquo;lens&rdquo;.</p>
+            </div>
+          )}
+
+          {/* Matching Articles */}
+          {matchingPosts.length > 0 && (
+            <div className="space-y-4 pt-6 border-t border-slate-800">
+              <h3 className="text-base font-bold text-white uppercase tracking-tight">
+                Matching Technical Articles & Guides
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {matchingPosts.map((post) => (
+                  <Link
+                    key={post.slug}
+                    href={`/blog/${post.slug}/`}
+                    className="p-5 rounded-2xl bg-slate-900 border border-slate-800 hover:border-amber-500/50 transition group flex flex-col justify-between"
+                  >
+                    <div>
+                      <span className="text-[11px] font-mono font-bold text-amber-400 uppercase">{post.category}</span>
+                      <h4 className="text-base font-bold text-white group-hover:text-amber-400 transition-colors mt-1">
+                        {post.title}
+                      </h4>
+                      <p className="text-xs text-slate-400 mt-2 line-clamp-2">{post.excerpt}</p>
+                    </div>
+                    <div className="text-xs text-amber-400 font-semibold flex items-center gap-1 mt-4">
+                      <span>Read guide</span>
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      ) : (
+        /* Empty Query Suggestion */
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 pt-6">
+          {CATEGORIES.map((cat) => (
+            <Link
+              key={cat.slug}
+              href={`/shop/${cat.slug}/`}
+              className="p-6 rounded-2xl bg-slate-900 border border-slate-800 hover:border-amber-500/50 transition group"
+            >
+              <h3 className="text-base font-bold text-white group-hover:text-amber-400 transition-colors">
+                Browse {cat.name} &rarr;
+              </h3>
+              <p className="text-xs text-slate-400 mt-2 line-clamp-2">{cat.description}</p>
+            </Link>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+export default function SearchPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-slate-950 p-12 text-center text-slate-400 text-sm">Loading search...</div>}>
+      <SearchContent />
+    </Suspense>
+  );
+}

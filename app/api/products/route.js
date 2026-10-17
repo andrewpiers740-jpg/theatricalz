@@ -1,5 +1,6 @@
 // app/api/products/route.js - V2 JSON Catalog API
-import { PRODUCTS, SITE } from '@/config/site';
+import { SITE } from '@/config/site';
+import { PRODUCTS } from '@/config/products';
 
 export async function GET(request) {
   const { searchParams } = new URL(request.url);

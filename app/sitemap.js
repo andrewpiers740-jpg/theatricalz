@@ -1,5 +1,7 @@
 // app/sitemap.js - Image-aware split sitemaps for Theatricalz
-import { SITE, CATEGORIES, PRODUCTS, POSTS } from '@/config/site';
+import { SITE, CATEGORIES, POSTS } from '@/config/site';
+import { PRODUCTS } from '@/config/products';
+import { subSlug } from '@/lib/subcategory';
 
 export default async function sitemap() {
   const domain = `https://${SITE.domain}`;
@@ -36,6 +38,18 @@ export default async function sitemap() {
     priority: 0.9,
   }));
 
+  // 2b. Subcategory (range) pages
+  const rangePages = CATEGORIES.flatMap((cat) =>
+    (cat.subcategories || [])
+      .filter((sub) => PRODUCTS.some((p) => p.category === cat.slug && p.subcategory === sub))
+      .map((sub) => ({
+        url: `${domain}/shop/${cat.slug}/${subSlug(sub)}/`,
+        lastModified: now,
+        changeFrequency: 'weekly',
+        priority: 0.85,
+      }))
+  );
+
   // 3. Product Pages (with image rich result metadata)
   const productPages = PRODUCTS.map((prod) => ({
     url: `${domain}/shop/${prod.category}/${prod.slug}/`,
@@ -57,5 +71,5 @@ export default async function sitemap() {
     priority: 0.7,
   }));
 
-  return [...staticPages, ...categoryPages, ...productPages, ...blogPages];
+  return [...staticPages, ...categoryPages, ...rangePages, ...productPages, ...blogPages];
 }

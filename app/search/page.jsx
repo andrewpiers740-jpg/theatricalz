@@ -4,7 +4,8 @@ import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { Search, Film, ArrowRight, Sparkles } from 'lucide-react';
-import { PRODUCTS, POSTS, CATEGORIES } from '@/config/site';
+import { POSTS, CATEGORIES } from '@/config/site';
+import PRODUCTS from '@/data/products/index.json';
 import ProductCard from '@/components/ProductCard';
 
 function SearchContent() {

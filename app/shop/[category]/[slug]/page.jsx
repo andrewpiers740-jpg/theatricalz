@@ -13,36 +13,55 @@ import {
   Clock,
   Sparkles,
 } from 'lucide-react';
-import { SITE, CATEGORIES, PRODUCTS, CONTACT, SHOP } from '@/config/site';
+import { SITE, CATEGORIES, CONTACT, SHOP } from '@/config/site';
+import { PRODUCTS } from '@/config/products';
 import { money } from '@/lib/order';
 import { getProductReviews } from '@/lib/reviews';
 import JsonLd from '@/components/JsonLd';
 import ProductActionBox from './ProductActionBox';
+import SubcategoryListing from '@/components/SubcategoryListing';
+import { subSlug, findSubcategory } from '@/lib/subcategory';
 
 export async function generateStaticParams() {
-  return PRODUCTS.map((p) => ({
+  const productParams = PRODUCTS.map((p) => ({
     category: p.category,
     slug: p.slug,
   }));
+  // Subcategory ("range") pages share this route, e.g. /shop/audio-visual/fibre-ip-ndi/
+  const rangeParams = CATEGORIES.flatMap((c) =>
+    (c.subcategories || [])
+      .filter((sub) => PRODUCTS.some((p) => p.category === c.slug && p.subcategory === sub))
+      .map((sub) => ({ category: c.slug, slug: subSlug(sub) }))
+  );
+  return [...productParams, ...rangeParams];
 }
 
 export async function generateMetadata({ params }) {
-  const { slug } = await params;
+  const { category: catSlug, slug } = await params;
   const product = PRODUCTS.find((p) => p.slug === slug);
 
   if (!product) {
+    const category = CATEGORIES.find((c) => c.slug === catSlug);
+    const sub = findSubcategory(category, slug);
+    if (sub) {
+      return {
+        title: `${sub} — ${category.name}`,
+        description: `Shop ${sub} in ${category.name} at Theatricalz. AUD pricing incl. GST, genuine Australian stock with local warranty, and quotes on request.`.slice(0, 158),
+        alternates: { canonical: `https://${SITE.domain}/shop/${category.slug}/${slug}/` },
+      };
+    }
     return { title: 'Product Not Found' };
   }
 
   return {
-    title: `${product.name} — Buy in Australia | Theatricalz`,
-    description: product.description,
+    title: product.metaTitle || `${product.name} — Buy in Australia | Theatricalz`,
+    description: product.metaDescription || product.description,
     alternates: {
       canonical: `https://${SITE.domain}/shop/${product.category}/${product.slug}/`,
     },
     openGraph: {
       title: `${product.name} — Theatricalz Pro Cinema & Audio`,
-      description: product.description,
+      description: product.metaDescription || product.description,
       images: [{ url: product.images?.[0] || '' }],
     },
     other: {
@@ -56,14 +75,26 @@ export default async function ProductDetailPage({ params }) {
   const product = PRODUCTS.find((p) => p.slug === slug);
   const category = CATEGORIES.find((c) => c.slug === catSlug);
 
+  if (!product && category) {
+    const sub = findSubcategory(category, slug);
+    if (sub) {
+      const rangeProducts = PRODUCTS.filter((p) => p.category === category.slug && p.subcategory === sub);
+      return <SubcategoryListing category={category} sub={sub} products={rangeProducts} />;
+    }
+  }
+
   if (!product || !category) {
     notFound();
   }
 
-  const reviews = getProductReviews(product.slug, 6);
+  const hasRating = product.rating != null;
+  const reviews = hasRating ? getProductReviews(product.slug, 6) : [];
   const price = product.price;
-  const cryptoPrice = price * (1 - (SHOP.cryptoDiscount || 10) / 100);
-  const payInFour = price / 4;
+  const priceOnRequest = price == null;
+  const cryptoPrice = priceOnRequest ? 0 : price * (1 - (SHOP.cryptoDiscount || 10) / 100);
+  const payInFour = priceOnRequest ? 0 : price / 4;
+  const stockLabel = product.stockShort || 'In Stock (Melb Warehouse)';
+  const specialOrder = Boolean(product.stockShort);
 
   const productSchema = [
     {
@@ -77,11 +108,11 @@ export default async function ProductDetailPage({ params }) {
         '@type': 'Brand',
         name: product.brand || 'Theatricalz',
       },
-      offers: {
+      offers: priceOnRequest ? undefined : {
         '@type': 'Offer',
         priceCurrency: SITE.currency,
         price: product.price,
-        availability: 'https://schema.org/InStock',
+        availability: specialOrder ? 'https://schema.org/PreOrder' : 'https://schema.org/InStock',
         url: `https://${SITE.domain}/shop/${product.category}/${product.slug}/`,
         priceValidUntil: '2027-12-31',
         itemCondition: 'https://schema.org/NewCondition',
@@ -100,13 +131,13 @@ export default async function ProductDetailPage({ params }) {
           },
         },
       },
-      aggregateRating: {
+      aggregateRating: hasRating ? {
         '@type': 'AggregateRating',
         ratingValue: product.rating || '4.9',
         reviewCount: product.reviewsCount || 28,
         bestRating: '5',
         worstRating: '1',
-      },
+      } : undefined,
     },
     {
       '@context': 'https://schema.org',
@@ -227,9 +258,9 @@ export default async function ProductDetailPage({ params }) {
                 <span className="font-mono font-bold text-amber-400 uppercase tracking-wider">
                   {product.brand || 'Theatricalz'} · SKU: {product.sku || product.slug}
                 </span>
-                <span className="flex items-center gap-1.5 text-xs text-emerald-400 font-semibold">
-                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                  <span>In Stock (Melb Warehouse)</span>
+                <span className={`flex items-center gap-1.5 text-xs font-semibold ${specialOrder ? 'text-amber-300' : 'text-emerald-400'}`}>
+                  <span className={`w-2 h-2 rounded-full ${specialOrder ? 'bg-amber-300' : 'bg-emerald-400 animate-pulse'}`}></span>
+                  <span>{stockLabel}</span>
                 </span>
               </div>
 
@@ -239,6 +270,7 @@ export default async function ProductDetailPage({ params }) {
               </h1>
 
               {/* Rating */}
+              {hasRating && (
               <div className="flex items-center gap-2 mt-3">
                 <div className="flex items-center gap-0.5">
                   {[1, 2, 3, 4, 5].map((s) => (
@@ -250,10 +282,20 @@ export default async function ProductDetailPage({ params }) {
                   ({product.reviewsCount || 28} Trustpilot verified buyer ratings)
                 </span>
               </div>
+              )}
             </div>
 
             {/* Pricing Section */}
             <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-3">
+              {priceOnRequest ? (
+                <div>
+                  <span className="text-2xl font-black text-white">Price on request</span>
+                  <p className="text-xs text-slate-400 mt-1.5">
+                    Contact our gear desk for a current quote in AUD (inc. 10% GST) and lead time on this item.
+                  </p>
+                </div>
+              ) : (
+              <>
               <div>
                 <div className="flex items-baseline gap-3">
                   <span className="text-3xl font-black text-white font-mono">
@@ -285,6 +327,8 @@ export default async function ProductDetailPage({ params }) {
                   Or 4 fortnightly payments of <strong className="text-white font-mono">{money(payInFour)}</strong> interest-free with <Link href="/financing/" className="text-amber-400 hover:underline">Pay in 4</Link>.
                 </div>
               </div>
+              </>
+              )}
 
               {/* Client Action Box (Cart + WhatsApp) */}
               <ProductActionBox product={product} />
@@ -294,9 +338,13 @@ export default async function ProductDetailPage({ params }) {
             <div className="bg-slate-900/60 border border-slate-800/80 rounded-xl p-4 text-xs text-slate-300 flex items-center gap-3">
               <Clock className="w-5 h-5 text-amber-400 shrink-0" />
               <div>
-                <strong className="text-white block font-semibold">Same-Day Dispatch Guarantee</strong>
+                <strong className="text-white block font-semibold">
+                  {specialOrder ? 'Special Order Item' : 'Same-Day Dispatch Guarantee'}
+                </strong>
                 <span>
-                  Order before 2:00 PM AEST for same-day dispatch via StarTrack Express with signature required.
+                  {specialOrder
+                    ? 'Ordered in from the Australian distributor. Contact our gear desk to confirm lead time before you order.'
+                    : 'Order before 2:00 PM AEST for same-day dispatch via StarTrack Express with signature required.'}
                 </span>
               </div>
             </div>
@@ -306,15 +354,34 @@ export default async function ProductDetailPage({ params }) {
         {/* Specifications & Description */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 pt-8 border-t border-slate-800">
           <div className="lg:col-span-7 space-y-6">
-            <h2 className="text-xl font-bold text-white uppercase tracking-tight">
-              Product Overview & Architecture
-            </h2>
-            <div className="text-sm text-slate-300 leading-relaxed space-y-4">
-              <p>{product.description}</p>
-              <p>
-                Engineered specifically for demanding on-set cinema workflows, documentary location sound, and broadcast live studio installations. Built to withstand rigours of Australian field production from Melbourne studios to remote outback shooting environments.
-              </p>
-            </div>
+            {product.content ? (
+              <div className="space-y-6">
+                {product.content.map((section) => (
+                  <section key={section.h2} className="space-y-3">
+                    <h2 className="text-xl font-bold text-white uppercase tracking-tight">{section.h2}</h2>
+                    {section.body && <p className="text-sm text-slate-300 leading-relaxed">{section.body}</p>}
+                    {section.sub?.map((sub) => (
+                      <div key={sub.h3} className="space-y-1.5">
+                        <h3 className="text-base font-bold text-amber-400 tracking-tight">{sub.h3}</h3>
+                        <p className="text-sm text-slate-300 leading-relaxed">{sub.body}</p>
+                      </div>
+                    ))}
+                  </section>
+                ))}
+              </div>
+            ) : (
+              <>
+                <h2 className="text-xl font-bold text-white uppercase tracking-tight">
+                  Product Overview & Architecture
+                </h2>
+                <div className="text-sm text-slate-300 leading-relaxed space-y-4">
+                  <p>{product.description}</p>
+                  <p>
+                    Engineered specifically for demanding on-set cinema workflows, documentary location sound, and broadcast live studio installations. Built to withstand rigours of Australian field production from Melbourne studios to remote outback shooting environments.
+                  </p>
+                </div>
+              </>
+            )}
 
             {/* Technical Specifications Table */}
             {product.specs && (
@@ -370,6 +437,7 @@ export default async function ProductDetailPage({ params }) {
         </div>
 
         {/* Customer Reviews for this Product */}
+        {hasRating && (
         <div className="pt-10 border-t border-slate-800 space-y-6">
           <div className="flex items-center justify-between">
             <div>
@@ -413,6 +481,7 @@ export default async function ProductDetailPage({ params }) {
             ))}
           </div>
         </div>
+        )}
       </div>
     </>
   );

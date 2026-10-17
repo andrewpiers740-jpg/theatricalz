@@ -1,5 +1,6 @@
 // app/api/search/route.js - Search API for products and articles
-import { PRODUCTS, POSTS, SITE } from '@/config/site';
+import { POSTS, SITE } from '@/config/site';
+import { PRODUCTS } from '@/config/products';
 
 export async function GET(request) {
   const { searchParams } = new URL(request.url);

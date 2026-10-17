@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { Percent, ChevronRight, Tag, ShieldCheck } from 'lucide-react';
-import { SITE, PRODUCTS } from '@/config/site';
+import { SITE } from '@/config/site';
+import { PRODUCTS } from '@/config/products';
 import ProductCard from '@/components/ProductCard';
 
 export const metadata = {

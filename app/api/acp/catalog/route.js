@@ -1,5 +1,6 @@
 // app/api/acp/catalog/route.js - Live ACP Catalog endpoint (WebForge v11.1 Section V3)
-import { PRODUCTS, CATEGORIES, SHOP, SITE } from '@/config/site';
+import { CATEGORIES, SHOP, SITE } from '@/config/site';
+import { PRODUCTS } from '@/config/products';
 
 export async function GET() {
   return Response.json(

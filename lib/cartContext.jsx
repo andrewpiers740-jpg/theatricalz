@@ -47,6 +47,7 @@ export function CartProvider({ children }) {
   };
 
   const addToCart = (product, quantity = 1) => {
+    if (product.price == null) return; // price-on-request items are quoted, not carted
     setCartItems((prev) => {
       const existing = prev.find((item) => item.slug === product.slug);
       let updated;

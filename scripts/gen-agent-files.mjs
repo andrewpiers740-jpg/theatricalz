@@ -8,7 +8,7 @@ const __dirname = path.dirname(__filename);
 const rootDir = path.resolve(__dirname, '..');
 
 async function main() {
-  const { SITE, CONTACT, SHOP, BRAND } = await import('../config/site.js');
+  const { SITE, CONTACT, SHOP, BRAND, CATEGORIES, REDIRECTS = [] } = await import('../config/site.js');
   const domain = SITE.domain;
   const name = SITE.name;
   const tagline = SITE.tagline;
@@ -103,12 +103,7 @@ Founded in ${BRAND.foundingYear} in Melbourne, Australia, ${name} is an authoriz
 - Stock Guarantee: 100% Genuine Australian Stock with local manufacturer warranties.
 
 ## Product Categories
-- [Video & Cinema](https://${domain}/shop/video-cinema/): Digital cinema cameras, box cameras, camcorders, on-camera monitors, and wireless video links.
-- [Photography & Lenses](https://${domain}/shop/photo-lenses/): Full-frame mirrorless bodies, cinema primes, high-speed zooms, and production drones.
-- [Professional Audio](https://${domain}/shop/pro-audio/): 32-bit float field recorders, broadcast shotgun mics, and wireless lavalier systems.
-- [Lighting & Studio Grip](https://${domain}/shop/lighting-studio/): High-output point source LED monolights, RGBWW soft panels, modifiers, and C-stands.
-- [Support & Rigging](https://${domain}/shop/support-rigging/): Carbon fiber fluid head tripods, 3-axis pro gimbals, and modular camera cages.
-- [Post-Production & Storage](https://${domain}/shop/post-storage/): Live broadcast switchers, color grading consoles, and NVMe RAID arrays.
+${CATEGORIES.map((c) => `- [${c.name}](https://${domain}/shop/${c.slug}/): ${c.description}`).join(String.fromCharCode(10))}
 
 ## Customer Resources
 - [Shop Catalog](https://${domain}/shop/): Full pro gear inventory with real-time stock levels.
@@ -430,6 +425,7 @@ Human-in-the-loop required. Agents may browse catalog items and prepare order dr
         destination: `https://${domain}/:path*`,
         permanent: true,
       },
+      ...REDIRECTS.map((r) => ({ source: `${r.from}:path*`, destination: `${r.to}:path*`, permanent: true })),
     ],
     headers: [
       {

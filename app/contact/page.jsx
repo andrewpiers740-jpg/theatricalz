@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Mail, Phone, MapPin, MessageCircle, Send, CheckCircle2, AlertCircle, ChevronRight, Clock } from 'lucide-react';
@@ -16,6 +16,18 @@ export default function ContactPage() {
     message: '',
   });
   const [loading, setLoading] = useState(false);
+
+  // Pre-fill a quote request when arriving from a "Price on request" product
+  useEffect(() => {
+    const product = new URLSearchParams(window.location.search).get('product');
+    if (product) {
+      setFormData((f) => ({
+        ...f,
+        subject: 'Gear Advice & Quote',
+        message: f.message || `Please send me a quote and lead time for: ${product}`,
+      }));
+    }
+  }, []);
   const [error, setError] = useState('');
 
   const handleSubmit = async (e) => {

@@ -2,7 +2,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { Calendar, Clock, ChevronRight, ArrowRight, Share2, Film } from 'lucide-react';
-import { SITE, POSTS, PRODUCTS } from '@/config/site';
+import { SITE, POSTS } from '@/config/site';
+import { PRODUCTS } from '@/config/products';
 import JsonLd from '@/components/JsonLd';
 
 export async function generateStaticParams() {
@@ -142,14 +143,14 @@ export default async function BlogPostPage({ params }) {
             When shooting in Australia—from the unforgiving coastal winds of Victoria’s Great Ocean Road to harsh mid-day sunlight in Queensland—production gear faces acoustic and optical extremes. In this benchmark analysis, we evaluate the real-world operational trade-offs of modern compact cinema rigs.
           </p>
           <p>
-            Whether balancing a camera on a pro carbon gimbal like the <Link href="/shop/support-rigging/dji-rs-4-pro-gimbal-combo/" className="text-amber-400 underline font-semibold">DJI RS 4 Pro</Link> or dialing in microphone gain stages through the <Link href="/shop/pro-audio/sound-devices-mixpre-10-ii-recorder/" className="text-amber-400 underline font-semibold">Sound Devices MixPre-10 II</Link>, proper workflow architecture saves valuable shoot hours.
+            Whether balancing a camera on a pro carbon gimbal like the <Link href="/shop/video/dji-rs-4-pro-gimbal-combo/" className="text-amber-400 underline font-semibold">DJI RS 4 Pro</Link> or dialing in microphone gain stages through the <Link href="/shop/music-audio/sound-devices-mixpre-10-ii-recorder/" className="text-amber-400 underline font-semibold">Sound Devices MixPre-10 II</Link>, proper workflow architecture saves valuable shoot hours.
           </p>
 
           <h2 className="text-xl sm:text-2xl font-bold text-white uppercase tracking-tight pt-4">
             Optics & Color Science Integration
           </h2>
           <p>
-            Camera sensors only deliver their maximum potential when paired with resolving cinema glass. Discover our complete range of cine primes such as the <Link href="/shop/photo-lenses/cooke-sp3-5-lens-cine-prime-set/" className="text-amber-400 underline font-semibold">Cooke SP3 Full Frame Primes</Link> and fast autofocus zooms like the <Link href="/shop/photo-lenses/sony-fe-24-70mm-f2-8-gm-ii/" className="text-amber-400 underline font-semibold">Sony 24-70mm f/2.8 GM II</Link>.
+            Camera sensors only deliver their maximum potential when paired with resolving cinema glass. Discover our complete range of cine primes such as the <Link href="/shop/photography/cooke-sp3-5-lens-cine-prime-set/" className="text-amber-400 underline font-semibold">Cooke SP3 Full Frame Primes</Link> and fast autofocus zooms like the <Link href="/shop/photography/sony-fe-24-70mm-f2-8-gm-ii/" className="text-amber-400 underline font-semibold">Sony 24-70mm f/2.8 GM II</Link>.
           </p>
         </div>
 

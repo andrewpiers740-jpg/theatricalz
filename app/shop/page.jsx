@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { Film, Filter, ChevronRight, SlidersHorizontal } from 'lucide-react';
-import { SITE, CATEGORIES, PRODUCTS } from '@/config/site';
+import { SITE, CATEGORIES } from '@/config/site';
+import { PRODUCTS } from '@/config/products';
 import ProductCard from '@/components/ProductCard';
 import JsonLd from '@/components/JsonLd';
 

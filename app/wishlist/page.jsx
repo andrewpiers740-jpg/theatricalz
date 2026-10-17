@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { Heart, ShoppingBag, ArrowRight, ChevronRight } from 'lucide-react';
 import { useCart } from '@/lib/cartContext';
-import { PRODUCTS } from '@/config/site';
+import PRODUCTS from '@/data/products/index.json';
 import ProductCard from '@/components/ProductCard';
 
 export default function WishlistPage() {

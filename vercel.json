@@ -12,6 +12,31 @@
       ],
       "destination": "https://theatricalz.com.au/:path*",
       "permanent": true
+    },
+    {
+      "source": "/shop/video-cinema/:path*",
+      "destination": "/shop/video/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/shop/photo-lenses/:path*",
+      "destination": "/shop/photography/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/shop/pro-audio/:path*",
+      "destination": "/shop/music-audio/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/shop/support-rigging/:path*",
+      "destination": "/shop/video/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/shop/post-storage/:path*",
+      "destination": "/shop/audio-visual/:path*",
+      "permanent": true
     }
   ],
   "headers": [

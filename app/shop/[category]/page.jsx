@@ -1,8 +1,10 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ChevronRight, Film, Tag } from 'lucide-react';
-import { SITE, CATEGORIES, PRODUCTS } from '@/config/site';
+import { SITE, CATEGORIES } from '@/config/site';
+import { PRODUCTS } from '@/config/products';
 import ProductCard from '@/components/ProductCard';
+import { subSlug } from '@/lib/subcategory';
 import JsonLd from '@/components/JsonLd';
 
 export async function generateStaticParams() {
@@ -38,6 +40,10 @@ export default async function CategoryPage({ params }) {
   }
 
   const categoryProducts = PRODUCTS.filter((p) => p.category === category.slug);
+
+  const grouped = categoryProducts.some((p) => p.subcategory) && Array.isArray(category.subcategories);
+
+  const PREVIEW = 8;
 
   const breadcrumbSchema = {
     '@context': 'https://schema.org',
@@ -102,23 +108,56 @@ export default async function CategoryPage({ params }) {
                 <span>Ranges:</span>
               </span>
               {category.subcategories.map((sub, idx) => (
+                grouped ? (
+                  <a
+                    key={idx}
+                    href={`/shop/${category.slug}/${subSlug(sub)}/`}
+                    className="px-3 py-1 rounded-lg bg-slate-900 border border-slate-800 text-xs text-slate-300 font-medium hover:border-amber-500/60 hover:text-white transition"
+                  >
+                    {sub}
+                  </a>
+                ) : (
                 <span
                   key={idx}
                   className="px-3 py-1 rounded-lg bg-slate-900 border border-slate-800 text-xs text-slate-300 font-medium"
                 >
                   {sub}
                 </span>
+                )
               ))}
             </div>
           )}
         </div>
 
-        {/* Product Grid */}
+        {/* Product Grid — grouped by subcategory when products carry one */}
+        {grouped ? (
+          category.subcategories
+            .filter((sub) => categoryProducts.some((p) => p.subcategory === sub))
+            .map((sub) => (
+              <section key={sub} id={subSlug(sub)} className="space-y-4 scroll-mt-28">
+                <h2 className="text-lg sm:text-xl font-black text-white uppercase tracking-tight">{sub}</h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                  {categoryProducts.filter((p) => p.subcategory === sub).slice(0, PREVIEW).map((product) => (
+                    <ProductCard key={product.slug} product={product} />
+                  ))}
+                </div>
+                {categoryProducts.filter((p) => p.subcategory === sub).length > PREVIEW && (
+                  <Link
+                    href={`/shop/${category.slug}/${subSlug(sub)}/`}
+                    className="inline-flex items-center gap-1.5 text-sm font-bold text-amber-400 hover:text-amber-300"
+                  >
+                    View all {categoryProducts.filter((p) => p.subcategory === sub).length} {sub} products →
+                  </Link>
+                )}
+              </section>
+            ))
+        ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {categoryProducts.map((product) => (
             <ProductCard key={product.slug} product={product} />
           ))}
         </div>
+        )}
       </div>
     </>
   );

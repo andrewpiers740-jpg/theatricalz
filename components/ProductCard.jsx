@@ -11,6 +11,7 @@ export default function ProductCard({ product }) {
   const { addToCart, toggleWishlist, isWishlisted } = useCart();
   const wishlisted = isWishlisted(product.slug);
 
+  const priceOnRequest = product.price == null;
   const price = product.price || 0;
   const cryptoPrice = price * (1 - (SHOP.cryptoDiscount || 10) / 100);
   const payInFour = price / 4;
@@ -74,9 +75,9 @@ export default function ProductCard({ product }) {
             <span className="font-bold text-amber-400 uppercase tracking-wider font-mono text-[11px]">
               {product.brand || 'Theatricalz'}
             </span>
-            <span className="flex items-center gap-1 text-[11px] text-emerald-400 font-medium">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-              <span>In Stock (Melb)</span>
+            <span className={`flex items-center gap-1 text-[11px] font-medium ${product.stockShort ? 'text-amber-300' : 'text-emerald-400'}`}>
+              <span className={`w-1.5 h-1.5 rounded-full ${product.stockShort ? 'bg-amber-300' : 'bg-emerald-400'}`}></span>
+              <span>{product.stockShort || 'In Stock (Melb)'}</span>
             </span>
           </div>
 
@@ -93,6 +94,7 @@ export default function ProductCard({ product }) {
           </p>
 
           {/* Rating */}
+          {product.rating != null && (
           <div className="flex items-center gap-1.5 mt-2.5">
             <div className="flex items-center gap-0.5">
               {[1, 2, 3, 4, 5].map((s) => (
@@ -105,10 +107,17 @@ export default function ProductCard({ product }) {
             <span className="text-xs font-bold text-white">{product.rating || '4.9'}</span>
             <span className="text-[11px] text-slate-500">({product.reviewsCount || 28})</span>
           </div>
+          )}
         </div>
 
         {/* Pricing Box & Add to Cart */}
         <div className="pt-3 border-t border-slate-800/80 space-y-2.5">
+          {priceOnRequest ? (
+            <div>
+              <span className="text-lg font-black text-white">Price on request</span>
+              <div className="text-[11px] text-slate-400 mt-0.5">Contact us for a quote in AUD inc. GST</div>
+            </div>
+          ) : (
           <div>
             <div className="flex items-baseline gap-2">
               <span className="text-xl font-black text-white font-mono">
@@ -132,6 +141,7 @@ export default function ProductCard({ product }) {
               or 4 payments of <strong className="text-slate-300 font-mono">{money(payInFour)}</strong> interest-free
             </div>
           </div>
+          )}
 
           <div className="grid grid-cols-2 gap-2">
             <Link
@@ -141,6 +151,14 @@ export default function ProductCard({ product }) {
               Specs & Detail
             </Link>
 
+            {priceOnRequest ? (
+              <Link
+                href={`/contact/?product=${encodeURIComponent(product.name)}`}
+                className="py-2.5 px-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-bold transition flex items-center justify-center gap-1.5 shadow-md shadow-amber-500/10"
+              >
+                <span>Get a Quote</span>
+              </Link>
+            ) : (
             <button
               type="button"
               onClick={() => addToCart(product, 1)}
@@ -150,6 +168,7 @@ export default function ProductCard({ product }) {
               <ShoppingBag className="w-3.5 h-3.5" />
               <span>Add to Cart</span>
             </button>
+            )}
           </div>
         </div>
       </div>

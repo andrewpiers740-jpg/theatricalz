@@ -1,5 +1,6 @@
 // app/api/mcp/route.js - MCP Streamable HTTP JSON-RPC 2.0 Server (WebForge v11.1)
-import { PRODUCTS, CATEGORIES, SHOP, SITE, BRAND, CONTACT } from '@/config/site';
+import { CATEGORIES, SHOP, SITE, BRAND, CONTACT } from '@/config/site';
+import { PRODUCTS } from '@/config/products';
 import { waOrderLink } from '@/lib/whatsapp';
 import { money } from '@/lib/order';
 
@@ -11,7 +12,7 @@ const MCP_TOOLS = [
       type: 'object',
       properties: {
         query: { type: 'string', description: 'Search term (e.g. "cinema camera", "shotgun mic")' },
-        category: { type: 'string', description: 'Category slug (e.g. "video-cinema", "pro-audio")' },
+        category: { type: 'string', description: 'Category slug (e.g. "video", "music-audio")' },
         max_price: { type: 'number', description: 'Maximum price in AUD' },
       },
     },
@@ -161,7 +162,7 @@ export async function POST(request) {
       const matched = PRODUCTS.filter((p) => {
         const matchesQuery = !q || p.name.toLowerCase().includes(q) || p.description.toLowerCase().includes(q);
         const matchesCat = !cat || p.category === cat;
-        const matchesPrice = p.price <= maxPrice;
+        const matchesPrice = maxPrice === Infinity || (p.price != null && p.price <= maxPrice);
         return matchesQuery && matchesCat && matchesPrice;
       }).map((p) => ({
         slug: p.slug,
@@ -264,7 +265,7 @@ export async function POST(request) {
 
       for (const item of inputItems) {
         const prod = PRODUCTS.find((p) => p.slug === item.slug);
-        if (prod) {
+        if (prod && prod.price != null) {
           const qty = item.quantity || 1;
           resolvedItems.push({
             slug: prod.slug,

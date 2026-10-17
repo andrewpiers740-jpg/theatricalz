@@ -8,9 +8,10 @@
     "start": "next start",
     "lint": "eslint .",
     "clean": "next clean",
-    "gen": "node scripts/gen-agent-files.mjs",
+    "gen": "node scripts/gen-agent-files.mjs && node scripts/gen-product-index.mjs",
     "crosscheck": "node scripts/crosscheck.mjs",
-    "prebuild": "node scripts/gen-agent-files.mjs"
+    "prebuild": "node scripts/gen-agent-files.mjs && node scripts/gen-product-index.mjs",
+    "predev": "node scripts/gen-product-index.mjs"
   },
   "dependencies": {
     "@google/genai": "^2.4.0",

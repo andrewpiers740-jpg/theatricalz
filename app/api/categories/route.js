@@ -1,5 +1,6 @@
 // app/api/categories/route.js - Categories with counts API
-import { CATEGORIES, PRODUCTS, SITE } from '@/config/site';
+import { CATEGORIES, SITE } from '@/config/site';
+import { PRODUCTS } from '@/config/products';
 
 export async function GET() {
   const data = CATEGORIES.map((c) => {

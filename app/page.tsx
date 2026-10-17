@@ -20,7 +20,8 @@ import {
   PhoneCall,
   ChevronRight,
 } from 'lucide-react';
-import { SITE, BRAND, CATEGORIES, PRODUCTS, FAQ, CONTACT, SHOP } from '@/config/site';
+import { SITE, BRAND, CATEGORIES, FAQ, CONTACT, SHOP } from '@/config/site';
+import { PRODUCTS } from '@/config/products';
 import ProductCard from '@/components/ProductCard';
 import TrustpilotBadge from '@/components/TrustpilotBadge';
 import TrustpilotReviewsList from '@/components/TrustpilotReviewsList';
@@ -110,12 +111,19 @@ export default function HomePage() {
   ];
 
   const categoryIcons: Record<string, any> = {
-    'video-cinema': Film,
-    'photo-lenses': Camera,
-    'pro-audio': Mic2,
+    'prop-money': Layers,
+    'audio-visual': HardDrive,
+    'cables-connectors': Layers,
+    'cases-bags': Layers,
+    'computers': HardDrive,
     'lighting-studio': Sun,
-    'support-rigging': Layers,
-    'post-storage': HardDrive,
+    'mobile': Camera,
+    'music-audio': Mic2,
+    'outdoor-optics': Camera,
+    'photography': Camera,
+    'radio-security': Mic2,
+    'streaming-podcasting': Mic2,
+    'video': Film,
   };
 
   return (
@@ -235,7 +243,7 @@ export default function HomePage() {
                       <span className="text-xs text-slate-400 ml-2">(inc. 10% GST)</span>
                     </div>
                     <Link
-                      href="/shop/video-cinema/sony-fx3-cinema-line-camera/"
+                      href="/shop/video/sony-fx3-cinema-line-camera/"
                       className="text-xs font-bold text-amber-400 hover:underline flex items-center gap-1"
                     >
                       <span>View Kit</span>

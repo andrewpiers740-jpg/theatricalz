@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { SlidersHorizontal, ChevronRight, Check, X, ShoppingBag } from 'lucide-react';
-import { PRODUCTS } from '@/config/site';
+import PRODUCTS from '@/data/products/index.json';
 import { money } from '@/lib/order';
 import { useCart } from '@/lib/cartContext';
 
@@ -86,7 +86,7 @@ export default function ComparePage() {
                         />
                       </div>
                       <div className="text-xs font-bold text-white line-clamp-1">{prod.name}</div>
-                      <div className="text-sm font-black text-amber-400 font-mono">{money(prod.price)}</div>
+                      <div className="text-sm font-black text-amber-400 font-mono">{prod.price == null ? 'Price on request' : money(prod.price)}</div>
                       <button
                         type="button"
                         onClick={() => addToCart(prod, 1)}

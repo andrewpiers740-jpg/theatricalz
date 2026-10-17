@@ -1,5 +1,6 @@
 // app/api/products/[slug]/route.js - Single product detail endpoint
-import { PRODUCTS, SITE } from '@/config/site';
+import { SITE } from '@/config/site';
+import { PRODUCTS } from '@/config/products';
 
 export async function GET(request, { params }) {
   const { slug } = await params;

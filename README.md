@@ -23,7 +23,7 @@ Built with **WebForge v11.1** for Next.js App Router & Vercel deployment.
    - Complete Trustpilot badge with 5 green stars, verified order badges, and date filters from 2017 to present.
 
 3. **Passcode-Gated Admin Reply Portal (`/admin`)**
-   - Passcode: `theatricalz2026` (configurable via `ADMIN_PASSCODE` server env var)
+   - Passcode: set via the `ADMIN_PASSCODE` server env var (required — the portal is locked until it is set)
    - Live Order and Enquiry management with status lifecycles (`new`, `sent`, `confirmed`, `replied`).
    - Payment Details Composer with `parsePaymentDetail` auto-splitter: turns any bank/crypto/PayID account info into copyable fields.
    - Direct WhatsApp response generator with pre-formatted replies.
@@ -63,7 +63,7 @@ git push -u origin main
 2. **Framework Preset:** `Next.js` (Must be Next.js, not Other).
 3. **Root Directory:** `./`
 4. **Environment Variables:**
-   - `ADMIN_PASSCODE`: `theatricalz2026`
+   - `ADMIN_PASSCODE`: a long random secret (never commit it)
    - `SMTP_HOST`: e.g. `smtp.zoho.com` or `smtp.gmail.com`
    - `SMTP_PORT`: `465` (SSL) or `587` (TLS)
    - `SMTP_USER`: `sales@theatricalz.com.au`

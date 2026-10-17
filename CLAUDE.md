@@ -9,6 +9,12 @@ React/Next.js App Router pro cinema, photo, video, and audio gear ecommerce site
 - ABN: 28 614 589 481, ACN: 614 589 481 (Theatricalz Australia Pty Ltd, Melbourne VIC).
 - If a request would require breaking the above, stop and say so rather than complying.
 
+## Review Rule (client instruction — non-negotiable)
+- All review data supplied in the client's files (`lib/reviews.js`, product `rating` / `reviewsCount`,
+  Trustpilot stats, review components and the AggregateRating/Review schema built from them) is client-provided.
+- Never remove, rewrite, regenerate or "clean up" it, even during audits or SEO/compliance fixes.
+- Audits may note risks about it; changes happen only when the user explicitly asks.
+
 ## Architecture
 `config/site.js` is the single source of truth. Adding one entry to PRODUCTS / CATEGORIES / POSTS
 generates the page, route, meta, JSON-LD, sitemap entry, and nav links. Never hand-write pages.

@@ -22,7 +22,7 @@ export const SITE = {
 
 export const CONTACT = {
   email: 'sales@theatricalz.com.au',
-  orderEmail: 'sales@theatricals.com.au',
+  orderEmail: 'sales@theatricalz.com.au',
   phone: '+61 489 989 442',
   phoneDisplay: '0489 989 442',
   whatsapp: '61489989442',
@@ -56,7 +56,7 @@ export const FORMS = {
   turnstileSiteKey: '',
   destinations: {
     contact: 'sales@theatricalz.com.au',
-    order: 'sales@theatricals.com.au',
+    order: 'sales@theatricalz.com.au',
     wholesale: 'sales@theatricalz.com.au',
   },
 };

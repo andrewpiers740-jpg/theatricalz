@@ -21,8 +21,6 @@ export default async function sitemap() {
     '/privacy/',
     '/tracking/',
     '/compare/',
-    '/wishlist/',
-    '/cart/',
   ].map((route) => ({
     url: `${domain}${route}`,
     lastModified: now,

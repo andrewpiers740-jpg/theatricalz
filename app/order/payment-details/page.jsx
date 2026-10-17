@@ -102,7 +102,7 @@ function PaymentDetailsContent() {
             ))
           ) : (
             <div className="p-4 bg-slate-950 rounded-xl text-xs text-slate-400 text-center">
-              No specific fields configured yet. Please check your confirmation email.
+              Your payment details will appear here once our team sends them. Watch your inbox for the payment-details email.
             </div>
           )}
         </div>

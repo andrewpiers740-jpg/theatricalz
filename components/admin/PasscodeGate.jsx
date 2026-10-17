@@ -91,9 +91,6 @@ export default function PasscodeGate({ children }) {
               />
               <Key className="w-4 h-4 text-slate-500 absolute right-3.5 top-4 pointer-events-none" />
             </div>
-            <p className="text-xs text-slate-500 mt-2 text-center">
-              Hint: Default demo key is <code className="text-slate-400 font-mono">theatricalz2026</code>
-            </p>
           </div>
 
           <button

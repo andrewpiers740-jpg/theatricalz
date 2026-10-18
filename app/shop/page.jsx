@@ -95,12 +95,26 @@ export default function ShopIndexPage() {
           </Link>
         </div>
 
-        {/* Product Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 pt-2">
-          {PRODUCTS.map((product) => (
-            <ProductCard key={product.slug} product={product} />
-          ))}
-        </div>
+        {/* Product previews per category (full ranges live on each category page) */}
+        {CATEGORIES.map((c) => {
+          const items = PRODUCTS.filter((p) => p.category === c.slug);
+          if (!items.length) return null;
+          return (
+            <section key={c.slug} className="space-y-4 pt-2">
+              <div className="flex items-end justify-between gap-4">
+                <h2 className="text-lg sm:text-xl font-black text-white uppercase tracking-tight">{c.name}</h2>
+                <Link href={`/shop/${c.slug}/`} className="text-xs font-semibold text-amber-400 hover:text-amber-300 shrink-0">
+                  View all {items.length} →
+                </Link>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                {items.slice(0, 8).map((product) => (
+                  <ProductCard key={product.slug} product={product} />
+                ))}
+              </div>
+            </section>
+          );
+        })}
       </div>
     </>
   );

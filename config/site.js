@@ -227,7 +227,7 @@ export const CATEGORIES = [
     name: 'Outdoor & Optics',
     description: 'Binoculars, spotting scopes, rangefinders, torches and outdoor power for location scouting and field production.',
     image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=800&auto=format&fit=crop&q=80',
-    subcategories: ['Binoculars', 'Spotting Scopes', 'Torches & Lighting', 'Outdoor Power'],
+    subcategories: ['Binoculars', 'Spotting Scopes', 'Torches & Lighting', 'Multi-Tools', 'Outdoor Power'],
   },
   {
     slug: 'photography',

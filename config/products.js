@@ -3,6 +3,16 @@
 import { AUDIO_VISUAL_PRODUCTS } from '../data/products/audio-visual.js';
 import { CABLES_CONNECTORS_PRODUCTS } from '../data/products/cables-connectors.js';
 import { VIDEO_PRODUCTS } from '../data/products/video.js';
+import { VIDEO_CATALOGUE_PRODUCTS } from '../data/products/video-catalogue.js';
+import { OUTDOOR_OPTICS_CATALOGUE_PRODUCTS } from '../data/products/outdoor-optics-catalogue.js';
+import { RADIO_SECURITY_CATALOGUE_PRODUCTS } from '../data/products/radio-security-catalogue.js';
+import { CASES_BAGS_CATALOGUE_PRODUCTS } from '../data/products/cases-bags-catalogue.js';
+import { MUSIC_AUDIO_CATALOGUE_PRODUCTS } from '../data/products/music-audio-catalogue.js';
+import { COMPUTERS_CATALOGUE_PRODUCTS } from '../data/products/computers-catalogue.js';
+import { STREAMING_PODCASTING_CATALOGUE_PRODUCTS } from '../data/products/streaming-podcasting-catalogue.js';
+import { MOBILE_CATALOGUE_PRODUCTS } from '../data/products/mobile-catalogue.js';
+import { LIGHTING_STUDIO_CATALOGUE_PRODUCTS } from '../data/products/lighting-studio-catalogue.js';
+import { PHOTOGRAPHY_CATALOGUE_PRODUCTS } from '../data/products/photography-catalogue.js';
 
 const BASE_PRODUCTS = [
   {
@@ -414,4 +424,4 @@ const BASE_PRODUCTS = [
   },
 ];
 
-export const PRODUCTS = [...BASE_PRODUCTS, ...AUDIO_VISUAL_PRODUCTS, ...CABLES_CONNECTORS_PRODUCTS, ...VIDEO_PRODUCTS];
+export const PRODUCTS = [...BASE_PRODUCTS, ...AUDIO_VISUAL_PRODUCTS, ...CABLES_CONNECTORS_PRODUCTS, ...VIDEO_PRODUCTS, ...VIDEO_CATALOGUE_PRODUCTS, ...PHOTOGRAPHY_CATALOGUE_PRODUCTS, ...LIGHTING_STUDIO_CATALOGUE_PRODUCTS, ...MOBILE_CATALOGUE_PRODUCTS, ...STREAMING_PODCASTING_CATALOGUE_PRODUCTS, ...COMPUTERS_CATALOGUE_PRODUCTS, ...MUSIC_AUDIO_CATALOGUE_PRODUCTS, ...CASES_BAGS_CATALOGUE_PRODUCTS, ...RADIO_SECURITY_CATALOGUE_PRODUCTS, ...OUTDOOR_OPTICS_CATALOGUE_PRODUCTS];

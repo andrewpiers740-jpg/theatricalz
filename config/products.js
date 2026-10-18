@@ -2,6 +2,7 @@
 // components that only need site settings don't ship the whole catalogue).
 import { AUDIO_VISUAL_PRODUCTS } from '../data/products/audio-visual.js';
 import { CABLES_CONNECTORS_PRODUCTS } from '../data/products/cables-connectors.js';
+import { VIDEO_PRODUCTS } from '../data/products/video.js';
 
 const BASE_PRODUCTS = [
   {
@@ -413,4 +414,4 @@ const BASE_PRODUCTS = [
   },
 ];
 
-export const PRODUCTS = [...BASE_PRODUCTS, ...AUDIO_VISUAL_PRODUCTS, ...CABLES_CONNECTORS_PRODUCTS];
+export const PRODUCTS = [...BASE_PRODUCTS, ...AUDIO_VISUAL_PRODUCTS, ...CABLES_CONNECTORS_PRODUCTS, ...VIDEO_PRODUCTS];

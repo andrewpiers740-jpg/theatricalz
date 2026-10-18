@@ -255,7 +255,7 @@ export const CATEGORIES = [
     name: 'Video',
     description: 'Cinema cameras, camcorders, monitors, wireless video, gimbals, tripods and rigging for film, broadcast and content production.',
     image: 'https://images.unsplash.com/photo-1579546929518-9e396f3cc809?w=800&auto=format&fit=crop&q=80',
-    subcategories: ['Cinema Cameras', 'Monitors & Recorders', 'Gimbals & Tripods', 'Rigs & Wireless Video'],
+    subcategories: ['Cinema Cameras', 'Cinema Lenses', 'Monitors & Recorders', 'Gimbals & Tripods', 'Rigs & Wireless Video'],
   },
 ];
 

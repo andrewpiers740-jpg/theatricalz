@@ -21,6 +21,20 @@ import JsonLd from '@/components/JsonLd';
 import ProductActionBox from './ProductActionBox';
 import SubcategoryListing from '@/components/SubcategoryListing';
 import { subSlug, findSubcategory } from '@/lib/subcategory';
+import { getDescription } from '@/lib/descriptions';
+
+// Bullet list for description sections; "Why You'll Love It" items carry a bold benefit lead.
+function DescBullets({ items }) {
+  return (
+    <ul className="space-y-2 text-sm text-slate-300 leading-relaxed list-disc pl-5 marker:text-amber-500">
+      {items.map((b, i) => (
+        <li key={i}>
+          {typeof b === 'string' ? b : (<><strong className="text-white">{b.lead}</strong> — {b.text}</>)}
+        </li>
+      ))}
+    </ul>
+  );
+}
 
 // Bulk-imported catalogue pages are rendered on first request and then cached, keeping build times inside Vercel's limit.
 export const dynamicParams = true;
@@ -90,6 +104,8 @@ export default async function ProductDetailPage({ params }) {
     notFound();
   }
 
+  const desc = await getDescription(product.category, product.slug);
+  const faqSection = desc?.content.find((s) => s.faq);
   const hasRating = product.rating != null;
   const reviews = hasRating ? getProductReviews(product.slug, 6) : [];
   const price = product.price;
@@ -172,6 +188,17 @@ export default async function ProductDetailPage({ params }) {
         },
       ],
     },
+    ...(faqSection
+      ? [{
+          '@context': 'https://schema.org',
+          '@type': 'FAQPage',
+          mainEntity: faqSection.sub.map((q) => ({
+            '@type': 'Question',
+            name: q.h3,
+            acceptedAnswer: { '@type': 'Answer', text: q.body },
+          })),
+        }]
+      : []),
   ];
 
   return (
@@ -269,7 +296,7 @@ export default async function ProductDetailPage({ params }) {
 
               {/* Exact Single H1 */}
               <h1 className="text-2xl sm:text-3xl font-black text-white leading-tight uppercase tracking-tight">
-                {product.name}
+                {desc?.headline || product.name}
               </h1>
 
               {/* Rating */}
@@ -358,7 +385,25 @@ export default async function ProductDetailPage({ params }) {
         {/* Specifications & Description */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 pt-8 border-t border-slate-800">
           <div className="lg:col-span-7 space-y-6">
-            {product.content ? (
+            {desc ? (
+              <div className="space-y-6">
+                <p className="text-sm sm:text-base text-slate-200 leading-relaxed">{desc.intro}</p>
+                {desc.content.map((section) => (
+                  <section key={section.h2} className="space-y-3">
+                    <h2 className="text-xl font-bold text-white uppercase tracking-tight">{section.h2}</h2>
+                    {section.body && <p className="text-sm text-slate-300 leading-relaxed">{section.body}</p>}
+                    {section.bullets && <DescBullets items={section.bullets} />}
+                    {section.sub?.map((sub) => (
+                      <div key={sub.h3} className="space-y-1.5">
+                        <h3 className="text-base font-bold text-amber-400 tracking-tight">{sub.h3}</h3>
+                        {sub.body && <p className="text-sm text-slate-300 leading-relaxed">{sub.body}</p>}
+                        {sub.bullets && <DescBullets items={sub.bullets} />}
+                      </div>
+                    ))}
+                  </section>
+                ))}
+              </div>
+            ) : product.content ? (
               <div className="space-y-6">
                 {product.content.map((section) => (
                   <section key={section.h2} className="space-y-3">

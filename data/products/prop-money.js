@@ -1,6 +1,6 @@
 // data/products/prop-money.js — prop money catalogue from the client's supplied banknote folder (Oct 2026).
 // Currency = range, note = product. Prices: supplier USD price -> AUD inc GST minus 5%, then volume tiers per stack.
-// Australian dollar reproductions are intentionally excluded pending Reserve Bank approval.
+// Australian dollar reproductions are published under the client's Reserve Bank permission.
 export const PROP_MONEY_PRODUCTS = [
  {
   "slug": "1-us-dollar-prop-money-stack",
@@ -6079,6 +6079,509 @@ export const PROP_MONEY_PRODUCTS = [
    "/images/products/prop-money/zimbabwe-100-trillion-dollar-silver-foil-novelty-note.webp",
    "/images/products/prop-money/zimbabwe-100-trillion-dollar-silver-foil-novelty-note-2.webp",
    "/images/products/prop-money/zimbabwe-100-trillion-dollar-silver-foil-novelty-note-3.webp"
+  ]
+ },
+ {
+  "slug": "5-australian-dollar-prop-money-stack",
+  "name": "$5 Australian Dollar Prop Money Stack",
+  "brand": "Theatricalz Props",
+  "category": "prop-money",
+  "subcategory": "Australian Dollar (AUD)",
+  "price": 105.54,
+  "sku": "PROP-5-AUSTRALIAN-DOLLAR-PROP-MONEY-STACK",
+  "stockShort": "Special order",
+  "variantUnit": "stack",
+  "variantNote": "100 notes per stack",
+  "variants": [
+   {
+    "label": "1 stack",
+    "stacks": 1,
+    "price": 105.54,
+    "perUnit": 105.54,
+    "saving": 0
+   },
+   {
+    "label": "3 stacks",
+    "stacks": 3,
+    "price": 291.27,
+    "perUnit": 97.09,
+    "saving": 8
+   },
+   {
+    "label": "5 stacks",
+    "stacks": 5,
+    "price": 448.5,
+    "perUnit": 89.7,
+    "saving": 15
+   },
+   {
+    "label": "10 stacks",
+    "stacks": 10,
+    "price": 823.2,
+    "perUnit": 82.32,
+    "saving": 22
+   },
+   {
+    "label": "20 stacks",
+    "stacks": 20,
+    "price": 1477.4,
+    "perUnit": 73.87,
+    "saving": 30
+   }
+  ],
+  "shortDescription": "$5 Australian Dollar Prop Money Stack — paper prop notes for film, TV, stage and photography. 100 notes per stack. Not legal tender.",
+  "description": "$5 Australian Dollar Prop Money Stack: paper prop notes made for screen and stage. Every note carries prop markings and is not legal tender — it cannot be spent, exchanged or used as payment. Choose the number of stacks you need below; larger orders cost less per stack (up to 30% less at 20 stacks).",
+  "metaTitle": "$5 Australian Dollar Prop Money Stack",
+  "metaDescription": "$5 Australian Dollar Prop Money Stack for film, TV and stage. 100 notes per stack; bigger stacks cost less. Not legal tender.",
+  "content": [
+   {
+    "h2": "$5 Australian Dollar Prop Money Stack Overview",
+    "body": "$5 Australian Dollar Prop Money Stack: paper prop notes made for screen and stage. Every note carries prop markings and is not legal tender — it cannot be spent, exchanged or used as payment. Choose the number of stacks you need below; larger orders cost less per stack (up to 30% less at 20 stacks)."
+   },
+   {
+    "h2": "Key Features",
+    "sub": [
+     {
+      "h3": "Made for the Camera",
+      "body": "Printed to read as cash on screen at normal shooting distances."
+     },
+     {
+      "h3": "Clearly Marked Props",
+      "body": "Notes carry prop/practice markings and are not legal tender."
+     },
+     {
+      "h3": "Volume Pricing",
+      "body": "Order more stacks and the price per stack drops — see the size options."
+     }
+    ]
+   },
+   {
+    "h2": "Ideal Applications",
+    "body": "Film and TV sets, music videos, theatre, photography, escape rooms and training. Props only — never use as payment. Check local laws before using prop currency in public."
+   }
+  ],
+  "images": [
+   "/images/products/prop-money/5-australian-dollar-prop-money-stack.webp",
+   "/images/products/prop-money/5-australian-dollar-prop-money-stack-2.webp"
+  ]
+ },
+ {
+  "slug": "10-australian-dollar-prop-money-stack",
+  "name": "$10 Australian Dollar Prop Money Stack",
+  "brand": "Theatricalz Props",
+  "category": "prop-money",
+  "subcategory": "Australian Dollar (AUD)",
+  "price": 105.54,
+  "sku": "PROP-10-AUSTRALIAN-DOLLAR-PROP-MONEY-STACK",
+  "stockShort": "Special order",
+  "variantUnit": "stack",
+  "variantNote": "100 notes per stack",
+  "variants": [
+   {
+    "label": "1 stack",
+    "stacks": 1,
+    "price": 105.54,
+    "perUnit": 105.54,
+    "saving": 0
+   },
+   {
+    "label": "3 stacks",
+    "stacks": 3,
+    "price": 291.27,
+    "perUnit": 97.09,
+    "saving": 8
+   },
+   {
+    "label": "5 stacks",
+    "stacks": 5,
+    "price": 448.5,
+    "perUnit": 89.7,
+    "saving": 15
+   },
+   {
+    "label": "10 stacks",
+    "stacks": 10,
+    "price": 823.2,
+    "perUnit": 82.32,
+    "saving": 22
+   },
+   {
+    "label": "20 stacks",
+    "stacks": 20,
+    "price": 1477.4,
+    "perUnit": 73.87,
+    "saving": 30
+   }
+  ],
+  "shortDescription": "$10 Australian Dollar Prop Money Stack — paper prop notes for film, TV, stage and photography. 100 notes per stack. Not legal tender.",
+  "description": "$10 Australian Dollar Prop Money Stack: paper prop notes made for screen and stage. Every note carries prop markings and is not legal tender — it cannot be spent, exchanged or used as payment. Choose the number of stacks you need below; larger orders cost less per stack (up to 30% less at 20 stacks).",
+  "metaTitle": "$10 Australian Dollar Prop Money Stack",
+  "metaDescription": "$10 Australian Dollar Prop Money Stack for film, TV and stage. 100 notes per stack; bigger stacks cost less. Not legal tender.",
+  "content": [
+   {
+    "h2": "$10 Australian Dollar Prop Money Stack Overview",
+    "body": "$10 Australian Dollar Prop Money Stack: paper prop notes made for screen and stage. Every note carries prop markings and is not legal tender — it cannot be spent, exchanged or used as payment. Choose the number of stacks you need below; larger orders cost less per stack (up to 30% less at 20 stacks)."
+   },
+   {
+    "h2": "Key Features",
+    "sub": [
+     {
+      "h3": "Made for the Camera",
+      "body": "Printed to read as cash on screen at normal shooting distances."
+     },
+     {
+      "h3": "Clearly Marked Props",
+      "body": "Notes carry prop/practice markings and are not legal tender."
+     },
+     {
+      "h3": "Volume Pricing",
+      "body": "Order more stacks and the price per stack drops — see the size options."
+     }
+    ]
+   },
+   {
+    "h2": "Ideal Applications",
+    "body": "Film and TV sets, music videos, theatre, photography, escape rooms and training. Props only — never use as payment. Check local laws before using prop currency in public."
+   }
+  ],
+  "images": [
+   "/images/products/prop-money/10-australian-dollar-prop-money-stack.webp",
+   "/images/products/prop-money/10-australian-dollar-prop-money-stack-2.webp"
+  ]
+ },
+ {
+  "slug": "20-australian-dollar-prop-money-stack",
+  "name": "$20 Australian Dollar Prop Money Stack",
+  "brand": "Theatricalz Props",
+  "category": "prop-money",
+  "subcategory": "Australian Dollar (AUD)",
+  "price": 105.54,
+  "sku": "PROP-20-AUSTRALIAN-DOLLAR-PROP-MONEY-STACK",
+  "stockShort": "Special order",
+  "variantUnit": "stack",
+  "variantNote": "100 notes per stack",
+  "variants": [
+   {
+    "label": "1 stack",
+    "stacks": 1,
+    "price": 105.54,
+    "perUnit": 105.54,
+    "saving": 0
+   },
+   {
+    "label": "3 stacks",
+    "stacks": 3,
+    "price": 291.27,
+    "perUnit": 97.09,
+    "saving": 8
+   },
+   {
+    "label": "5 stacks",
+    "stacks": 5,
+    "price": 448.5,
+    "perUnit": 89.7,
+    "saving": 15
+   },
+   {
+    "label": "10 stacks",
+    "stacks": 10,
+    "price": 823.2,
+    "perUnit": 82.32,
+    "saving": 22
+   },
+   {
+    "label": "20 stacks",
+    "stacks": 20,
+    "price": 1477.4,
+    "perUnit": 73.87,
+    "saving": 30
+   }
+  ],
+  "shortDescription": "$20 Australian Dollar Prop Money Stack — paper prop notes for film, TV, stage and photography. 100 notes per stack. Not legal tender.",
+  "description": "$20 Australian Dollar Prop Money Stack: paper prop notes made for screen and stage. Every note carries prop markings and is not legal tender — it cannot be spent, exchanged or used as payment. Choose the number of stacks you need below; larger orders cost less per stack (up to 30% less at 20 stacks).",
+  "metaTitle": "$20 Australian Dollar Prop Money Stack",
+  "metaDescription": "$20 Australian Dollar Prop Money Stack for film, TV and stage. 100 notes per stack; bigger stacks cost less. Not legal tender.",
+  "content": [
+   {
+    "h2": "$20 Australian Dollar Prop Money Stack Overview",
+    "body": "$20 Australian Dollar Prop Money Stack: paper prop notes made for screen and stage. Every note carries prop markings and is not legal tender — it cannot be spent, exchanged or used as payment. Choose the number of stacks you need below; larger orders cost less per stack (up to 30% less at 20 stacks)."
+   },
+   {
+    "h2": "Key Features",
+    "sub": [
+     {
+      "h3": "Made for the Camera",
+      "body": "Printed to read as cash on screen at normal shooting distances."
+     },
+     {
+      "h3": "Clearly Marked Props",
+      "body": "Notes carry prop/practice markings and are not legal tender."
+     },
+     {
+      "h3": "Volume Pricing",
+      "body": "Order more stacks and the price per stack drops — see the size options."
+     }
+    ]
+   },
+   {
+    "h2": "Ideal Applications",
+    "body": "Film and TV sets, music videos, theatre, photography, escape rooms and training. Props only — never use as payment. Check local laws before using prop currency in public."
+   }
+  ],
+  "images": [
+   "/images/products/prop-money/20-australian-dollar-prop-money-stack.webp",
+   "/images/products/prop-money/20-australian-dollar-prop-money-stack-2.webp"
+  ]
+ },
+ {
+  "slug": "50-australian-dollar-prop-money-stack",
+  "name": "$50 Australian Dollar Prop Money Stack",
+  "brand": "Theatricalz Props",
+  "category": "prop-money",
+  "subcategory": "Australian Dollar (AUD)",
+  "price": 105.54,
+  "sku": "PROP-50-AUSTRALIAN-DOLLAR-PROP-MONEY-STACK",
+  "stockShort": "Special order",
+  "variantUnit": "stack",
+  "variantNote": "100 notes per stack",
+  "variants": [
+   {
+    "label": "1 stack",
+    "stacks": 1,
+    "price": 105.54,
+    "perUnit": 105.54,
+    "saving": 0
+   },
+   {
+    "label": "3 stacks",
+    "stacks": 3,
+    "price": 291.27,
+    "perUnit": 97.09,
+    "saving": 8
+   },
+   {
+    "label": "5 stacks",
+    "stacks": 5,
+    "price": 448.5,
+    "perUnit": 89.7,
+    "saving": 15
+   },
+   {
+    "label": "10 stacks",
+    "stacks": 10,
+    "price": 823.2,
+    "perUnit": 82.32,
+    "saving": 22
+   },
+   {
+    "label": "20 stacks",
+    "stacks": 20,
+    "price": 1477.4,
+    "perUnit": 73.87,
+    "saving": 30
+   }
+  ],
+  "shortDescription": "$50 Australian Dollar Prop Money Stack — paper prop notes for film, TV, stage and photography. 100 notes per stack. Not legal tender.",
+  "description": "$50 Australian Dollar Prop Money Stack: paper prop notes made for screen and stage. Every note carries prop markings and is not legal tender — it cannot be spent, exchanged or used as payment. Choose the number of stacks you need below; larger orders cost less per stack (up to 30% less at 20 stacks).",
+  "metaTitle": "$50 Australian Dollar Prop Money Stack",
+  "metaDescription": "$50 Australian Dollar Prop Money Stack for film, TV and stage. 100 notes per stack; bigger stacks cost less. Not legal tender.",
+  "content": [
+   {
+    "h2": "$50 Australian Dollar Prop Money Stack Overview",
+    "body": "$50 Australian Dollar Prop Money Stack: paper prop notes made for screen and stage. Every note carries prop markings and is not legal tender — it cannot be spent, exchanged or used as payment. Choose the number of stacks you need below; larger orders cost less per stack (up to 30% less at 20 stacks)."
+   },
+   {
+    "h2": "Key Features",
+    "sub": [
+     {
+      "h3": "Made for the Camera",
+      "body": "Printed to read as cash on screen at normal shooting distances."
+     },
+     {
+      "h3": "Clearly Marked Props",
+      "body": "Notes carry prop/practice markings and are not legal tender."
+     },
+     {
+      "h3": "Volume Pricing",
+      "body": "Order more stacks and the price per stack drops — see the size options."
+     }
+    ]
+   },
+   {
+    "h2": "Ideal Applications",
+    "body": "Film and TV sets, music videos, theatre, photography, escape rooms and training. Props only — never use as payment. Check local laws before using prop currency in public."
+   }
+  ],
+  "images": [
+   "/images/products/prop-money/50-australian-dollar-prop-money-stack.webp",
+   "/images/products/prop-money/50-australian-dollar-prop-money-stack-2.webp"
+  ]
+ },
+ {
+  "slug": "100-australian-dollar-prop-money-stack",
+  "name": "$100 Australian Dollar Prop Money Stack",
+  "brand": "Theatricalz Props",
+  "category": "prop-money",
+  "subcategory": "Australian Dollar (AUD)",
+  "price": 105.54,
+  "sku": "PROP-100-AUSTRALIAN-DOLLAR-PROP-MONEY-STACK",
+  "stockShort": "Special order",
+  "variantUnit": "stack",
+  "variantNote": "100 notes per stack",
+  "variants": [
+   {
+    "label": "1 stack",
+    "stacks": 1,
+    "price": 105.54,
+    "perUnit": 105.54,
+    "saving": 0
+   },
+   {
+    "label": "3 stacks",
+    "stacks": 3,
+    "price": 291.27,
+    "perUnit": 97.09,
+    "saving": 8
+   },
+   {
+    "label": "5 stacks",
+    "stacks": 5,
+    "price": 448.5,
+    "perUnit": 89.7,
+    "saving": 15
+   },
+   {
+    "label": "10 stacks",
+    "stacks": 10,
+    "price": 823.2,
+    "perUnit": 82.32,
+    "saving": 22
+   },
+   {
+    "label": "20 stacks",
+    "stacks": 20,
+    "price": 1477.4,
+    "perUnit": 73.87,
+    "saving": 30
+   }
+  ],
+  "shortDescription": "$100 Australian Dollar Prop Money Stack — paper prop notes for film, TV, stage and photography. 100 notes per stack. Not legal tender.",
+  "description": "$100 Australian Dollar Prop Money Stack: paper prop notes made for screen and stage. Every note carries prop markings and is not legal tender — it cannot be spent, exchanged or used as payment. Choose the number of stacks you need below; larger orders cost less per stack (up to 30% less at 20 stacks).",
+  "metaTitle": "$100 Australian Dollar Prop Money Stack",
+  "metaDescription": "$100 Australian Dollar Prop Money Stack for film, TV and stage. 100 notes per stack; bigger stacks cost less. Not legal tender.",
+  "content": [
+   {
+    "h2": "$100 Australian Dollar Prop Money Stack Overview",
+    "body": "$100 Australian Dollar Prop Money Stack: paper prop notes made for screen and stage. Every note carries prop markings and is not legal tender — it cannot be spent, exchanged or used as payment. Choose the number of stacks you need below; larger orders cost less per stack (up to 30% less at 20 stacks)."
+   },
+   {
+    "h2": "Key Features",
+    "sub": [
+     {
+      "h3": "Made for the Camera",
+      "body": "Printed to read as cash on screen at normal shooting distances."
+     },
+     {
+      "h3": "Clearly Marked Props",
+      "body": "Notes carry prop/practice markings and are not legal tender."
+     },
+     {
+      "h3": "Volume Pricing",
+      "body": "Order more stacks and the price per stack drops — see the size options."
+     }
+    ]
+   },
+   {
+    "h2": "Ideal Applications",
+    "body": "Film and TV sets, music videos, theatre, photography, escape rooms and training. Props only — never use as payment. Check local laws before using prop currency in public."
+   }
+  ],
+  "images": [
+   "/images/products/prop-money/100-australian-dollar-prop-money-stack.webp",
+   "/images/products/prop-money/100-australian-dollar-prop-money-stack-2.webp"
+  ]
+ },
+ {
+  "slug": "australian-dollar-prop-money-full-set-5-notes",
+  "name": "Australian Dollar Prop Money Full Set (5 Notes)",
+  "brand": "Theatricalz Props",
+  "category": "prop-money",
+  "subcategory": "Australian Dollar (AUD)",
+  "price": 105.54,
+  "sku": "PROP-AUSTRALIAN-DOLLAR-PROP-MONEY-FULL-SET-5-",
+  "stockShort": "Special order",
+  "variantUnit": "bundle",
+  "variantNote": "one 100-note stack of each denomination per bundle",
+  "variants": [
+   {
+    "label": "1 bundle",
+    "stacks": 1,
+    "price": 105.54,
+    "perUnit": 105.54,
+    "saving": 0
+   },
+   {
+    "label": "3 bundles",
+    "stacks": 3,
+    "price": 291.27,
+    "perUnit": 97.09,
+    "saving": 8
+   },
+   {
+    "label": "5 bundles",
+    "stacks": 5,
+    "price": 448.5,
+    "perUnit": 89.7,
+    "saving": 15
+   },
+   {
+    "label": "10 bundles",
+    "stacks": 10,
+    "price": 823.2,
+    "perUnit": 82.32,
+    "saving": 22
+   },
+   {
+    "label": "20 bundles",
+    "stacks": 20,
+    "price": 1477.4,
+    "perUnit": 73.87,
+    "saving": 30
+   }
+  ],
+  "shortDescription": "Australian Dollar Prop Money Full Set (5 Notes) — prop notes for film, TV, stage and photography. One 100-note stack of each denomination per bundle. Not legal tender.",
+  "description": "Australian Dollar Prop Money Full Set (5 Notes): prop notes made for screen and stage. Every note carries prop markings and is not legal tender — it cannot be spent, exchanged or used as payment. Choose the number of bundles you need below; larger orders cost less per bundle (up to 30% less at 20 bundles).",
+  "metaTitle": "Australian Dollar Prop Money Full Set (5 Notes)",
+  "metaDescription": "Australian Dollar Prop Money Full Set (5 Notes) for film, TV and stage. One 100-note stack of each denomination per bundle; bigger stacks cost less. Not legal",
+  "content": [
+   {
+    "h2": "Australian Dollar Prop Money Full Set (5 Notes) Overview",
+    "body": "Australian Dollar Prop Money Full Set (5 Notes): prop notes made for screen and stage. Every note carries prop markings and is not legal tender — it cannot be spent, exchanged or used as payment. Choose the number of bundles you need below; larger orders cost less per bundle (up to 30% less at 20 bundles)."
+   },
+   {
+    "h2": "Key Features",
+    "sub": [
+     {
+      "h3": "Made for the Camera",
+      "body": "Printed to read as cash on screen at normal shooting distances."
+     },
+     {
+      "h3": "Clearly Marked Props",
+      "body": "Notes carry prop/practice markings and are not legal tender."
+     },
+     {
+      "h3": "Volume Pricing",
+      "body": "Order more bundles and the price per bundle drops — see the size options."
+     }
+    ]
+   },
+   {
+    "h2": "Ideal Applications",
+    "body": "Film and TV sets, music videos, theatre, photography, escape rooms and training. Props only — never use as payment. Check local laws before using prop currency in public."
+   }
+  ],
+  "images": [
+   "/images/products/prop-money/australian-dollar-prop-money-full-set-5-notes.webp"
   ]
  }
 ];

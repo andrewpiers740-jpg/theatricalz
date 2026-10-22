@@ -171,7 +171,7 @@ export const CATEGORIES = [
     name: 'Prop Money',
     description: 'Film, TV and stage prop currency for screen productions. All prop notes are clearly marked as props and are not legal tender.',
     image: '/images/products/prop-money/100-us-dollar-prop-money-stack.webp',
-    subcategories: ['US Dollar (USD)', 'Euro (EUR)', 'British Pound (GBP)', 'Japanese Yen (JPY)', 'Canadian Dollar (CAD)', 'Hong Kong Dollar (HKD)', 'Korean Won (KRW)', 'Russian Ruble (RUB)', 'Singapore Dollar (SGD)', 'Zimbabwe Dollar (ZWL)'],
+    subcategories: ['Australian Dollar (AUD)', 'US Dollar (USD)', 'Euro (EUR)', 'British Pound (GBP)', 'Japanese Yen (JPY)', 'Canadian Dollar (CAD)', 'Hong Kong Dollar (HKD)', 'Korean Won (KRW)', 'Russian Ruble (RUB)', 'Singapore Dollar (SGD)', 'Zimbabwe Dollar (ZWL)'],
   },
   {
     slug: 'audio-visual',

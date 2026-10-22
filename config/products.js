@@ -13,6 +13,24 @@ import { STREAMING_PODCASTING_CATALOGUE_PRODUCTS } from '../data/products/stream
 import { MOBILE_CATALOGUE_PRODUCTS } from '../data/products/mobile-catalogue.js';
 import { LIGHTING_STUDIO_CATALOGUE_PRODUCTS } from '../data/products/lighting-studio-catalogue.js';
 import { PHOTOGRAPHY_CATALOGUE_PRODUCTS } from '../data/products/photography-catalogue.js';
+import { GUITARS_BASSES_IMPORT_PRODUCTS } from '../data/products/guitars-basses-import.js';
+import { VIDEO_IMPORT_PRODUCTS } from '../data/products/video-import.js';
+import { DRUMS_PERCUSSION_IMPORT_PRODUCTS } from '../data/products/drums-percussion-import.js';
+import { AMPS_EFFECTS_IMPORT_PRODUCTS } from '../data/products/amps-effects-import.js';
+import { MUSIC_AUDIO_IMPORT_PRODUCTS } from '../data/products/music-audio-import.js';
+import { DJ_LIVE_SOUND_IMPORT_PRODUCTS } from '../data/products/dj-live-sound-import.js';
+import { KEYS_SYNTHS_IMPORT_PRODUCTS } from '../data/products/keys-synths-import.js';
+import { CABLES_CONNECTORS_IMPORT_PRODUCTS } from '../data/products/cables-connectors-import.js';
+import { CASES_BAGS_IMPORT_PRODUCTS } from '../data/products/cases-bags-import.js';
+import { BRASS_WOODWIND_IMPORT_PRODUCTS } from '../data/products/brass-woodwind-import.js';
+import { PHOTOGRAPHY_IMPORT_PRODUCTS } from '../data/products/photography-import.js';
+import { LIGHTING_STUDIO_IMPORT_PRODUCTS } from '../data/products/lighting-studio-import.js';
+import { STREAMING_PODCASTING_IMPORT_PRODUCTS } from '../data/products/streaming-podcasting-import.js';
+import { COMPUTERS_IMPORT_PRODUCTS } from '../data/products/computers-import.js';
+import { OUTDOOR_OPTICS_IMPORT_PRODUCTS } from '../data/products/outdoor-optics-import.js';
+import { MOBILE_IMPORT_PRODUCTS } from '../data/products/mobile-import.js';
+import { RADIO_SECURITY_IMPORT_PRODUCTS } from '../data/products/radio-security-import.js';
+import { PROP_MONEY_PRODUCTS } from '../data/products/prop-money.js';
 
 const BASE_PRODUCTS = [
   {
@@ -39,8 +57,9 @@ const BASE_PRODUCTS = [
       'Weight': '715g (Body only)',
     },
     images: [
-      'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=1000&auto=format&fit=crop&q=80',
-      'https://images.unsplash.com/photo-1502982720700-bfff97f2ecac?w=1000&auto=format&fit=crop&q=80',
+      '/images/products/video/sony-fx3-cinema-line-camera.webp',
+      '/images/products/video/sony-fx3-cinema-line-camera-2.webp',
+      '/images/products/video/sony-fx3-cinema-line-camera-3.webp',
     ],
   },
   {
@@ -67,8 +86,9 @@ const BASE_PRODUCTS = [
       'Audio': '2x Mini-XLR inputs with phantom power',
     },
     images: [
-      'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=1000&auto=format&fit=crop&q=80',
-      'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=1000&auto=format&fit=crop&q=80',
+      '/images/products/video/canon-eos-c70-cinema-camera.webp',
+      '/images/products/video/canon-eos-c70-cinema-camera-2.webp',
+      '/images/products/video/canon-eos-c70-cinema-camera-3.webp',
     ],
   },
   {
@@ -94,8 +114,9 @@ const BASE_PRODUCTS = [
       'Ports': '12G-SDI out, mini XLR audio, Gigabit Ethernet',
     },
     images: [
-      'https://images.unsplash.com/photo-1589872765362-e64ff44937ce?w=1000&auto=format&fit=crop&q=80',
-      'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=1000&auto=format&fit=crop&q=80',
+      '/images/products/video/blackmagic-pyxis-6k-cinema-box.webp',
+      '/images/products/video/blackmagic-pyxis-6k-cinema-box-2.webp',
+      '/images/products/video/blackmagic-pyxis-6k-cinema-box-3.webp',
     ],
   },
   {
@@ -121,8 +142,9 @@ const BASE_PRODUCTS = [
       'Outputs': '12G-SDI 4K 60p, USB-C IP control',
     },
     images: [
-      'https://images.unsplash.com/photo-1579546929518-9e396f3cc809?w=1000&auto=format&fit=crop&q=80',
-      'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=1000&auto=format&fit=crop&q=80',
+      '/images/products/video/red-komodo-x-6k-production-pack.webp',
+      '/images/products/video/red-komodo-x-6k-production-pack-2.webp',
+      '/images/products/video/red-komodo-x-6k-production-pack-3.webp',
     ],
   },
   {
@@ -148,8 +170,9 @@ const BASE_PRODUCTS = [
       'Filter Thread': '82mm',
     },
     images: [
-      'https://images.unsplash.com/photo-1617005082133-548c4dd27f35?w=1000&auto=format&fit=crop&q=80',
-      'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=1000&auto=format&fit=crop&q=80',
+      '/images/products/photography/sony-fe-24-70mm-f2-8-gm-ii.webp',
+      '/images/products/photography/sony-fe-24-70mm-f2-8-gm-ii-2.webp',
+      '/images/products/photography/sony-fe-24-70mm-f2-8-gm-ii-3.webp',
     ],
   },
   {
@@ -175,8 +198,9 @@ const BASE_PRODUCTS = [
       'Front Diameter': 'Unified 64mm front diameter',
     },
     images: [
-      'https://images.unsplash.com/photo-1502982720700-bfff97f2ecac?w=1000&auto=format&fit=crop&q=80',
-      'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=1000&auto=format&fit=crop&q=80',
+      '/images/products/photography/cooke-sp3-5-lens-cine-prime-set.webp',
+      '/images/products/photography/cooke-sp3-5-lens-cine-prime-set-2.webp',
+      '/images/products/photography/cooke-sp3-5-lens-cine-prime-set-3.webp',
     ],
   },
   {
@@ -202,8 +226,9 @@ const BASE_PRODUCTS = [
       'Powering': '48V Phantom (P48)',
     },
     images: [
-      'https://images.unsplash.com/photo-1590602847861-f357a9332bbc?w=1000&auto=format&fit=crop&q=80',
-      'https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=1000&auto=format&fit=crop&q=80',
+      '/images/products/music-audio/sennheiser-mkh-416-shotgun-mic.webp',
+      '/images/products/music-audio/sennheiser-mkh-416-shotgun-mic-2.webp',
+      '/images/products/music-audio/sennheiser-mkh-416-shotgun-mic-3.webp',
     ],
   },
   {
@@ -229,8 +254,9 @@ const BASE_PRODUCTS = [
       'Accessories': 'Smart charge case, 2x Lavalier II mics, locking 3.5mm cables',
     },
     images: [
-      'https://images.unsplash.com/photo-1545454675-3531b543be5d?w=1000&auto=format&fit=crop&q=80',
-      'https://images.unsplash.com/photo-1590602847861-f357a9332bbc?w=1000&auto=format&fit=crop&q=80',
+      '/images/products/music-audio/rode-wireless-pro-dual-system.webp',
+      '/images/products/music-audio/rode-wireless-pro-dual-system-2.webp',
+      '/images/products/music-audio/rode-wireless-pro-dual-system-3.webp',
     ],
   },
   {
@@ -256,8 +282,9 @@ const BASE_PRODUCTS = [
       'Powering': 'Hirose 4-pin DC, L-Mount sled, or AA sled',
     },
     images: [
-      'https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=1000&auto=format&fit=crop&q=80',
-      'https://images.unsplash.com/photo-1590602847861-f357a9332bbc?w=1000&auto=format&fit=crop&q=80',
+      '/images/products/music-audio/sound-devices-mixpre-10-ii-recorder.webp',
+      '/images/products/music-audio/sound-devices-mixpre-10-ii-recorder-2.webp',
+      '/images/products/music-audio/sound-devices-mixpre-10-ii-recorder-3.webp',
     ],
   },
   {
@@ -283,8 +310,9 @@ const BASE_PRODUCTS = [
       'Control': 'CRMX (LumenRadio), Art-net, sACN, DMX512, Sidus Link',
     },
     images: [
-      'https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=1000&auto=format&fit=crop&q=80',
-      'https://images.unsplash.com/photo-1502982720700-bfff97f2ecac?w=1000&auto=format&fit=crop&q=80',
+      '/images/products/lighting-studio/aputure-electro-storm-cs15-led.webp',
+      '/images/products/lighting-studio/aputure-electro-storm-cs15-led-2.webp',
+      '/images/products/lighting-studio/aputure-electro-storm-cs15-led-3.webp',
     ],
   },
   {
@@ -310,8 +338,9 @@ const BASE_PRODUCTS = [
       'Mount': 'Standard Bowens S-Mount',
     },
     images: [
-      'https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=1000&auto=format&fit=crop&q=80',
-      'https://images.unsplash.com/photo-1579546929518-9e396f3cc809?w=1000&auto=format&fit=crop&q=80',
+      '/images/products/lighting-studio/nanlite-forza-720b-bicolor-monolight.webp',
+      '/images/products/lighting-studio/nanlite-forza-720b-bicolor-monolight-2.webp',
+      '/images/products/lighting-studio/nanlite-forza-720b-bicolor-monolight-3.webp',
     ],
   },
   {
@@ -337,8 +366,9 @@ const BASE_PRODUCTS = [
       'Combo Includes': 'Focus Pro Motor, RavenEye / Transmitting accessories, Phone holder, Briefcase handle',
     },
     images: [
-      'https://images.unsplash.com/photo-1502982720700-bfff97f2ecac?w=1000&auto=format&fit=crop&q=80',
-      'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=1000&auto=format&fit=crop&q=80',
+      '/images/products/video/dji-rs-4-pro-gimbal-combo.webp',
+      '/images/products/video/dji-rs-4-pro-gimbal-combo-2.webp',
+      '/images/products/video/dji-rs-4-pro-gimbal-combo-3.webp',
     ],
   },
   {
@@ -364,8 +394,9 @@ const BASE_PRODUCTS = [
       'Power': 'Dual Sony L-Series battery bracket & 2-pin LEMO DC',
     },
     images: [
-      'https://images.unsplash.com/photo-1589872765362-e64ff44937ce?w=1000&auto=format&fit=crop&q=80',
-      'https://images.unsplash.com/photo-1502982720700-bfff97f2ecac?w=1000&auto=format&fit=crop&q=80',
+      '/images/products/video/smallhd-cine-7-touchscreen-monitor.webp',
+      '/images/products/video/smallhd-cine-7-touchscreen-monitor-2.webp',
+      '/images/products/video/smallhd-cine-7-touchscreen-monitor-3.webp',
     ],
   },
   {
@@ -391,8 +422,9 @@ const BASE_PRODUCTS = [
       'Outputs': '2x Aux outputs, Program SDI, MultiView HDMI & SDI',
     },
     images: [
-      'https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=1000&auto=format&fit=crop&q=80',
-      'https://images.unsplash.com/photo-1590602847861-f357a9332bbc?w=1000&auto=format&fit=crop&q=80',
+      '/images/products/audio-visual/blackmagic-atem-television-studio-hd8-iso.webp',
+      '/images/products/audio-visual/blackmagic-atem-television-studio-hd8-iso-2.webp',
+      '/images/products/audio-visual/blackmagic-atem-television-studio-hd8-iso-3.webp',
     ],
   },
   {
@@ -418,10 +450,9 @@ const BASE_PRODUCTS = [
       'Legs': 'OConnor 30L two-stage carbon fiber tripod with mid-level spreader',
     },
     images: [
-      'https://images.unsplash.com/photo-1502982720700-bfff97f2ecac?w=1000&auto=format&fit=crop&q=80',
-      'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=1000&auto=format&fit=crop&q=80',
+      '/images/products/video/oconnor-ultimate-1030d-fluid-head-system.webp',
     ],
   },
 ];
 
-export const PRODUCTS = [...BASE_PRODUCTS, ...AUDIO_VISUAL_PRODUCTS, ...CABLES_CONNECTORS_PRODUCTS, ...VIDEO_PRODUCTS, ...VIDEO_CATALOGUE_PRODUCTS, ...PHOTOGRAPHY_CATALOGUE_PRODUCTS, ...LIGHTING_STUDIO_CATALOGUE_PRODUCTS, ...MOBILE_CATALOGUE_PRODUCTS, ...STREAMING_PODCASTING_CATALOGUE_PRODUCTS, ...COMPUTERS_CATALOGUE_PRODUCTS, ...MUSIC_AUDIO_CATALOGUE_PRODUCTS, ...CASES_BAGS_CATALOGUE_PRODUCTS, ...RADIO_SECURITY_CATALOGUE_PRODUCTS, ...OUTDOOR_OPTICS_CATALOGUE_PRODUCTS];
+export const PRODUCTS = [...BASE_PRODUCTS, ...AUDIO_VISUAL_PRODUCTS, ...CABLES_CONNECTORS_PRODUCTS, ...VIDEO_PRODUCTS, ...VIDEO_CATALOGUE_PRODUCTS, ...PHOTOGRAPHY_CATALOGUE_PRODUCTS, ...LIGHTING_STUDIO_CATALOGUE_PRODUCTS, ...MOBILE_CATALOGUE_PRODUCTS, ...STREAMING_PODCASTING_CATALOGUE_PRODUCTS, ...COMPUTERS_CATALOGUE_PRODUCTS, ...MUSIC_AUDIO_CATALOGUE_PRODUCTS, ...CASES_BAGS_CATALOGUE_PRODUCTS, ...RADIO_SECURITY_CATALOGUE_PRODUCTS, ...OUTDOOR_OPTICS_CATALOGUE_PRODUCTS, ...GUITARS_BASSES_IMPORT_PRODUCTS, ...VIDEO_IMPORT_PRODUCTS, ...DRUMS_PERCUSSION_IMPORT_PRODUCTS, ...AMPS_EFFECTS_IMPORT_PRODUCTS, ...MUSIC_AUDIO_IMPORT_PRODUCTS, ...DJ_LIVE_SOUND_IMPORT_PRODUCTS, ...KEYS_SYNTHS_IMPORT_PRODUCTS, ...CABLES_CONNECTORS_IMPORT_PRODUCTS, ...CASES_BAGS_IMPORT_PRODUCTS, ...BRASS_WOODWIND_IMPORT_PRODUCTS, ...PHOTOGRAPHY_IMPORT_PRODUCTS, ...LIGHTING_STUDIO_IMPORT_PRODUCTS, ...STREAMING_PODCASTING_IMPORT_PRODUCTS, ...COMPUTERS_IMPORT_PRODUCTS, ...OUTDOOR_OPTICS_IMPORT_PRODUCTS, ...MOBILE_IMPORT_PRODUCTS, ...RADIO_SECURITY_IMPORT_PRODUCTS, ...PROP_MONEY_PRODUCTS];

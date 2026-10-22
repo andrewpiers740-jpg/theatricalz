@@ -6,7 +6,9 @@ export async function GET(request) {
   const { searchParams } = new URL(request.url);
   const category = searchParams.get('category');
   const q = searchParams.get('q')?.toLowerCase();
-  const limit = parseInt(searchParams.get('limit') || '0', 10);
+  // The catalogue runs to thousands of items, so responses are paged: ?limit (default 100, max 500) and ?offset.
+  const limit = Math.min(Math.max(parseInt(searchParams.get('limit') || '100', 10) || 100, 1), 500);
+  const offset = Math.max(parseInt(searchParams.get('offset') || '0', 10) || 0, 0);
 
   let results = [...PRODUCTS];
 
@@ -24,9 +26,8 @@ export async function GET(request) {
     );
   }
 
-  if (limit > 0) {
-    results = results.slice(0, limit);
-  }
+  const total = results.length;
+  results = results.slice(offset, offset + limit);
 
   const enriched = results.map((p) => ({
     ...p,
@@ -37,6 +38,9 @@ export async function GET(request) {
   return Response.json(
     {
       count: enriched.length,
+      total,
+      offset,
+      limit,
       currency: SITE.currency,
       products: enriched,
     },

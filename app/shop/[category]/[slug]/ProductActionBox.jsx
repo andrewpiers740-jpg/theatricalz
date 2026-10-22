@@ -9,31 +9,47 @@ export default function ProductActionBox({ product }) {
   const { addToCart } = useCart();
   const [quantity, setQuantity] = useState(1);
   const [added, setAdded] = useState(false);
+  const variants = product.variants || [];
+  const [variantIdx, setVariantIdx] = useState(0);
+  const variant = variants[variantIdx];
+
+  // A chosen size becomes its own cart line (own key, price and SKU) that still links back to this product.
+  const cartProduct = variant
+    ? {
+        ...product,
+        slug: `${product.slug}--${variant.stacks}`,
+        productSlug: product.slug,
+        name: `${product.name} — ${variant.label}`,
+        price: variant.price,
+        sku: `${product.sku || product.slug}-${variant.stacks}`,
+      }
+    : product;
 
   const handleAddToCart = () => {
-    addToCart(product, quantity);
+    addToCart(cartProduct, quantity);
     setAdded(true);
     setTimeout(() => setAdded(false), 2000);
   };
 
   const priceOnRequest = product.price == null;
+  const money = (n) => n.toLocaleString('en-AU', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
   const handleWhatsAppOrder = () => {
-    const total = ((product.price || 0) * quantity).toFixed(2);
+    const total = ((cartProduct.price || 0) * quantity).toFixed(2);
     const greeting = `Hi ${SITE.name},`;
     const message = priceOnRequest ? [
       greeting,
       ``,
       `Could you please send me a quote and lead time for:`,
-      `• *${product.name}* (Qty: ${quantity})`,
-      `*SKU:* ${product.sku || product.slug}`,
+      `• *${cartProduct.name}* (Qty: ${quantity})`,
+      `*SKU:* ${cartProduct.sku || product.slug}`,
     ].join('\n') : [
       greeting,
       ``,
       `I would like to order the following equipment:`,
-      `• *${product.name}* (Qty: ${quantity})`,
+      `• *${cartProduct.name}* (Qty: ${quantity})`,
       `*Total:* $${total} AUD (inc. GST)`,
-      `*SKU:* ${product.sku || product.slug}`,
+      `*SKU:* ${cartProduct.sku || product.slug}`,
       ``,
       `Please confirm stock allocation and send payment instructions.`,
     ].join('\n');
@@ -44,6 +60,43 @@ export default function ProductActionBox({ product }) {
 
   return (
     <div className="pt-2 space-y-3">
+      {/* Stack-size options — more stacks, lower price per stack */}
+      {variants.length > 0 && (
+        <fieldset className="space-y-2">
+          <legend className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">
+            Choose size <span className="normal-case font-normal text-slate-500">({product.variantNote})</span>
+          </legend>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            {variants.map((v, i) => (
+              <label
+                key={v.stacks}
+                className={`flex items-center justify-between gap-3 rounded-xl border px-3 py-2.5 cursor-pointer transition ${
+                  i === variantIdx ? 'border-amber-500 bg-amber-500/10' : 'border-slate-700 bg-slate-950 hover:border-slate-500'
+                }`}
+              >
+                <span className="flex items-center gap-2">
+                  <input
+                    type="radio"
+                    name="variant"
+                    className="accent-amber-500"
+                    checked={i === variantIdx}
+                    onChange={() => setVariantIdx(i)}
+                  />
+                  <span className="text-sm font-semibold text-white">{v.label}</span>
+                  {v.saving > 0 && (
+                    <span className="text-[10px] font-bold uppercase text-emerald-400 bg-emerald-500/10 rounded px-1.5 py-0.5">Save {v.saving}%</span>
+                  )}
+                </span>
+                <span className="text-right">
+                  <span className="block text-sm font-mono font-bold text-white">${money(v.price)}</span>
+                  <span className="block text-[11px] text-slate-400">${money(v.perUnit)} / {product.variantUnit}</span>
+                </span>
+              </label>
+            ))}
+          </div>
+        </fieldset>
+      )}
+
       {/* Quantity & Add to Cart Row */}
       <div className="flex items-center gap-3">
         <div className="flex items-center border border-slate-700 rounded-xl bg-slate-950 p-1 shrink-0">

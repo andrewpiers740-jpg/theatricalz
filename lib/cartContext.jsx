@@ -60,6 +60,7 @@ export function CartProvider({ children }) {
           ...prev,
           {
             slug: product.slug,
+            productSlug: product.productSlug || product.slug,
             name: product.name,
             price: product.price,
             category: product.category,

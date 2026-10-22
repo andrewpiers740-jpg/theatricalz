@@ -431,7 +431,7 @@ export default function CartDrawer() {
 
                   <div className="flex-1 min-w-0">
                     <Link
-                      href={`/shop/${item.category}/${item.slug}/`}
+                      href={`/shop/${item.category}/${item.productSlug || item.slug}/`}
                       onClick={() => setIsCartOpen(false)}
                       className="text-sm font-semibold text-white hover:text-amber-400 line-clamp-1 transition"
                     >

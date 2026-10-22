@@ -22,8 +22,11 @@ import ProductActionBox from './ProductActionBox';
 import SubcategoryListing from '@/components/SubcategoryListing';
 import { subSlug, findSubcategory } from '@/lib/subcategory';
 
+// Bulk-imported catalogue pages are rendered on first request and then cached, keeping build times inside Vercel's limit.
+export const dynamicParams = true;
+
 export async function generateStaticParams() {
-  const productParams = PRODUCTS.map((p) => ({
+  const productParams = PRODUCTS.filter((p) => !p.imported).map((p) => ({
     category: p.category,
     slug: p.slug,
   }));
@@ -299,6 +302,7 @@ export default async function ProductDetailPage({ params }) {
               <div>
                 <div className="flex items-baseline gap-3">
                   <span className="text-3xl font-black text-white font-mono">
+                    {product.variants?.length ? <span className="text-sm font-semibold text-slate-400 mr-1">From</span> : null}
                     {money(price)} AUD
                   </span>
                   {product.originalPrice && (

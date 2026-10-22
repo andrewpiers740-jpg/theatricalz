@@ -121,6 +121,7 @@ export default function ProductCard({ product }) {
           <div>
             <div className="flex items-baseline gap-2">
               <span className="text-xl font-black text-white font-mono">
+                {product.variants?.length ? <span className="text-xs font-semibold text-slate-400 mr-1">From</span> : null}
                 {money(price)} AUD
               </span>
               {product.originalPrice && (

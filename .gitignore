@@ -11,3 +11,4 @@ package-lock.json
 
 # generated at build
 data/products/index.json
+public/product-index.json

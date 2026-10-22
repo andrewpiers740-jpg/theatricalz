@@ -4,12 +4,14 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { SlidersHorizontal, ChevronRight, Check, X, ShoppingBag } from 'lucide-react';
-import PRODUCTS from '@/data/products/index.json';
+import { useProductIndex } from '@/lib/useProductIndex';
 import { money } from '@/lib/order';
 import { useCart } from '@/lib/cartContext';
 
 export default function ComparePage() {
   const { addToCart } = useCart();
+  const { products: PRODUCTS } = useProductIndex();
+  const pickerProducts = PRODUCTS.filter((p) => !p.imported);
   const [selectedSlugs, setSelectedSlugs] = useState([
     'sony-fx3-cinema-line-camera',
     'canon-eos-c70-cinema-camera',
@@ -67,7 +69,7 @@ export default function ComparePage() {
                     onChange={(e) => handleSelectProduct(idx, e.target.value)}
                     className="w-full bg-slate-900 border border-slate-700 rounded-xl px-2.5 py-1.5 text-xs text-white focus:outline-none focus:ring-1 focus:ring-amber-500 font-semibold"
                   >
-                    {PRODUCTS.map((p) => (
+                    {pickerProducts.map((p) => (
                       <option key={p.slug} value={p.slug}>
                         {p.name}
                       </option>

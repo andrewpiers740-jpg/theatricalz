@@ -5,7 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { Search, Film, ArrowRight, Sparkles } from 'lucide-react';
 import { POSTS, CATEGORIES } from '@/config/site';
-import PRODUCTS from '@/data/products/index.json';
+import { useProductIndex } from '@/lib/useProductIndex';
 import ProductCard from '@/components/ProductCard';
 
 function SearchContent() {
@@ -17,13 +17,14 @@ function SearchContent() {
     setQuery(searchParams.get('q') || '');
   }, [searchParams]);
 
+  const { products: PRODUCTS } = useProductIndex();
   const cleanQ = query.trim().toLowerCase();
 
   const matchingProducts = cleanQ
     ? PRODUCTS.filter(
         (p) =>
           p.name.toLowerCase().includes(cleanQ) ||
-          p.description.toLowerCase().includes(cleanQ) ||
+          p.shortDescription?.toLowerCase().includes(cleanQ) ||
           p.category.toLowerCase().includes(cleanQ) ||
           p.brand?.toLowerCase().includes(cleanQ) ||
           p.sku?.toLowerCase().includes(cleanQ)

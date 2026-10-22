@@ -170,8 +170,8 @@ export const CATEGORIES = [
     slug: 'prop-money',
     name: 'Prop Money',
     description: 'Film, TV and stage prop currency for screen productions. All prop notes are clearly marked as props and are not legal tender.',
-    image: 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=800&auto=format&fit=crop&q=80',
-    subcategories: ['Film & TV Prop Notes', 'Stage & Theatre Props', 'Prop Cash Stacks'],
+    image: '/images/products/prop-money/100-us-dollar-prop-money-stack.webp',
+    subcategories: ['US Dollar (USD)', 'Euro (EUR)', 'British Pound (GBP)', 'Japanese Yen (JPY)', 'Canadian Dollar (CAD)', 'Hong Kong Dollar (HKD)', 'Korean Won (KRW)', 'Russian Ruble (RUB)', 'Singapore Dollar (SGD)', 'Zimbabwe Dollar (ZWL)'],
   },
   {
     slug: 'audio-visual',
@@ -199,7 +199,7 @@ export const CATEGORIES = [
     name: 'Computers',
     description: 'Editing workstations, NVMe storage, RAID arrays, card readers and colour grading panels for post-production workflows.',
     image: 'https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=800&auto=format&fit=crop&q=80',
-    subcategories: ['Storage & RAID', 'Card Readers & Media', 'Editing Panels', 'Monitors & Calibration'],
+    subcategories: ['Storage & RAID', 'Card Readers & Media', 'Editing Panels', 'Monitors & Calibration', 'Computer Monitors', 'Laptops & Notebooks'],
   },
   {
     slug: 'lighting-studio',
@@ -220,7 +220,49 @@ export const CATEGORIES = [
     name: 'Music & Audio',
     description: 'Shotgun and studio microphones, wireless systems, field recorders, mixers, audio interfaces and monitoring headphones.',
     image: 'https://images.unsplash.com/photo-1590602847861-f357a9332bbc?w=800&auto=format&fit=crop&q=80',
-    subcategories: ['Microphones', 'Wireless Systems', 'Recorders & Mixers', 'Interfaces & Headphones'],
+    subcategories: ['Studio Condenser & Ribbon Mics', 'Dynamic & Vocal Mics', 'Instrument & Drum Mics', 'USB & Broadcast Mics', 'Shotgun, Camera & Lavalier Mics', 'Wireless Systems', 'Audio Interfaces', 'Studio Headphones', 'Studio Monitors & Subwoofers', 'Recorders & Mixers', 'Preamps & Outboard', 'Stands, Mounts & Acoustic Treatment', 'Studio Furniture & Accessories'],
+  },
+  {
+    slug: 'guitars-basses',
+    name: 'Guitars & Basses',
+    description: 'Acoustic, acoustic-electric, classical, electric and bass guitars, plus ukuleles, cases, strings and accessories from leading makers.',
+    image: '/images/products/guitars-basses/yamaha-trbx174-bass-guitar-black.webp',
+    subcategories: ['Acoustic Guitars', 'Acoustic-Electric Guitars', 'Classical & Nylon Guitars', 'Travel & Mini Guitars', 'Electric Guitars', 'Bass Guitars', 'Ukuleles, Mandolins & Banjos', 'Guitar Cases & Gig Bags', 'Strings & Guitar Accessories'],
+  },
+  {
+    slug: 'amps-effects',
+    name: 'Amps & Effects',
+    description: 'Guitar and bass amplifiers, speaker cabinets, effects pedals, multi-effects, loopers, pedal power and amp accessories.',
+    image: '/images/products/amps-effects/lava-music-studio-digital-modelling-amplifier.webp',
+    subcategories: ['Guitar Amp Combos', 'Guitar Amp Heads', 'Guitar Speaker Cabinets', 'Practice & Portable Amps', 'Bass Amplifiers', 'Bass Cabinets', 'Acoustic & Keyboard Amps', 'Overdrive Pedals', 'Distortion Pedals', 'Fuzz & Boost', 'Delay & Reverb', 'Modulation Pedals', 'Wah, Filter & Pitch', 'Compressors, EQ & Utility', 'Bass Effects', 'Multi-Effects & Amp Modellers', 'Loopers', 'Pedal Power, Boards & Cables', 'Amp Accessories & Load Boxes'],
+  },
+  {
+    slug: 'drums-percussion',
+    name: 'Drums & Percussion',
+    description: 'Acoustic and electronic drum kits, snares, cymbals, drum heads, pedals, hardware, thrones, sticks and hand percussion.',
+    image: '/images/products/guitars-basses/cordoba-requinto-1-2-classical-w-bag.webp',
+    subcategories: ['Acoustic Drum Kits & Shells', 'Electronic Drum Kits', 'Electronic Percussion & Pads', 'Snare Drums', 'Crash Cymbals', 'Ride Cymbals', 'Hi-Hat Cymbals', 'Splash, China & FX Cymbals', 'Cymbal Packs', 'Drum Heads', 'Drum Pedals', 'Stands & Hardware', 'Drum Thrones', 'Drumsticks & Mallets', 'Hand & Orchestral Percussion', 'Drum Accessories & Cases'],
+  },
+  {
+    slug: 'keys-synths',
+    name: 'Keys & Synths',
+    description: 'Digital and stage pianos, portable keyboards, synthesizers, Eurorack modules, grooveboxes, MIDI controllers and keyboard accessories.',
+    image: '/images/products/keys-synths/nord-piano-monitors-speaker-system-pair.webp',
+    subcategories: ['Pianos & Digital Pianos', 'Stage Pianos & Organs', 'Portable & Arranger Keyboards', 'Synthesizers', 'Eurorack & Modular', 'Drum Machines, Samplers & Grooveboxes', 'MIDI Controllers', 'Keyboard Stands, Benches & Pedals'],
+  },
+  {
+    slug: 'brass-woodwind',
+    name: 'Brass & Woodwind',
+    description: 'Trumpets, trombones, horns, saxophones, clarinets and flutes, plus mouthpieces, mutes, cases, stands, care products and sheet music.',
+    image: '/images/products/brass-woodwind/rico-alto-saxophone-reeds-pack-of-3-strength-1-5.webp',
+    subcategories: ['Trumpets & Cornets', 'Trombones & Tubas', 'Flugelhorns & Euphoniums', 'French Horns', 'Saxophones', 'Clarinets, Oboes & Bassoons', 'Flutes & Piccolos', 'Recorders, Folk & Digital Wind', 'Mouthpieces', 'Mutes', 'Reeds, Care & Accessories', 'Instrument Cases & Gig Bags', 'Music & Instrument Stands', 'Woodwind Sheet Music', 'Brass & Ensemble Sheet Music'],
+  },
+  {
+    slug: 'dj-live-sound',
+    name: 'DJ & Live Sound',
+    description: 'DJ controllers, mixers and turntables, PA speakers, column PA, live mixers and in-ear monitoring for performers, venues and events.',
+    image: '/images/products/dj-live-sound/aer-ag8-3-compact-active-60w-twin-cone-8in-monitor-speaker-system.webp',
+    subcategories: ['DJ Controllers & Mixers', 'Turntables & Media Players', 'DJ Headphones & Accessories', 'PA Speakers & Subwoofers', 'Column & Portable PA', 'Live Mixers', 'In-Ear Monitoring', 'Live Sound Accessories'],
   },
   {
     slug: 'outdoor-optics',
@@ -234,7 +276,7 @@ export const CATEGORIES = [
     name: 'Photography',
     description: 'Mirrorless camera bodies, lenses, filters, tripods and flashes for professional and enthusiast photographers.',
     image: 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=800&auto=format&fit=crop&q=80',
-    subcategories: ['Mirrorless Cameras', 'Lenses', 'Filters', 'Tripods & Flash'],
+    subcategories: ['Mirrorless Cameras', 'Lenses', 'Filters', 'Tripods & Flash', 'Camera Accessories'],
   },
   {
     slug: 'radio-security',
@@ -255,7 +297,7 @@ export const CATEGORIES = [
     name: 'Video',
     description: 'Cinema cameras, camcorders, monitors, wireless video, gimbals, tripods and rigging for film, broadcast and content production.',
     image: 'https://images.unsplash.com/photo-1579546929518-9e396f3cc809?w=800&auto=format&fit=crop&q=80',
-    subcategories: ['Cinema Cameras', 'Cinema Lenses', 'Monitors & Recorders', 'Gimbals & Tripods', 'Rigs & Wireless Video'],
+    subcategories: ['Cinema Cameras', 'Cinema Lenses', 'Monitors & Recorders', 'Gimbals & Tripods', 'Rigs & Wireless Video', 'Camera Cages & Plates', 'Filters & Matte Boxes', 'Monitor Mounts & Accessories', 'Timecode, Audio & Sync', 'Batteries & Power', 'Drones & Accessories', 'Action & 360 Cameras'],
   },
 ];
 

@@ -43,7 +43,8 @@ export default async function CategoryPage({ params }) {
 
   const grouped = categoryProducts.some((p) => p.subcategory) && Array.isArray(category.subcategories);
 
-  const PREVIEW = 8;
+  // Large categories show a lighter preview per range; the full range lives on its own paginated page.
+  const PREVIEW = (category.subcategories || []).length > 8 ? 4 : 8;
 
   const breadcrumbSchema = {
     '@context': 'https://schema.org',

@@ -25,7 +25,7 @@ function ThankYouOrderContent() {
             Thank You for Your Order!
           </h1>
           <p className="text-sm text-slate-300 leading-relaxed">
-            Your pro gear order has been received by our Melbourne dispatch desk at 3 Kirks Lane.
+            Your pro gear order has been received by our Melbourne warehouse team.
           </p>
         </div>
 
@@ -36,7 +36,7 @@ function ThankYouOrderContent() {
             <span>Next Step: Watch for Payment Details Email</span>
           </div>
           <p className="text-xs text-slate-300 leading-relaxed">
-            We have dispatched an automated confirmation to your email. Our gear desk is reviewing your equipment allocation and will send your tailored payment instructions shortly.
+            We have dispatched an automated confirmation to your email. Our gear desk is reviewing your equipment allocation and will send your payment details shortly by email or WhatsApp.
           </p>
           <div className="text-[11px] text-slate-400 pt-1">
             Once payment is received, your consignment will be prepared for StarTrack Express priority courier pickup.

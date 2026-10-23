@@ -19,7 +19,7 @@ export async function generateMetadata({ params }) {
   }
 
   return {
-    title: `${post.title} — Theatricalz Australia`,
+    title: post.title,
     description: post.excerpt,
     alternates: {
       canonical: `https://${SITE.domain}/blog/${post.slug}/`,

@@ -5,7 +5,7 @@ import { SITE, CONTACT, SHOP } from '@/config/site';
 export const metadata = {
   title: 'Delivery & Shipping Policy',
   description:
-    'Free StarTrack Express delivery across Australia on orders over $500 AUD, with transit insurance and signature on delivery. Dispatched from Melbourne.',
+    'Free StarTrack Express across Australia on orders over $500 AUD. We also ship to New Zealand and worldwide from our Melbourne warehouse.',
   alternates: {
     canonical: `https://${SITE.domain}/shipping/`,
   },
@@ -25,13 +25,13 @@ export default function ShippingPage() {
 
       <div className="space-y-3 pb-6 border-b border-slate-800">
         <div className="text-xs font-bold uppercase tracking-wider text-amber-400">
-          Melbourne Fulfillment Operations
+          Melbourne Warehouse Dispatch
         </div>
         <h1 className="text-3xl sm:text-4xl font-black text-white uppercase tracking-tight">
           Delivery & Shipping Policy
         </h1>
         <p className="text-sm text-slate-300 leading-relaxed">
-          Cameras, lenses, audio gear and instruments need careful packaging and secure transit. Here is how we ship orders from Melbourne to the rest of Australia.
+          Cameras, lenses, audio gear and instruments need careful packaging and secure transit. Here is how we ship orders from our Melbourne warehouse to Australia, New Zealand and the rest of the world.
         </p>
       </div>
 
@@ -39,7 +39,7 @@ export default function ShippingPage() {
         <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-2">
           <Truck className="w-6 h-6 text-amber-400" />
           <h3 className="text-sm font-bold text-white">Free Express Over $500</h3>
-          <p className="text-xs text-slate-400">All orders $500 AUD or higher receive complimentary StarTrack Express freight.</p>
+          <p className="text-xs text-slate-400">Orders of $500 AUD or more delivered within Australia receive complimentary StarTrack Express freight.</p>
         </div>
 
         <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-2">
@@ -79,6 +79,11 @@ export default function ShippingPage() {
             <span className="text-slate-300">2 – 4 Business Days</span>
           </div>
         </div>
+
+        <h2 className="text-xl font-bold text-white uppercase tracking-tight pt-4">Shipping To New Zealand & Worldwide</h2>
+        <p>
+          We ship from our Melbourne warehouse to customers around the world. Australia is our main market, followed by New Zealand, and we welcome orders from the rest of the world. The timeframes above apply to delivery within Australia. For New Zealand and international orders, contact us with your delivery address and we will confirm the shipping cost and estimated delivery time before you pay. Customers outside Australia are responsible for any import duties, taxes or customs fees charged by their country.
+        </p>
 
         <h2 className="text-xl font-bold text-white uppercase tracking-tight pt-4">Packaging & Signature Security</h2>
         <p>

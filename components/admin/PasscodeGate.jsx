@@ -103,7 +103,7 @@ export default function PasscodeGate({ children }) {
         </form>
 
         <div className="mt-8 pt-6 border-t border-slate-800/80 text-center text-xs text-slate-500">
-          Theatricalz Australia · 3 Kirks Lane, Melbourne VIC 3000
+          THEATRICALZ PTY LTD · 3 Kirks Lane, Melbourne VIC 3000
         </div>
       </div>
     </div>

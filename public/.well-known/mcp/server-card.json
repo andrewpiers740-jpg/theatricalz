@@ -106,6 +106,7 @@
       "payment": [
         "crypto-BTC",
         "crypto-USDT",
+        "crypto-USDC",
         "crypto-ETH",
         "crypto-BNB",
         "crypto-SOL",

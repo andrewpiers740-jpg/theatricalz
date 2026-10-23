@@ -80,7 +80,7 @@ export default function ContactPage() {
           Melbourne, Victoria
         </div>
         <h1 className="text-3xl sm:text-4xl font-black text-white uppercase tracking-tight">
-          Contact Theatricalz Australia
+          Contact Theatricalz
         </h1>
         <p className="text-sm text-slate-300 leading-relaxed">
           Need a quote, a stock check, order help or advice on compatibility? Call, message us on WhatsApp or send an enquiry below and our Melbourne team will get back to you.
@@ -92,14 +92,14 @@ export default function ContactPage() {
         <div className="lg:col-span-5 space-y-6">
           <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 space-y-6">
             <h3 className="text-base font-bold text-white uppercase tracking-tight">
-              Gear Desk Details
+              Contact Details
             </h3>
 
             <div className="space-y-4 text-xs">
               <div className="flex items-start gap-3">
                 <MapPin className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
                 <div>
-                  <strong className="text-white block text-sm font-semibold">Physical Facility</strong>
+                  <strong className="text-white block text-sm font-semibold">Melbourne Warehouse</strong>
                   <span className="text-slate-300">{CONTACT.address}</span>
                   <span className="block text-[11px] text-slate-500 mt-0.5">Melbourne CBD · Victoria 3000</span>
                 </div>
@@ -112,7 +112,7 @@ export default function ContactPage() {
                   <a href={`tel:${CONTACT.phone}`} className="text-slate-300 hover:text-amber-400 font-mono text-sm">
                     {CONTACT.phoneDisplay}
                   </a>
-                  <span className="block text-[11px] text-slate-500 mt-0.5">Direct set & dispatch mobile desk</span>
+                  <span className="block text-[11px] text-slate-500 mt-0.5">Phone or WhatsApp</span>
                 </div>
               </div>
 

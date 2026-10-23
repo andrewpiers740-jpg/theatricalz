@@ -17,6 +17,7 @@ export default async function sitemap() {
     '/contact/',
     '/faq/',
     '/terms/',
+    '/disclaimer/',
     '/sales-policy/',
     '/shipping/',
     '/returns/',

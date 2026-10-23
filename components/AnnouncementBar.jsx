@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Truck, Coins, ShieldCheck, PhoneCall, ChevronRight } from 'lucide-react';
+import { Truck, Coins, ShieldCheck, PhoneCall, ChevronRight, Globe } from 'lucide-react';
 import { SITE, CONTACT, SHOP } from '@/config/site';
 
 const SLIDES = [
@@ -11,6 +11,12 @@ const SLIDES = [
     text: `FREE StarTrack Express delivery across Australia on all orders over $${SHOP.freeShippingThreshold} AUD`,
     link: '/shipping/',
     linkLabel: 'Shipping Policy',
+  },
+  {
+    icon: Globe,
+    text: `Shipping from our Melbourne warehouse to Australia, New Zealand and worldwide`,
+    link: '/shipping/',
+    linkLabel: 'Shipping Info',
   },
   {
     icon: Coins,
@@ -26,7 +32,7 @@ const SLIDES = [
   },
   {
     icon: PhoneCall,
-    text: `Melbourne Pro Gear Desk: 3 Kirks Lane · Phone ${CONTACT.phoneDisplay} or WhatsApp us`,
+    text: `Melbourne warehouse · Phone ${CONTACT.phoneDisplay} or WhatsApp us`,
     link: '/contact/',
     linkLabel: 'Contact Us',
   },

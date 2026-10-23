@@ -6,7 +6,7 @@ import ProductCard from '@/components/ProductCard';
 import JsonLd from '@/components/JsonLd';
 
 export const metadata = {
-  title: 'Shop Pro Cinema, Video, Photo & Audio Gear — Theatricalz Australia',
+  title: 'Shop Pro Cinema, Video, Photo & Audio Gear',
   description:
     'Browse Australia’s complete inventory of digital cinema cameras, cine primes, wireless microphones, studio LED lights, and camera gimbals in Melbourne.',
   alternates: {

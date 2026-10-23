@@ -41,6 +41,7 @@ export const SHOP = {
   paymentMethods: [
     'crypto-BTC',
     'crypto-USDT',
+    'crypto-USDC',
     'crypto-ETH',
     'crypto-BNB',
     'crypto-SOL',
@@ -93,6 +94,12 @@ export const REPLY = {
       closing: 'Please send {amount} USDT to the address below and upload or reply with your payment hash/screenshot.',
     },
     {
+      id: 'crypto-USDC',
+      label: 'Cryptocurrency (USDC) — 10% Off',
+      opening: 'Thank you for choosing USDC. Your 10% discount has been applied to order {ref}. Total payable: {amount}.',
+      closing: 'Please send {amount} in USDC to the address below and upload your payment screenshot.',
+    },
+    {
       id: 'crypto-ETH',
       label: 'Cryptocurrency (Ethereum / ETH) — 10% Off',
       opening: 'Thank you for choosing Ethereum. Your 10% discount has been applied to order {ref}. Total payable: {amount}.',
@@ -112,13 +119,13 @@ export const REPLY = {
     },
     {
       id: 'payid',
-      label: 'PayID (Instant Australian Interbank Transfer)',
-      opening: 'Please initiate an instant PayID payment of {amount} for order {ref}.',
-      closing: 'PayID transfers clear instantly between all major Australian banks 24/7.',
+      label: 'PayID',
+      opening: 'Please make a PayID payment of {amount} for order {ref}.',
+      closing: 'Please use your order reference {ref} as the payment reference and reply to confirm once paid.',
     },
     {
       id: 'bank-transfer',
-      label: 'Australian Bank EFT Transfer (BSB / Account)',
+      label: 'Bank Transfer (EFT)',
       opening: 'Please transfer {amount} using the BSB and Account details below for order {ref}.',
       closing: 'Use your order reference {ref} as the transfer description for instant matching.',
     },
@@ -145,13 +152,13 @@ export const BRAND = {
     { year: '2016', event: 'Theatricalz established at 3 Kirks Lane in Melbourne to support Victoria’s growing film and commercial production industry.' },
     { year: '2018', event: 'Appointed authorized pro distribution partner for cinema camera systems and broadcast optical packages.' },
     { year: '2020', event: 'Expanded nationwide express logistics hub delivering same-day & overnight insured equipment across Australia.' },
-    { year: '2022', event: 'Introduced direct crypto settlement and instant PayID processing for commercial and indie film crews.' },
+    { year: '2022', event: 'Introduced direct crypto settlement and PayID payments for commercial and indie film crews.' },
     { year: '2024', event: 'Crossed 15,000+ productions outfitted with gear and achieved 4.9/5 Trustpilot buyer satisfaction.' },
   ],
   differentiation: [
     '100% genuine Australian stock with official local manufacturer warranties',
     'Free insured StarTrack Express shipping on orders over $500',
-    'Over 13,000 products from cinema cameras to guitars, all in one Melbourne store',
+    'Over 13,000 products from cinema cameras to guitars, shipped from our Melbourne warehouse',
     '10% off when you pay with cryptocurrency (BTC, USDT, ETH, SOL, BNB)',
     'Pay in 4 interest-free instalments on eligible purchases',
   ],
@@ -348,11 +355,15 @@ export const FAQ = [
   },
   {
     question: 'How much does delivery cost and how long does it take?',
-    answer: 'Orders over $500 AUD ship free by StarTrack Express with transit insurance. Melbourne, Sydney and Brisbane metro addresses typically receive orders within 1–2 business days, and regional or interstate deliveries generally arrive in 2–4 business days. Our shipping policy has the full details.',
+    answer: 'Orders over $500 AUD delivered within Australia ship free by StarTrack Express with transit insurance. Melbourne, Sydney and Brisbane metro addresses typically receive orders within 1–2 business days, and regional or interstate deliveries generally arrive in 2–4 business days. Our shipping policy has the full details.',
+  },
+  {
+    question: 'Do you ship to New Zealand and overseas?',
+    answer: 'Yes. We ship from our Melbourne warehouse to customers in Australia, New Zealand and the rest of the world. Australia is our main market, followed by New Zealand. For orders outside Australia, contact us and we will confirm shipping cost and delivery time before you pay.',
   },
   {
     question: 'How do I pay after I place an order?',
-    answer: 'We email you payment details and your order reference once your order is in. You can pay by PayID using sales@theatricalz.com.au, by Australian bank transfer (EFT), or with cryptocurrency. Please quote your order reference (for example TH-XXXXXX) so we can match your payment quickly.',
+    answer: 'We email you payment details and your order reference once your order is in. You can pay by bank transfer (EFT), PayID or cryptocurrency (BTC, USDT, ETH, BNB or SOL). Please quote your order reference (for example TH-XXXXXX) so we can match your payment quickly.',
   },
   {
     question: 'How does the 10% cryptocurrency discount work?',
@@ -368,7 +379,7 @@ export const FAQ = [
   },
   {
     question: 'Can I return something I have bought?',
-    answer: 'You can return unopened, brand-new items in their original factory-sealed packaging within 14 days. If an item arrives defective or damaged in transit, contact us straight away and we will arrange a replacement under warranty. Your rights under the Australian Consumer Law are not affected.',
+    answer: 'Eligible products can be returned within 30 days if they are unopened, brand new and in their original factory-sealed packaging. Any product that is not eligible for return will be noted. If an item arrives defective or damaged in transit, contact us straight away and we will arrange a replacement under warranty. Your rights under the Australian Consumer Law are not affected.',
   },
   {
     question: 'Is your prop money real currency?',

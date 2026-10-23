@@ -22,6 +22,9 @@ import { useCart } from '@/lib/cartContext';
 import { money, generateOrderRef } from '@/lib/order';
 import { SHOP, SITE, CONTACT } from '@/config/site';
 import { waOrderLink } from '@/lib/whatsapp';
+import CryptoPayModal from '@/components/CryptoPayModal';
+import PaymentMethodPicker from '@/components/PaymentMethodPicker';
+import { getToken, getNetwork } from '@/config/wallets';
 
 export default function CartPage() {
   const router = useRouter();
@@ -29,6 +32,10 @@ export default function CartPage() {
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [cryptoOpen, setCryptoOpen] = useState(false);
+  const [pay, setPay] = useState({ type: 'bank-transfer', token: '', network: '' });
+  const [cryptoChannel, setCryptoChannel] = useState('email');
+  const [cryptoRef, setCryptoRef] = useState('');
 
   const [formData, setFormData] = useState({
     name: '',
@@ -38,12 +45,14 @@ export default function CartPage() {
     city: '',
     state: 'VIC',
     postcode: '',
-    paymentMethod: 'bank-transfer',
     notes: '',
   });
 
   const freeShippingMet = subtotal >= SHOP.freeShippingThreshold;
-  const isCrypto = formData.paymentMethod.startsWith('crypto-');
+  const isCrypto = pay.type === 'crypto';
+  const paymentMethod = isCrypto ? `crypto-${pay.token}` : pay.type;
+  const cryptoToken = isCrypto ? getToken(pay.token) : null;
+  const cryptoNetwork = isCrypto && pay.token ? getNetwork(pay.token, pay.network) : null;
   const discountRate = isCrypto ? SHOP.cryptoDiscount : 0;
   const discountAmount = isCrypto ? (subtotal * discountRate) / 100 : 0;
   const finalTotal = subtotal - discountAmount;
@@ -53,8 +62,36 @@ export default function CartPage() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleProcessCheckout = async (channel) => {
-    if (!formData.name.trim() || !formData.email.trim() || !formData.phone.trim() || !formData.address.trim()) {
+  const formIsComplete = () =>
+    formData.name.trim() && formData.email.trim() && formData.phone.trim() && formData.address.trim();
+
+  // Crypto orders open the wallet / QR popup first; the order is only placed from "I have paid".
+  const startCheckout = (channel) => {
+    if (!formIsComplete()) {
+      setError('Please fill in your name, email, phone number, and delivery address.');
+      return;
+    }
+    setError('');
+    if (isCrypto) {
+      if (!cryptoToken || !cryptoNetwork) {
+        setError('Please choose a crypto token and network to pay with.');
+        return;
+      }
+      openCryptoPopup(channel);
+      return;
+    }
+    handleProcessCheckout(channel);
+  };
+
+  const openCryptoPopup = (channel = 'email') => {
+    setCryptoChannel(channel);
+    setCryptoRef((prev) => prev || generateOrderRef('TH'));
+    setError('');
+    setCryptoOpen(true);
+  };
+
+  const handleProcessCheckout = async (channel, opts = {}) => {
+    if (!formIsComplete()) {
       setError('Please fill in your name, email, phone number, and delivery address.');
       return;
     }
@@ -62,7 +99,7 @@ export default function CartPage() {
     setLoading(true);
     setError('');
 
-    const orderRef = generateOrderRef('TH');
+    const orderRef = opts.ref || generateOrderRef('TH');
     const orderPayload = {
       id: orderRef,
       ref: orderRef,
@@ -71,7 +108,8 @@ export default function CartPage() {
       discountAmount,
       total: finalTotal,
       totalFormatted: money(finalTotal),
-      paymentMethod: formData.paymentMethod,
+      paymentMethod,
+      ...(opts.crypto && cryptoNetwork ? { cryptoNetwork: cryptoNetwork.label } : {}),
       channel,
       status: 'pending',
     };
@@ -84,7 +122,9 @@ export default function CartPage() {
       city: formData.city.trim(),
       state: formData.state,
       postcode: formData.postcode.trim(),
-      notes: formData.notes.trim(),
+      notes: [formData.notes.trim(), opts.crypto && cryptoNetwork ? `Crypto payment: ${cryptoToken.symbol} on ${cryptoNetwork.label}` : '']
+        .filter(Boolean)
+        .join('\n'),
     };
 
     if (channel === 'whatsapp') {
@@ -107,14 +147,24 @@ export default function CartPage() {
       const result = await res.json();
       if (res.ok && result.success) {
         clearCart();
-        router.push(`/thank-you-order/?id=${encodeURIComponent(orderRef)}`);
+        setCryptoOpen(false);
+        router.push(
+          opts.crypto
+            ? `/order/confirm-payment/?id=${encodeURIComponent(orderRef)}`
+            : `/thank-you-order/?id=${encodeURIComponent(orderRef)}`
+        );
       } else {
         setError(result.error || 'Failed to place order.');
       }
     } catch (err) {
       if (channel === 'whatsapp') {
         clearCart();
-        router.push(`/thank-you-order/?id=${encodeURIComponent(orderRef)}`);
+        setCryptoOpen(false);
+        router.push(
+          opts.crypto
+            ? `/order/confirm-payment/?id=${encodeURIComponent(orderRef)}`
+            : `/thank-you-order/?id=${encodeURIComponent(orderRef)}`
+        );
       } else {
         setError('Network failure. Please try again.');
       }
@@ -336,22 +386,20 @@ export default function CartPage() {
                   </div>
                 </div>
 
-                <div>
-                  <label className="block text-slate-300 font-semibold mb-1">Payment Method</label>
-                  <select
-                    name="paymentMethod"
-                    value={formData.paymentMethod}
-                    onChange={handleInputChange}
-                    className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white"
+                <PaymentMethodPicker
+                  pay={pay}
+                  onChange={setPay}
+                  onReady={() => openCryptoPopup(cryptoChannel)}
+                />
+                {isCrypto && cryptoToken && cryptoNetwork ? (
+                  <button
+                    type="button"
+                    onClick={() => openCryptoPopup(cryptoChannel)}
+                    className="w-full py-2 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 border border-amber-500/40 text-amber-300 text-xs font-semibold transition"
                   >
-                    <option value="crypto-USDT">Crypto (USDT TRC20/ERC20) — 10% Discount</option>
-                    <option value="crypto-BTC">Crypto (Bitcoin / BTC) — 10% Discount</option>
-                    <option value="crypto-ETH">Crypto (Ethereum / ETH) — 10% Discount</option>
-                    <option value="crypto-SOL">Crypto (Solana / SOL) — 10% Discount</option>
-                    <option value="payid">PayID (sales@theatricalz.com.au - Instant)</option>
-                    <option value="bank-transfer">Australian Bank EFT Transfer (NAB)</option>
-                  </select>
-                </div>
+                    Show {cryptoToken.symbol} payment details ({cryptoNetwork.label})
+                  </button>
+                ) : null}
               </div>
 
               {/* Totals Summary */}
@@ -383,7 +431,7 @@ export default function CartPage() {
                 <button
                   type="button"
                   disabled={loading}
-                  onClick={() => handleProcessCheckout('email')}
+                  onClick={() => startCheckout('email')}
                   className="w-full py-3.5 px-4 bg-amber-500 hover:bg-amber-400 active:scale-[0.99] text-slate-950 font-bold rounded-xl transition duration-150 flex items-center justify-center gap-2 text-sm shadow-lg shadow-amber-500/20 disabled:opacity-50"
                 >
                   <span>{loading ? 'Processing Order...' : `Place Order — ${money(finalTotal)} AUD`}</span>
@@ -393,7 +441,7 @@ export default function CartPage() {
                 <button
                   type="button"
                   disabled={loading}
-                  onClick={() => handleProcessCheckout('whatsapp')}
+                  onClick={() => startCheckout('whatsapp')}
                   className="w-full py-3 px-4 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold rounded-xl transition duration-150 flex items-center justify-center gap-2 text-xs shadow-md disabled:opacity-50"
                 >
                   <MessageCircle className="w-4 h-4" />
@@ -404,6 +452,18 @@ export default function CartPage() {
           </div>
         </div>
       )}
+      <CryptoPayModal
+        open={cryptoOpen && !!cryptoToken && !!cryptoNetwork}
+        token={cryptoToken}
+        network={cryptoNetwork}
+        totalLabel={money(finalTotal)}
+        amountAud={finalTotal}
+        orderRef={cryptoRef}
+        loading={loading}
+        error={error}
+        onClose={() => setCryptoOpen(false)}
+        onPaid={() => handleProcessCheckout(cryptoChannel, { ref: cryptoRef, crypto: true })}
+      />
     </div>
   );
 }

@@ -2,7 +2,7 @@
 WebForge v11.1 Pro Cinema & Audio Ecommerce Build
 
 ## Executive Summary
-- **Client**: Theatricalz Australia Pty Ltd
+- **Client**: THEATRICALZ PTY LTD
 - **Domain**: theatricalz.com.au
 - **HQ**: 3 Kirks Lane, Melbourne VIC 3000, Australia
 - **ABN**: 28 614 589 481 | **ACN**: 614 589 481

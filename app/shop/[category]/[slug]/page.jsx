@@ -19,6 +19,8 @@ import { money } from '@/lib/order';
 import { getProductReviews } from '@/lib/reviews';
 import JsonLd from '@/components/JsonLd';
 import ProductActionBox from './ProductActionBox';
+import DisclaimerNotice from '@/components/DisclaimerNotice';
+import WarrantyInfo from '@/components/WarrantyInfo';
 import SubcategoryListing from '@/components/SubcategoryListing';
 import { subSlug, findSubcategory } from '@/lib/subcategory';
 import { getDescription } from '@/lib/descriptions';
@@ -276,7 +278,7 @@ export default async function ProductDetailPage({ params }) {
               </div>
               <div className="flex items-center gap-2">
                 <RotateCcw className="w-4 h-4 text-blue-400 shrink-0" />
-                <span>14-Day Pro Return Window</span>
+                <span>30-Day Returns (eligible items)</span>
               </div>
             </div>
           </div>
@@ -364,6 +366,8 @@ export default async function ProductDetailPage({ params }) {
               {/* Client Action Box (Cart + WhatsApp) */}
               <ProductActionBox product={product} />
             </div>
+
+            <DisclaimerNotice product={product} />
 
             {/* Fast Dispatch Note */}
             <div className="bg-slate-900/60 border border-slate-800/80 rounded-xl p-4 text-xs text-slate-300 flex items-center gap-3">
@@ -457,6 +461,7 @@ export default async function ProductDetailPage({ params }) {
                 <ShieldCheck className="w-5 h-5 text-amber-400" />
                 <span>Australian Warranty & Support</span>
               </h3>
+              <WarrantyInfo product={product} />
               <ul className="space-y-3 text-xs text-slate-300">
                 <li className="flex items-start gap-2">
                   <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />

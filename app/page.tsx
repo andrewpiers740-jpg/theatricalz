@@ -63,7 +63,7 @@ export default function HomePage() {
       },
       url: `https://${SITE.domain}/`,
       sameAs: BRAND.sameAs,
-      areaServed: ['Australia', 'New Zealand'],
+      areaServed: ['Australia', 'New Zealand', 'Worldwide'],
       numberOfItems: PRODUCTS.length,
       knowsAbout: [
         'Digital Cinema Cameras',
@@ -162,7 +162,7 @@ export default function HomePage() {
 
               {/* Brand Entity Statement */}
               <p className="text-base sm:text-lg text-slate-300 max-w-2xl leading-relaxed">
-                Cinema cameras, lenses, microphones, LED lighting, guitars, drums, keys and more — over 13,000 genuine Australian-stock products from our Melbourne store, with official local warranties.
+                Cinema cameras, lenses, microphones, LED lighting, guitars, drums, keys and more — over 13,000 genuine Australian-stock products shipped from our Melbourne warehouse to Australia, New Zealand and worldwide.
               </p>
 
               {/* Highlights List */}
@@ -181,7 +181,7 @@ export default function HomePage() {
                 </div>
                 <div className="flex items-center gap-2">
                   <CheckCircle className="w-4 h-4 text-amber-400 shrink-0" />
-                  <span>Instant PayID & 14-Day Pro Returns</span>
+                  <span>30-Day Returns on Eligible Items</span>
                 </div>
               </div>
 
@@ -296,8 +296,8 @@ export default function HomePage() {
               <CreditCard className="w-5 h-5" />
             </div>
             <div>
-              <div className="text-sm font-bold text-white">Instant PayID & Pay in 4</div>
-              <div className="text-xs text-slate-400">Zero surcharge Australian EFT rails</div>
+              <div className="text-sm font-bold text-white">Bank Transfer, PayID & Crypto</div>
+              <div className="text-xs text-slate-400">10% off when you pay with crypto</div>
             </div>
           </div>
         </div>
@@ -423,7 +423,7 @@ export default function HomePage() {
               Who We Are
             </div>
             <h2 className="section-title text-2xl sm:text-3xl lg:text-4xl font-black text-white uppercase tracking-tight leading-tight">
-              About Theatricalz Australia
+              About Theatricalz
             </h2>
             <p className="text-sm text-slate-300 leading-relaxed">
               {BRAND.description}

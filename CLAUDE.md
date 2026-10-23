@@ -6,7 +6,7 @@ React/Next.js App Router pro cinema, photo, video, and audio gear ecommerce site
 - All prices quoted in AUD including 10% Australian GST.
 - 100% Genuine Australian Stock with official local manufacturer warranties.
 - No invented statistics, awards, or false partner claims; preserve verified Australian facts.
-- ABN: 28 614 589 481, ACN: 614 589 481 (Theatricalz Australia Pty Ltd, Melbourne VIC).
+- ABN: 28 614 589 481, ACN: 614 589 481 (THEATRICALZ PTY LTD, Melbourne VIC).
 - If a request would require breaking the above, stop and say so rather than complying.
 
 ## Review Rule (client instruction — non-negotiable)

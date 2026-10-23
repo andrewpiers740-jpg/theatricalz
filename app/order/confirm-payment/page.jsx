@@ -141,7 +141,7 @@ function ConfirmPaymentContent() {
               type="text"
               value={txHash}
               onChange={(e) => setTxHash(e.target.value)}
-              placeholder="e.g. NAB transfer ID, PayID ref, or BTC/USDT hash"
+              placeholder="e.g. bank transfer ID, PayID ref, or crypto transaction hash"
               className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white font-mono placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-amber-500"
             />
           </div>

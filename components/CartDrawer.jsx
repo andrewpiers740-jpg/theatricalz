@@ -22,6 +22,9 @@ import { useCart } from '@/lib/cartContext';
 import { SHOP, SITE, CONTACT } from '@/config/site';
 import { money, generateOrderRef } from '@/lib/order';
 import { waOrderLink } from '@/lib/whatsapp';
+import CryptoPayModal from '@/components/CryptoPayModal';
+import PaymentMethodPicker from '@/components/PaymentMethodPicker';
+import { getToken, getNetwork } from '@/config/wallets';
 
 export default function CartDrawer() {
   const router = useRouter();
@@ -30,6 +33,10 @@ export default function CartDrawer() {
   const [checkoutMode, setCheckoutMode] = useState(null); // 'form' | 'whatsapp' | null
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [pay, setPay] = useState({ type: 'bank-transfer', token: '', network: '' });
+  const [cryptoOpen, setCryptoOpen] = useState(false);
+  const [cryptoChannel, setCryptoChannel] = useState('email');
+  const [cryptoRef, setCryptoRef] = useState('');
 
   // Form Fields (Required email regardless of channel!)
   const [formData, setFormData] = useState({
@@ -40,7 +47,6 @@ export default function CartDrawer() {
     city: '',
     state: 'VIC',
     postcode: '',
-    paymentMethod: 'bank-transfer',
     notes: '',
   });
 
@@ -50,7 +56,10 @@ export default function CartDrawer() {
   const shippingRemaining = Math.max(0, SHOP.freeShippingThreshold - subtotal);
   const progressPercent = Math.min(100, Math.round((subtotal / SHOP.freeShippingThreshold) * 100));
 
-  const isCrypto = formData.paymentMethod.startsWith('crypto-');
+  const isCrypto = pay.type === 'crypto';
+  const paymentMethod = isCrypto ? `crypto-${pay.token}` : pay.type;
+  const cryptoToken = isCrypto ? getToken(pay.token) : null;
+  const cryptoNetwork = isCrypto && pay.token ? getNetwork(pay.token, pay.network) : null;
   const discountRate = isCrypto ? SHOP.cryptoDiscount : 0;
   const discountAmount = isCrypto ? (subtotal * discountRate) / 100 : 0;
   const finalTotal = subtotal - discountAmount;
@@ -60,8 +69,36 @@ export default function CartDrawer() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleProcessCheckout = async (channel) => {
-    if (!formData.name.trim() || !formData.email.trim() || !formData.phone.trim() || !formData.address.trim()) {
+  const formIsComplete = () =>
+    formData.name.trim() && formData.email.trim() && formData.phone.trim() && formData.address.trim();
+
+  const openCryptoPopup = (channel = 'email') => {
+    setCryptoChannel(channel);
+    setCryptoRef((prev) => prev || generateOrderRef('TH'));
+    setError('');
+    setCryptoOpen(true);
+  };
+
+  // Crypto orders open the wallet / QR popup; the order is only placed from "I have paid".
+  const startCheckout = (channel) => {
+    if (!formIsComplete()) {
+      setError('Please fill in your name, email, phone number, and delivery address.');
+      return;
+    }
+    setError('');
+    if (isCrypto) {
+      if (!cryptoToken || !cryptoNetwork) {
+        setError('Please choose a crypto token and network to pay with.');
+        return;
+      }
+      openCryptoPopup(channel);
+      return;
+    }
+    handleProcessCheckout(channel);
+  };
+
+  const handleProcessCheckout = async (channel, opts = {}) => {
+    if (!formIsComplete()) {
       setError('Please fill in your name, email, phone number, and delivery address.');
       return;
     }
@@ -69,7 +106,7 @@ export default function CartDrawer() {
     setLoading(true);
     setError('');
 
-    const orderRef = generateOrderRef('TH');
+    const orderRef = opts.ref || generateOrderRef('TH');
     const orderPayload = {
       id: orderRef,
       ref: orderRef,
@@ -78,7 +115,8 @@ export default function CartDrawer() {
       discountAmount,
       total: finalTotal,
       totalFormatted: money(finalTotal),
-      paymentMethod: formData.paymentMethod,
+      paymentMethod,
+      ...(opts.crypto && cryptoNetwork ? { cryptoNetwork: cryptoNetwork.label } : {}),
       channel,
       status: 'pending',
     };
@@ -91,7 +129,9 @@ export default function CartDrawer() {
       city: formData.city.trim(),
       state: formData.state,
       postcode: formData.postcode.trim(),
-      notes: formData.notes.trim(),
+      notes: [formData.notes.trim(), opts.crypto && cryptoNetwork ? `Crypto payment: ${cryptoToken.symbol} on ${cryptoNetwork.label}` : '']
+        .filter(Boolean)
+        .join('\n'),
     };
 
     // If WhatsApp checkout, open window synchronously BEFORE await to avoid browser popup blockers!
@@ -119,7 +159,12 @@ export default function CartDrawer() {
         clearCart();
         setIsCartOpen(false);
         setCheckoutMode(null);
-        router.push(`/thank-you-order/?id=${encodeURIComponent(orderRef)}`);
+        setCryptoOpen(false);
+        router.push(
+          opts.crypto
+            ? `/order/confirm-payment/?id=${encodeURIComponent(orderRef)}`
+            : `/thank-you-order/?id=${encodeURIComponent(orderRef)}`
+        );
       } else {
         setError(result.error || 'Failed to place order. Please try again.');
       }
@@ -129,7 +174,12 @@ export default function CartDrawer() {
       if (channel === 'whatsapp') {
         clearCart();
         setIsCartOpen(false);
-        router.push(`/thank-you-order/?id=${encodeURIComponent(orderRef)}`);
+        setCryptoOpen(false);
+        router.push(
+          opts.crypto
+            ? `/order/confirm-payment/?id=${encodeURIComponent(orderRef)}`
+            : `/thank-you-order/?id=${encodeURIComponent(orderRef)}`
+        );
       } else {
         setError('Network error. Please verify connection.');
       }
@@ -340,24 +390,21 @@ export default function CartDrawer() {
                     </div>
                   </div>
 
-                  <div>
-                    <label className="block text-slate-300 font-semibold mb-1">
-                      Select Payment Rail
-                    </label>
-                    <select
-                      name="paymentMethod"
-                      value={formData.paymentMethod}
-                      onChange={handleInputChange}
-                      className="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2.5 text-white font-medium focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/40 transition"
+                  <PaymentMethodPicker
+                    pay={pay}
+                    onChange={setPay}
+                    onReady={() => openCryptoPopup(cryptoChannel)}
+                    selectClassName="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2.5 text-white font-medium focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/40 transition"
+                  />
+                  {isCrypto && cryptoToken && cryptoNetwork ? (
+                    <button
+                      type="button"
+                      onClick={() => openCryptoPopup(cryptoChannel)}
+                      className="w-full py-2 px-3 rounded-lg bg-slate-800 hover:bg-slate-700 border border-amber-500/40 text-amber-300 text-xs font-semibold transition"
                     >
-                      <option value="crypto-USDT">Crypto (USDT TRC20/ERC20) — Instant 10% Off</option>
-                      <option value="crypto-BTC">Crypto (Bitcoin / BTC) — Instant 10% Off</option>
-                      <option value="crypto-ETH">Crypto (Ethereum / ETH) — Instant 10% Off</option>
-                      <option value="crypto-SOL">Crypto (Solana / SOL) — Instant 10% Off</option>
-                      <option value="payid">PayID (sales@theatricalz.com.au - Instant Clearing)</option>
-                      <option value="bank-transfer">Australian Bank Transfer / EFT (NAB)</option>
-                    </select>
-                  </div>
+                      Show {cryptoToken.symbol} payment details ({cryptoNetwork.label})
+                    </button>
+                  ) : null}
 
                   {isCrypto && (
                     <div className="p-2.5 rounded-lg bg-amber-500/10 border border-amber-500/20 text-amber-300 flex items-center justify-between">
@@ -389,7 +436,7 @@ export default function CartDrawer() {
                   <button
                     type="button"
                     disabled={loading}
-                    onClick={() => handleProcessCheckout('email')}
+                    onClick={() => startCheckout('email')}
                     className="w-full py-3 px-4 bg-amber-500 hover:bg-amber-400 active:scale-[0.99] text-slate-950 font-bold rounded-xl transition duration-150 flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20 disabled:opacity-50"
                   >
                     <span>{loading ? 'Processing Order...' : `Place Order — ${money(finalTotal)} AUD`}</span>
@@ -399,7 +446,7 @@ export default function CartDrawer() {
                   <button
                     type="button"
                     disabled={loading}
-                    onClick={() => handleProcessCheckout('whatsapp')}
+                    onClick={() => startCheckout('whatsapp')}
                     className="w-full py-2.5 px-4 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold rounded-xl transition duration-150 flex items-center justify-center gap-2 text-sm disabled:opacity-50"
                   >
                     <MessageCircle className="w-4 h-4" />
@@ -536,12 +583,24 @@ export default function CartDrawer() {
                 <span>·</span>
                 <span>StarTrack Express</span>
                 <span>·</span>
-                <span>PayID / Crypto / EFT</span>
+                <span>Bank Transfer / PayID / Crypto</span>
               </div>
             </div>
           )}
         </div>
       </div>
+      <CryptoPayModal
+        open={cryptoOpen && !!cryptoToken && !!cryptoNetwork}
+        token={cryptoToken}
+        network={cryptoNetwork}
+        totalLabel={money(finalTotal)}
+        amountAud={finalTotal}
+        orderRef={cryptoRef}
+        loading={loading}
+        error={error}
+        onClose={() => setCryptoOpen(false)}
+        onPaid={() => handleProcessCheckout(cryptoChannel, { ref: cryptoRef, crypto: true })}
+      />
     </div>
   );
 }

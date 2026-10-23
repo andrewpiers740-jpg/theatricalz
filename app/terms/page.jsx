@@ -31,7 +31,7 @@ export default function TermsPage() {
           Terms & Conditions of Service
         </h1>
         <p className="text-sm text-slate-300 leading-relaxed">
-          Please review the terms governing orders, equipment warranties, and digital interactions with Theatricalz Australia Pty Ltd.
+          Please review the terms governing orders, equipment warranties, and digital interactions with THEATRICALZ PTY LTD.
         </p>
       </div>
 
@@ -48,7 +48,7 @@ export default function TermsPage() {
 
         <h2 className="text-xl font-bold text-white uppercase tracking-tight pt-4">3. Payment Terms & Settlement Rails</h2>
         <p>
-          Title to all equipment remains with Theatricalz Australia Pty Ltd until full payment has cleared in our National Australia Bank (NAB) operating account or has been confirmed on the relevant blockchain ledger (in the case of cryptocurrency transactions). Orders placed via PayID must cite the allocated order reference (e.g. TH-XXXXXX) for immediate automatic reconciliation.
+          Title to all equipment remains with THEATRICALZ PTY LTD until full payment has cleared in our bank account or has been confirmed on the relevant blockchain ledger (in the case of cryptocurrency transactions). Orders placed via PayID must cite the allocated order reference (e.g. TH-XXXXXX) for immediate automatic reconciliation.
         </p>
 
         <h2 className="text-xl font-bold text-white uppercase tracking-tight pt-4">4. Limitation of Liability</h2>

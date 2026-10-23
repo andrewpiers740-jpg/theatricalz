@@ -43,7 +43,7 @@ export default function SalesPolicyPage() {
 
         <h2 className="text-xl font-bold text-white uppercase tracking-tight pt-4">Compliant Australian Tax Invoices</h2>
         <p>
-          A formal Australian Tax Invoice displaying our registered business details (ABN: {SITE.abn}, ACN: {SITE.acn}, Theatricalz Australia Pty Ltd) is automatically generated and emailed to your nominated contact address immediately upon order confirmation. Every invoice itemizes the net amount, the 10% GST component, and the final total for straightforward business BAS reconciliation.
+          A formal Australian Tax Invoice displaying our registered business details (ABN: {SITE.abn}, ACN: {SITE.acn}, THEATRICALZ PTY LTD) is automatically generated and emailed to your nominated contact address immediately upon order confirmation. Every invoice itemizes the net amount, the 10% GST component, and the final total for straightforward business BAS reconciliation.
         </p>
 
         <h2 className="text-xl font-bold text-white uppercase tracking-tight pt-4">Cryptocurrency 10% Discount Settlement</h2>

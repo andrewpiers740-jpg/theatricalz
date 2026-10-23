@@ -98,7 +98,7 @@ Founded in ${BRAND.foundingYear} in Melbourne, Australia, ${name} is an authoriz
 - Free Shipping: Orders over $${SHOP.freeShippingThreshold} AUD receive complimentary StarTrack Express freight with transit insurance.
 - Shipping Fee: Standard $${SHOP.shippingFee} AUD / Express $${SHOP.expressShippingFee} AUD.
 - Crypto Discount: 10% instant discount when paying with BTC, USDT, ETH, BNB, or SOL.
-- Payment Methods: Cryptocurrency (BTC, USDT, ETH, BNB, SOL), PayID (sales@${domain}), and Australian Bank Transfer (EFT).
+- Payment Methods: Cryptocurrency (BTC, USDT, ETH, BNB, SOL), PayID and Australian Bank Transfer (EFT).
 - Financing: Pay in 4 interest-free installments on eligible pro equipment.
 - Stock Guarantee: 100% Genuine Australian Stock with local manufacturer warranties.
 

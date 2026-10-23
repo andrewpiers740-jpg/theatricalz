@@ -1,4 +1,4 @@
-# Keyword Map & Technical SEO Strategy: Theatricalz Australia
+# Keyword Map & Technical SEO Strategy: Theatricalz
 
 ## Primary Keyword
 - `pro cinema gear australia` (Target Page: Homepage /)
@@ -21,7 +21,7 @@
 15. `clearance cinema cameras ex demo` -> /clearance/
 
 ## Entity & Authority Architecture
-- Entity: Theatricalz (Theatricalz Australia Pty Ltd)
+- Entity: Theatricalz (THEATRICALZ PTY LTD)
 - Location: 3 Kirks Lane, Melbourne VIC 3000
 - ABN: 28 614 589 481 | ACN: 614 589 481
 - Schema Types: Store, Organization, WebSite, SearchAction, Product, Offer, AggregateRating, BreadcrumbList, FAQPage, AboutPage, BlogPosting.

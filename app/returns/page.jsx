@@ -5,7 +5,7 @@ import { SITE, CONTACT } from '@/config/site';
 export const metadata = {
   title: 'Returns & Warranty Policy',
   description:
-    '14-day returns on unopened items, Australian Consumer Law protections and local manufacturer warranty support for camera, audio, lighting and music gear.',
+    '30-day returns on eligible unopened items, Australian Consumer Law protections and local manufacturer warranty support for camera, audio, lighting and music gear.',
   alternates: {
     canonical: `https://${SITE.domain}/returns/`,
   },
@@ -31,14 +31,14 @@ export default function ReturnsPage() {
           Returns & Manufacturer Warranty Policy
         </h1>
         <p className="text-sm text-slate-300 leading-relaxed">
-          Confidence in every piece of equipment. Read our 14-day return framework and warranty repair commitments.
+          Confidence in every piece of equipment. Read our 30-day return policy and warranty repair commitments.
         </p>
       </div>
 
       <div className="prose prose-invert max-w-none text-slate-300 space-y-6 text-sm leading-relaxed">
-        <h2 className="text-xl font-bold text-white uppercase tracking-tight">14-Day Return Policy for Unopened Gear</h2>
+        <h2 className="text-xl font-bold text-white uppercase tracking-tight">30-Day Return Policy for Eligible Gear</h2>
         <p>
-          We provide a 14-day change-of-mind return window for brand-new, factory-sealed equipment. The gear must remain unopened in its original manufacturer packaging with all serial number labels, inspection seals, plastic wrapping, and included accessories intact.
+          We provide a 30-day change-of-mind return window for all eligible products. Products that are not eligible for return will be noted. To qualify, brand-new, factory-sealed equipment must remain unopened in its original manufacturer packaging with all serial number labels, inspection seals, plastic wrapping, and included accessories intact.
         </p>
 
         <h2 className="text-xl font-bold text-white uppercase tracking-tight pt-4">Australian Consumer Law (ACL) Guarantees</h2>

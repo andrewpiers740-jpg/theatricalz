@@ -34,7 +34,7 @@ export async function POST(request) {
           <p><strong>Transaction / Note:</strong> ${notes || 'None'}</p>
           ${transactionHash ? `<p><strong>Tx Hash:</strong> <code>${transactionHash}</code></p>` : ''}
           ${receiptUrl ? `<p><strong>Screenshot:</strong> <a href="${receiptUrl}" target="_blank">View Receipt Image</a></p>` : ''}
-          <p>Please reconcile in NAB bank portal or blockchain explorer, then dispatch goods.</p>
+          <p>Please reconcile in your bank portal or the blockchain explorer, then dispatch goods.</p>
         </div>
       `,
       text: `Customer submitted payment proof for order ${id}. Note: ${notes || ''}`,

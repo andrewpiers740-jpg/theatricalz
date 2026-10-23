@@ -6,6 +6,7 @@ import { Star, ShoppingBag, Heart, Check, Coins, Truck } from 'lucide-react';
 import { useCart } from '@/lib/cartContext';
 import { money } from '@/lib/order';
 import { SHOP } from '@/config/site';
+import { hasDisclaimer } from '@/lib/disclaimers';
 
 export default function ProductCard({ product }) {
   const { addToCart, toggleWishlist, isWishlisted } = useCart();
@@ -87,6 +88,15 @@ export default function ProductCard({ product }) {
               {product.name}
             </Link>
           </h3>
+
+          {hasDisclaimer(product) && (
+            <Link
+              href="/disclaimer/"
+              className="inline-flex items-center gap-1 mt-1.5 px-2 py-0.5 rounded bg-amber-500/10 border border-amber-500/30 text-[10px] font-bold uppercase tracking-wider text-amber-400 hover:bg-amber-500/20"
+            >
+              Disclaimer applies
+            </Link>
+          )}
 
           {/* Short Description */}
           <p className="text-xs text-slate-400 line-clamp-2 min-h-[2.25rem] mt-1.5 leading-relaxed">

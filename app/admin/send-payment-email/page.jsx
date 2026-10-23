@@ -1,5 +1,6 @@
 'use client';
 
+import { getToken, getNetworks } from '@/config/wallets';
 import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
@@ -21,7 +22,7 @@ function SendPaymentEmailContent() {
 
   const [methodId, setMethodId] = useState('payid');
   const [paymentDetailText, setPaymentDetailText] = useState(
-    'PayID: sales@theatricalz.com.au\nAccount Name: Theatricalz Australia Pty Ltd\nBank: National Australia Bank'
+    'PayID Type: \nPayID: \nAccount Name: THEATRICALZ PTY LTD\nBank: '
   );
   const [customOpening, setCustomOpening] = useState('');
   const [customClosing, setCustomClosing] = useState('');
@@ -69,19 +70,22 @@ function SendPaymentEmailContent() {
     setMethodId(m);
     if (m === 'payid') {
       setPaymentDetailText(
-        'PayID Type: Email\nPayID: sales@theatricalz.com.au\nAccount Name: Theatricalz Australia Pty Ltd\nBank: NAB'
+        'PayID Type: \nPayID: \nAccount Name: THEATRICALZ PTY LTD\nBank: '
       );
     } else if (m === 'bank-transfer') {
       setPaymentDetailText(
-        'Bank: National Australia Bank (NAB)\nAccount Name: Theatricalz Australia Pty Ltd\nBSB: 083-004\nAccount Number: 91-458-9481'
+        'Bank: \nAccount Name: THEATRICALZ PTY LTD\nBSB: \nAccount Number: '
       );
-    } else if (m.includes('crypto-USDT')) {
+    } else if (m.startsWith('crypto-')) {
+      const tok = getToken(m.replace('crypto-', ''));
+      const nets = tok ? getNetworks(tok.symbol) : [];
       setPaymentDetailText(
-        'Currency: USDT (Tether)\nNetwork: TRC20 / ERC20\nAddress: TXqY8d7hDkL2mPvN9e4s9A1c6V3k0L7b5P'
-      );
-    } else if (m.includes('crypto-BTC')) {
-      setPaymentDetailText(
-        'Currency: Bitcoin (BTC)\nNetwork: Bitcoin Core\nAddress: bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh'
+        nets
+          .map(
+            (n) =>
+              `Currency: ${tok.name} (${tok.symbol})\nNetwork: ${n.label}\nAddress: ${n.address}${n.memo ? `\nMemo: ${n.memo}` : ''}`
+          )
+          .join('\n\n')
       );
     }
   };
@@ -213,7 +217,7 @@ function SendPaymentEmailContent() {
                 rows={4}
                 value={paymentDetailText}
                 onChange={(e) => setPaymentDetailText(e.target.value)}
-                placeholder="Bank: NAB&#10;BSB: 083-004&#10;Account: 12345678"
+                placeholder="Bank: &#10;BSB: &#10;Account: "
                 className="w-full bg-slate-950 border border-slate-700 rounded-xl p-3 text-white font-mono text-xs focus:outline-none focus:ring-1 focus:ring-amber-500"
               />
               <span className="text-[11px] text-slate-500 mt-1 block">

@@ -28,7 +28,7 @@ export default function AboutPage() {
       '@context': 'https://schema.org',
       '@type': 'Organization',
       name: SITE.name,
-      legalName: 'Theatricalz Australia Pty Ltd',
+      legalName: 'THEATRICALZ PTY LTD',
       url: `https://${SITE.domain}/`,
       foundingDate: BRAND.foundingYear,
       foundingLocation: {
@@ -85,7 +85,7 @@ export default function AboutPage() {
             Founded 2016 · Melbourne, Victoria
           </div>
           <h1 className="text-3xl sm:text-5xl font-black text-white uppercase tracking-tight">
-            About Theatricalz Australia
+            About Theatricalz
           </h1>
           <p className="text-base sm:text-lg text-slate-300 leading-relaxed max-w-3xl">
             Theatricalz is a Melbourne-based supplier of cameras, lenses, microphones, lighting, music instruments and production accessories — genuine Australian stock, priced in AUD including GST, and backed by official local warranties.
@@ -112,7 +112,7 @@ export default function AboutPage() {
             Who We Are
           </h2>
           <p>
-            Theatricalz Australia Pty Ltd has traded from 3 Kirks Lane, Melbourne VIC 3000 since 2016. We supply the gear that Australian filmmakers, photographers, podcasters, streamers, musicians, venues and schools use every day — and we do it as a local business you can phone, email or message on WhatsApp.
+            THEATRICALZ PTY LTD has traded from 3 Kirks Lane, Melbourne VIC 3000 since 2016. We supply the gear that Australian filmmakers, photographers, podcasters, streamers, musicians, venues and schools use every day — and we do it as a local business you can phone, email or message on WhatsApp.
           </p>
           <p>
             Our focus is simple: genuine products, honest descriptions and clear pricing. Every item is sold as 100% genuine Australian stock with the official local manufacturer warranty, and all prices are quoted in AUD including 10% GST. Your rights under the Australian Consumer Law apply to every order.
@@ -132,17 +132,17 @@ export default function AboutPage() {
           </p>
 
           <h2 className="section-title text-xl sm:text-2xl font-bold text-white uppercase tracking-tight pt-4">
-            Delivery Across Australia
+            Shipping From Melbourne To The World
           </h2>
           <p>
-            We dispatch from Melbourne to every state and territory by StarTrack Express. Orders over $500 AUD ship free, and our <Link href="/shipping/" className="text-amber-400 hover:underline">shipping policy</Link> sets out timeframes, insurance and signature requirements in full.
+            We dispatch from our Melbourne warehouse to every state and territory by StarTrack Express, and orders over $500 AUD within Australia ship free. We also ship to New Zealand and worldwide — Australia is our main market, then New Zealand. Our <Link href="/shipping/" className="text-amber-400 hover:underline">shipping policy</Link> sets out timeframes, insurance, signature and international shipping details in full.
           </p>
 
           <h2 className="section-title text-xl sm:text-2xl font-bold text-white uppercase tracking-tight pt-4">
             Flexible Ways To Pay
           </h2>
           <p>
-            Pay by PayID or Australian bank transfer, split larger purchases with <Link href="/financing/" className="text-amber-400 hover:underline">Pay in 4</Link>, or take 10% off when you settle in cryptocurrency (BTC, USDT, ETH, SOL or BNB). After you place an order we email your payment details and order reference so you can pay securely.
+            Pay by bank transfer, PayID or cryptocurrency (BTC, USDT, ETH, BNB or SOL) — and take 10% off when you pay with crypto. After you place an order we email your payment details and order reference so you can pay securely.
           </p>
 
           <h2 className="section-title text-xl sm:text-2xl font-bold text-white uppercase tracking-tight pt-4">
@@ -161,7 +161,7 @@ export default function AboutPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
             <div>
               <span className="text-slate-400 block">Registered Entity:</span>
-              <strong className="text-white text-sm">Theatricalz Australia Pty Ltd</strong>
+              <strong className="text-white text-sm">THEATRICALZ PTY LTD</strong>
             </div>
             <div>
               <span className="text-slate-400 block">Australian Business Number (ABN):</span>

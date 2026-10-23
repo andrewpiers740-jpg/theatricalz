@@ -34,7 +34,7 @@ export default function Footer() {
               <RefreshCw className="w-5 h-5" />
             </div>
             <div>
-              <div className="text-sm font-bold text-white">14-Day Pro Return Policy</div>
+              <div className="text-sm font-bold text-white">30-Day Returns</div>
               <div className="text-xs text-slate-400">Australian Consumer Law protection</div>
             </div>
           </div>
@@ -44,8 +44,8 @@ export default function Footer() {
               <Lock className="w-5 h-5" />
             </div>
             <div>
-              <div className="text-sm font-bold text-white">PayID & Crypto Discount</div>
-              <div className="text-xs text-slate-400">Instant 10% discount on crypto rails</div>
+              <div className="text-sm font-bold text-white">Bank Transfer, PayID & Crypto</div>
+              <div className="text-xs text-slate-400">10% off when you pay with crypto</div>
             </div>
           </div>
         </div>
@@ -199,13 +199,18 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/disclaimer/" className="text-slate-400 hover:text-amber-400 hover:translate-x-0.5 inline-block transition">
+                  Product Disclaimer
+                </Link>
+              </li>
+              <li>
                 <Link href="/privacy/" className="text-slate-400 hover:text-amber-400 hover:translate-x-0.5 inline-block transition">
                   Privacy Policy (GDPR / AU)
                 </Link>
               </li>
               <li>
                 <Link href="/about/" className="text-slate-400 hover:text-amber-400 hover:translate-x-0.5 inline-block transition">
-                  About Us & Milestones
+                  About Us
                 </Link>
               </li>
               <li>
@@ -217,24 +222,8 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Accepted Payment Rails & StarTrack Badge */}
-        <div className="mt-12 pt-8 border-t border-slate-800/80 flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="flex flex-wrap items-center justify-center md:justify-start gap-2 text-xs text-slate-400">
-            <span className="font-semibold text-slate-300 mr-2">Accepted Payment Rails:</span>
-            <span className="px-2.5 py-1 rounded bg-slate-900 border border-slate-800 font-mono text-slate-300">
-              PayID (sales&#64;theatricalz.com.au)
-            </span>
-            <span className="px-2.5 py-1 rounded bg-slate-900 border border-slate-800 font-mono text-amber-400 font-medium">
-              Crypto 10% Off (BTC, USDT, ETH, SOL, BNB)
-            </span>
-            <span className="px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-slate-300">
-              EFT Bank Transfer (NAB)
-            </span>
-            <span className="px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-slate-300">
-              Pay in 4 Installments
-            </span>
-          </div>
-
+        {/* Trustpilot badge */}
+        <div className="mt-12 pt-8 border-t border-slate-800/80 flex flex-col md:flex-row items-center justify-center gap-6">
           <div className="flex items-center gap-3 text-xs text-slate-400">
             <span className="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-medium">
               4.9/5 Rating on Trustpilot (300+ Reviews)
@@ -245,7 +234,7 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="mt-8 pt-6 border-t border-slate-800/60 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
           <p>
-            &copy; {new Date().getFullYear()} Theatricalz Australia (ABN: {SITE.abn}, ACN: {SITE.acn}). All rights reserved. All prices quoted in AUD including 10% Australian GST.
+            &copy; {new Date().getFullYear()} THEATRICALZ PTY LTD (ABN: {SITE.abn}, ACN: {SITE.acn}). All rights reserved. All prices quoted in AUD including 10% Australian GST.
           </p>
           <div className="flex items-center gap-4">
             <Link href="/privacy/" className="hover:text-slate-400">Privacy</Link>

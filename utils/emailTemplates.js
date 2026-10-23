@@ -99,7 +99,7 @@ export function shell({ eyebrow, title, meta, body }) {
                 ABN: ${escapeHtml(SITE.abn)} · Phone: ${escapeHtml(CONTACT.phoneDisplay)} · sales&#64;theatricalz.com.au
               </div>
               <div style="font-size: 11px; color: #94a3b8; margin-top: 8px;">
-                Australia’s Premier Pro Cinema, Photo, Video & Audio Specialists
+                Pro Camera, Audio & Music Gear Australia
               </div>
             </td>
           </tr>
@@ -201,7 +201,7 @@ export function orderConfirmationEmail(order, customer, appUrl = '') {
       Hi ${escapeHtml(customer.name)},
     </p>
     <p style="font-size: 15px; color: #334155; line-height: 1.6;">
-      Thank you for your order with <strong>Theatricalz</strong>. We have successfully logged your equipment request and our gear desk at Kirks Lane, Melbourne is preparing your allocation.
+      Thank you for your order with <strong>Theatricalz</strong>. We have successfully logged your equipment request and our Melbourne warehouse team is preparing your order.
     </p>
 
     <div style="background-color: #f8fafc; border-radius: 8px; padding: 20px; margin: 20px 0; border: 1px solid #e2e8f0;">
@@ -245,7 +245,7 @@ export function orderConfirmationEmail(order, customer, appUrl = '') {
   `;
 
   return {
-    subject: `Order Received: ${order.ref || order.id} — Theatricalz Pro Cinema & Audio`,
+    subject: `Order Received: ${order.ref || order.id} — Theatricalz`,
     html: shell({
       eyebrow: 'Order Logged',
       title: 'We’ve Received Your Order',

@@ -74,7 +74,7 @@ export const REPLY = {
     locale: 'en-AU',
   },
   orderPrefix: 'TH',
-  headerTagline: 'Pro Cinema, Photo & Broadcast Gear · 3 Kirks Lane, Melbourne VIC',
+  headerTagline: 'Pro Camera, Audio & Music Gear · 3 Kirks Lane, Melbourne VIC',
   dispatchLine: 'Secure dispatch via StarTrack Express / Toll Priority from Melbourne with transit insurance & signature on delivery.',
   channels: {
     email: 'sales@theatricalz.com.au',

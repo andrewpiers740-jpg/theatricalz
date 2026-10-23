@@ -1,4 +1,5 @@
 // app/api/mcp/route.js - MCP Streamable HTTP JSON-RPC 2.0 Server (WebForge v11.1)
+import { searchCatalogue, clampLimit, clampOffset, MIN_QUERY } from '@/lib/searchProducts';
 import { CATEGORIES, SHOP, SITE, BRAND, CONTACT } from '@/config/site';
 import { PRODUCTS } from '@/config/products';
 import { waOrderLink } from '@/lib/whatsapp';
@@ -7,13 +8,15 @@ import { money } from '@/lib/order';
 const MCP_TOOLS = [
   {
     name: 'search_products',
-    description: 'Search professional cinema, photo, video, and audio products by keyword, category, or maximum price.',
+    description: 'Search professional cinema, photo, video, and audio products by keyword (2+ characters), category, or maximum price. Returns up to 50 results per call; use offset to page.',
     inputSchema: {
       type: 'object',
       properties: {
         query: { type: 'string', description: 'Search term (e.g. "cinema camera", "shotgun mic")' },
         category: { type: 'string', description: 'Category slug (e.g. "video", "music-audio")' },
         max_price: { type: 'number', description: 'Maximum price in AUD' },
+        limit: { type: 'integer', description: 'Results per call (default 24, max 50)' },
+        offset: { type: 'integer', description: 'Number of results to skip, for paging' },
       },
     },
   },
@@ -155,24 +158,19 @@ export async function POST(request) {
     const { name, arguments: args = {} } = params || {};
 
     if (name === 'search_products') {
-      const q = (args.query || '').toLowerCase();
-      const cat = args.category;
-      const maxPrice = args.max_price ? parseFloat(args.max_price) : Infinity;
+      const q = String(args.query || '').trim().slice(0, 100);
+      const cat = args.category ? String(args.category).slice(0, 60) : '';
+      const mp = args.max_price ? parseFloat(args.max_price) : NaN;
+      const maxPrice = Number.isFinite(mp) && mp > 0 ? mp : Infinity;
 
-      const matched = PRODUCTS.filter((p) => {
-        const matchesQuery = !q || p.name.toLowerCase().includes(q) || p.description.toLowerCase().includes(q);
-        const matchesCat = !cat || p.category === cat;
-        const matchesPrice = maxPrice === Infinity || (p.price != null && p.price <= maxPrice);
-        return matchesQuery && matchesCat && matchesPrice;
-      }).map((p) => ({
-        slug: p.slug,
-        name: p.name,
-        price: p.price,
-        currency: SITE.currency,
-        category: p.category,
-        shortDescription: p.shortDescription,
-        url: `https://${SITE.domain}/shop/${p.category}/${p.slug}/`,
-      }));
+      // Bounded: a search term of 2+ characters or a category/price filter, and at most 50 results per call.
+      let matched;
+      if (q.length < MIN_QUERY && !cat && maxPrice === Infinity) {
+        matched = { error: `Provide a query of at least ${MIN_QUERY} characters, or a category or max_price filter.` };
+      } else {
+        const found = searchCatalogue({ q, category: cat, maxPrice, limit: clampLimit(args.limit), offset: clampOffset(args.offset) });
+        matched = { products: found.items, total: found.total, hasMore: found.hasMore };
+      }
 
       return Response.json(
         {

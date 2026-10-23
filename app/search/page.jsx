@@ -8,6 +8,9 @@ import { POSTS, CATEGORIES } from '@/config/site';
 import { useProductIndex } from '@/lib/useProductIndex';
 import ProductCard from '@/components/ProductCard';
 
+const MIN_QUERY = 2;
+const PAGE_SIZE = 24;
+
 function SearchContent() {
   const searchParams = useSearchParams();
   const initialQuery = searchParams.get('q') || '';
@@ -18,7 +21,13 @@ function SearchContent() {
   }, [searchParams]);
 
   const { products: PRODUCTS } = useProductIndex();
-  const cleanQ = query.trim().toLowerCase();
+  const trimmed = query.trim().toLowerCase();
+  const cleanQ = trimmed.length >= MIN_QUERY ? trimmed : '';
+  const [visible, setVisible] = useState(PAGE_SIZE);
+
+  useEffect(() => {
+    setVisible(PAGE_SIZE);
+  }, [cleanQ]);
 
   const matchingProducts = cleanQ
     ? PRODUCTS.filter(
@@ -91,10 +100,26 @@ function SearchContent() {
 
           {/* Matching Products */}
           {matchingProducts.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {matchingProducts.map((product) => (
-                <ProductCard key={product.slug} product={product} />
-              ))}
+            <div className="space-y-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                {matchingProducts.slice(0, visible).map((product) => (
+                  <ProductCard key={product.slug} product={product} />
+                ))}
+              </div>
+              {visible < matchingProducts.length && (
+                <div className="text-center space-y-2">
+                  <p className="text-xs text-slate-400">
+                    Showing {Math.min(visible, matchingProducts.length)} of {matchingProducts.length} products
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => setVisible((v) => v + PAGE_SIZE)}
+                    className="px-6 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 text-sm font-bold transition"
+                  >
+                    Show more products
+                  </button>
+                </div>
+              )}
             </div>
           ) : (
             <div className="bg-slate-900 border border-slate-800 rounded-2xl p-8 text-center space-y-2">
@@ -135,6 +160,10 @@ function SearchContent() {
         </div>
       ) : (
         /* Empty Query Suggestion */
+        <div className="space-y-4 pt-6">
+        {trimmed.length > 0 && (
+          <p className="text-xs text-slate-400 text-center">Type at least {MIN_QUERY} characters to search, or browse a category below.</p>
+        )}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 pt-6">
           {CATEGORIES.map((cat) => (
             <Link
@@ -148,6 +177,7 @@ function SearchContent() {
               <p className="text-xs text-slate-400 mt-2 line-clamp-2">{cat.description}</p>
             </Link>
           ))}
+        </div>
         </div>
       )}
     </div>

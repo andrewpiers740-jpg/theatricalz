@@ -261,8 +261,9 @@ export function paymentDetailsEmail(opts) {
   const { order, customer, methodLabel, opening, fields = [], closing, appUrl = '' } = opts;
   const ref = order.ref || order.id;
   const baseUrl = appUrl || `https://${SITE.domain}`;
-  const paymentPageUrl = `${baseUrl}/order/payment-details/?id=${encodeURIComponent(ref)}`;
-  const confirmPageUrl = `${baseUrl}/order/confirm-payment/?id=${encodeURIComponent(ref)}`;
+  const tokenQuery = order.accessToken ? `&token=${encodeURIComponent(order.accessToken)}` : '';
+  const paymentPageUrl = `${baseUrl}/order/payment-details/?id=${encodeURIComponent(ref)}${tokenQuery}`;
+  const confirmPageUrl = `${baseUrl}/order/confirm-payment/?id=${encodeURIComponent(ref)}${tokenQuery}`;
 
   const fieldsHtml = fields
     .map((f) => `

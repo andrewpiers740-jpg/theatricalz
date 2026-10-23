@@ -11,6 +11,7 @@ import { waPaymentConfirmationLink } from '@/lib/whatsapp';
 function PaymentDetailsContent() {
   const searchParams = useSearchParams();
   const id = searchParams.get('id') || '';
+  const token = searchParams.get('token') || '';
 
   const [orderData, setOrderData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -22,7 +23,7 @@ function PaymentDetailsContent() {
       return;
     }
 
-    fetch(`/api/order/payment-details?id=${encodeURIComponent(id)}`)
+    fetch(`/api/order/payment-details?id=${encodeURIComponent(id)}&token=${encodeURIComponent(token)}`)
       .then((res) => res.json())
       .then((data) => {
         if (data && !data.error) {
@@ -35,7 +36,7 @@ function PaymentDetailsContent() {
         setError('Connection error');
       })
       .finally(() => setLoading(false));
-  }, [id]);
+  }, [id, token]);
 
   if (loading) {
     return (
@@ -134,7 +135,7 @@ function PaymentDetailsContent() {
         {/* Action Buttons */}
         <div className="pt-2 space-y-3">
           <Link
-            href={`/order/confirm-payment/?id=${encodeURIComponent(ref)}`}
+            href={`/order/confirm-payment/?id=${encodeURIComponent(ref)}&token=${encodeURIComponent(token)}`}
             className="w-full py-3.5 px-4 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-xl text-xs uppercase tracking-wider transition flex items-center justify-center gap-2 shadow-lg"
           >
             <span>I’ve Sent Payment — Upload Receipt Screenshot</span>

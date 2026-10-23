@@ -33,6 +33,8 @@ export default function PasscodeGate({ children }) {
         setPasscode(inputCode.trim());
       } else if (res.status === 401) {
         setError('Incorrect passcode. Access denied.');
+      } else if (res.status === 429) {
+        setError('Too many incorrect attempts. Please wait 15 minutes and try again.');
       } else if (res.status === 503) {
         setError('Server admin passcode not set or service unavailable.');
       } else {

@@ -6,7 +6,7 @@ import { enquiryReplyEmail } from '@/utils/emailTemplates';
 import { SITE } from '@/config/site';
 
 export async function POST(request) {
-  const authError = checkAdminPasscode(request);
+  const authError = await checkAdminPasscode(request);
   if (authError) return authError;
 
   try {

@@ -1,13 +1,14 @@
 // app/api/admin/send-payment-email/route.js - Send payment details email and mark order sent
 import { checkAdminPasscode } from '@/lib/adminAuth';
-import { getOrder, markOrderSent } from '@/lib/orderStore';
+import { getOrder, markOrderSent, saveOrder } from '@/lib/orderStore';
+import { newAccessToken } from '@/lib/orderToken';
 import { sendMail } from '@/lib/mailer';
 import { paymentDetailsEmail } from '@/utils/emailTemplates';
 import { parsePaymentDetail, money, paymentMethodParts, findMethod } from '@/lib/order';
 import { SITE } from '@/config/site';
 
 export async function POST(request) {
-  const authError = checkAdminPasscode(request);
+  const authError = await checkAdminPasscode(request);
   if (authError) return authError;
 
   try {
@@ -20,6 +21,12 @@ export async function POST(request) {
     const order = await getOrder(orderId);
     if (!order) {
       return Response.json({ error: 'Order not found' }, { status: 404 });
+    }
+
+    // An order made before tokens existed gets its private token now, so the link in this email is a protected one.
+    if (!order.accessToken) {
+      order.accessToken = newAccessToken();
+      await saveOrder(order);
     }
 
     const customerEmail = order.customer?.email;

@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Mail, Phone, MapPin, MessageCircle, Send, CheckCircle2, AlertCircle, ChevronRight, Clock } from 'lucide-react';
 import { SITE, CONTACT } from '@/config/site';
+import Honeypot from '@/components/Honeypot';
 
 export default function ContactPage() {
   const router = useRouter();
@@ -16,6 +17,8 @@ export default function ContactPage() {
     message: '',
   });
   const [loading, setLoading] = useState(false);
+  const [honeypot, setHoneypot] = useState('');
+  const [startedAt] = useState(() => Date.now());
 
   // Pre-fill a quote request when arriving from a "Price on request" product
   useEffect(() => {
@@ -47,6 +50,8 @@ export default function ContactPage() {
         body: JSON.stringify({
           formName: 'contact',
           ...formData,
+          _hp: honeypot,
+          _t: startedAt,
         }),
       });
 
@@ -158,6 +163,7 @@ export default function ContactPage() {
             onSubmit={handleSubmit}
             className="bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8 space-y-4"
           >
+            <Honeypot value={honeypot} onChange={setHoneypot} />
             <h3 className="text-base font-bold text-white uppercase tracking-tight mb-2">
               Send an Equipment Enquiry
             </h3>

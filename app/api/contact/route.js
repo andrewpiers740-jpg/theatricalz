@@ -1,7 +1,11 @@
 // app/api/contact/route.js - Central submission route for orders, contact, and wholesale
-import { saveOrder } from '@/lib/orderStore';
+import { saveOrder, getOrder } from '@/lib/orderStore';
 import { saveEnquiry } from '@/lib/enquiryStore';
 import { sendMail } from '@/lib/mailer';
+import { generateOrderRef } from '@/lib/order';
+import { newAccessToken } from '@/lib/orderToken';
+import { buildServerOrder, validateEnquiry, isValidRef } from '@/lib/orderValidation';
+import { rateLimit, clientIp, tooManyResponse, looksLikeBot, emailKey } from '@/lib/formGuard';
 import {
   orderNotificationAdminEmail,
   orderConfirmationEmail,
@@ -9,23 +13,72 @@ import {
 } from '@/utils/emailTemplates';
 import { CONTACT, FORMS, SITE } from '@/config/site';
 
+const MAX_BODY_BYTES = 64 * 1024;
+
 export async function POST(request) {
   try {
-    const data = await request.json();
-    const formName = data.formName || (data.items ? 'order' : 'contact');
+    // Throttle by IP before doing any work: 6 submissions per 10 minutes and 20 per hour.
+    const ip = clientIp(request);
+    const burst = await rateLimit(`form:ip10:${ip}`, 6, 600);
+    if (!burst.ok) return tooManyResponse(burst.retryAfter);
+    const hourly = await rateLimit(`form:ip60:${ip}`, 20, 3600);
+    if (!hourly.ok) return tooManyResponse(hourly.retryAfter);
+
+    const declared = Number(request.headers.get('content-length') || 0);
+    if (declared > MAX_BODY_BYTES) {
+      return Response.json({ success: false, error: 'Request too large.' }, { status: 413 });
+    }
+    const raw = await request.text();
+    if (raw.length > MAX_BODY_BYTES) {
+      return Response.json({ success: false, error: 'Request too large.' }, { status: 413 });
+    }
+    let data;
+    try {
+      data = JSON.parse(raw);
+    } catch {
+      return Response.json({ success: false, error: 'Invalid request.' }, { status: 400 });
+    }
+    if (!data || typeof data !== 'object') {
+      return Response.json({ success: false, error: 'Invalid request.' }, { status: 400 });
+    }
+
+    // Bot check: hidden field filled in, or submitted faster than a person could.
+    const guard = looksLikeBot(data);
+    if (guard.bot) {
+      if (guard.silent) return Response.json({ success: true, ref: generateOrderRef('TH') }); // looks fine to the bot, nothing is stored or sent
+      return Response.json({ success: false, error: 'Please take a moment to check your details and try again.' }, { status: 400 });
+    }
+
+    const formName = data.formName || (data.order ? 'order' : 'contact');
     const appUrl = process.env.APP_URL || `https://${SITE.domain}`;
 
     // 1. ORDER HANDLING (EITHER channel: email or whatsapp)
     if (formName === 'order') {
-      const { order, customer, channel } = data;
-      if (!customer?.email) {
-        return Response.json({ success: false, error: 'Customer email is required.' }, { status: 400 });
+      // Prices, totals, product names and status are rebuilt on the server. Nothing from the browser is trusted.
+      const result = buildServerOrder(data);
+      if (!result.ok) {
+        return Response.json({ success: false, error: result.error }, { status: 400 });
+      }
+      const { order, customer } = result;
+
+      // No more than 4 orders per hour for the same email address, so the site cannot be used to mail strangers.
+      const perEmail = await rateLimit(`form:email:${await emailKey(customer.email)}`, 4, 3600);
+      if (!perEmail.ok) return tooManyResponse(perEmail.retryAfter);
+
+      // Only crypto orders show a reference before placing (the payment popup), so only those may keep it,
+      // and only if it is well formed and unused. Every other order gets a server-made reference.
+      let ref = order.paymentMethod.startsWith('crypto-') ? result.requestedRef : '';
+      if (!isValidRef(ref) || (await getOrder(ref))) {
+        ref = generateOrderRef('TH');
+        for (let i = 0; i < 5 && (await getOrder(ref)); i++) ref = generateOrderRef('TH');
       }
 
       const orderRecord = {
         ...order,
-        channel: channel || 'email',
+        id: ref,
+        ref,
         customer,
+        accessToken: newAccessToken(),
         createdAt: new Date().toISOString(),
       };
 
@@ -56,29 +109,35 @@ export async function POST(request) {
         success: true,
         orderId: saved.id || saved.ref,
         ref: saved.ref,
+        token: saved.accessToken,
       });
     }
 
     // 2. CONTACT / WHOLESALE / ENQUIRY HANDLING
-    const { name, email, phone, message, subject } = data;
-    if (!name || !email || !message) {
-      return Response.json({ success: false, error: 'Name, email, and message are required.' }, { status: 400 });
+    const checked = validateEnquiry(data);
+    if (!checked.ok) {
+      return Response.json({ success: false, error: checked.error }, { status: 400 });
     }
+    const { name, email, phone, subject, message } = checked.enquiry;
+    const enquiryFormName = checked.enquiry.formName;
+
+    const perEmail = await rateLimit(`form:email:${await emailKey(email)}`, 4, 3600);
+    if (!perEmail.ok) return tooManyResponse(perEmail.retryAfter);
 
     const enquiryRecord = {
       name,
       email,
-      phone: phone || '',
-      subject: subject || (formName === 'wholesale' ? 'Wholesale Account Application' : 'Gear Advice & Quote'),
+      phone,
+      subject,
       message,
-      formName,
+      formName: enquiryFormName,
       createdAt: new Date().toISOString(),
     };
 
     const savedEnquiry = await saveEnquiry(enquiryRecord);
 
     const adminEmailData = enquiryNotificationAdminEmail(savedEnquiry, appUrl);
-    const dest = formName === 'wholesale'
+    const dest = enquiryFormName === 'wholesale'
       ? (process.env.WHOLESALE_EMAIL || FORMS.destinations.wholesale || CONTACT.email)
       : (process.env.CONTACT_EMAIL || FORMS.destinations.contact || CONTACT.email);
 

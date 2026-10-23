@@ -7,6 +7,7 @@ import { SITE, CONTACT } from '@/config/site';
 
 export default function TrackingPage() {
   const [orderInput, setOrderInput] = useState('');
+  const [emailInput, setEmailInput] = useState('');
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -21,13 +22,17 @@ export default function TrackingPage() {
     setResult(null);
 
     try {
-      const res = await fetch(`/api/order/payment-details?id=${encodeURIComponent(cleanId)}`);
+      const res = await fetch('/api/order/track', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ref: cleanId, email: emailInput.trim() }),
+      });
       const data = await res.json();
 
-      if (res.ok && data) {
+      if (res.ok && data && !data.error) {
         setResult(data);
       } else {
-        setError('Order reference not located. Please verify your reference (e.g. TH-ABC123) or contact our gear desk.');
+        setError(data && data.error ? data.error : 'We could not find that order. Please check your reference and email, or contact our team.');
       }
     } catch (err) {
       setError('Connection failure. Please check network.');
@@ -52,13 +57,24 @@ export default function TrackingPage() {
           Track Your Equipment Consignment
         </h1>
         <p className="text-sm text-slate-300 leading-relaxed max-w-2xl">
-          Enter your order reference number (e.g. TH-XXXXXX) from your confirmation email to inspect your live packing, payment verification, and courier dispatch milestone.
+          Enter the order reference from your confirmation email (for example TH-XXXXXX) and the email address you ordered with to see where your order is up to.
         </p>
       </div>
 
       {/* Tracking Input Card */}
       <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 space-y-4 shadow-xl">
         <form onSubmit={handleTrack} className="flex flex-col sm:flex-row gap-3">
+          <label htmlFor="track-email" className="sr-only">Email address used on the order</label>
+          <input
+            id="track-email"
+            type="email"
+            value={emailInput}
+            onChange={(e) => setEmailInput(e.target.value)}
+            placeholder="Email used on the order"
+            autoComplete="email"
+            className="flex-1 bg-slate-950 border border-slate-700 rounded-2xl py-3 px-4 text-white placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500"
+            required
+          />
           <div className="relative flex-1">
             <Search className="w-5 h-5 text-slate-500 absolute left-4 top-3.5 pointer-events-none" />
             <input

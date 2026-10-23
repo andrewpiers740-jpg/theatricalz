@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -24,6 +24,7 @@ import { money, generateOrderRef } from '@/lib/order';
 import { waOrderLink } from '@/lib/whatsapp';
 import CryptoPayModal from '@/components/CryptoPayModal';
 import PaymentMethodPicker from '@/components/PaymentMethodPicker';
+import Honeypot from '@/components/Honeypot';
 import { getToken, getNetwork } from '@/config/wallets';
 
 export default function CartDrawer() {
@@ -34,6 +35,11 @@ export default function CartDrawer() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [pay, setPay] = useState({ type: 'bank-transfer', token: '', network: '' });
+  const [honeypot, setHoneypot] = useState('');
+  const [startedAt, setStartedAt] = useState(() => Date.now());
+  useEffect(() => {
+    if (checkoutMode) setStartedAt(Date.now());
+  }, [checkoutMode]);
   const [cryptoOpen, setCryptoOpen] = useState(false);
   const [cryptoChannel, setCryptoChannel] = useState('email');
   const [cryptoRef, setCryptoRef] = useState('');
@@ -150,20 +156,25 @@ export default function CartDrawer() {
           order: orderPayload,
           customer: customerPayload,
           channel,
+customer: customerPayload,
+          _hp: honeypot,
+customer: customerPayload,
+          _t: startedAt,
         }),
       });
 
       const result = await res.json();
 
       if (res.ok && result.success) {
+        const finalRef = result.ref || orderRef;
         clearCart();
         setIsCartOpen(false);
         setCheckoutMode(null);
         setCryptoOpen(false);
         router.push(
           opts.crypto
-            ? `/order/confirm-payment/?id=${encodeURIComponent(orderRef)}`
-            : `/thank-you-order/?id=${encodeURIComponent(orderRef)}`
+            ? `/order/confirm-payment/?id=${encodeURIComponent(finalRef)}&token=${encodeURIComponent(result.token || '')}`
+            : `/thank-you-order/?id=${encodeURIComponent(finalRef)}`
         );
       } else {
         setError(result.error || 'Failed to place order. Please try again.');
@@ -390,6 +401,7 @@ export default function CartDrawer() {
                     </div>
                   </div>
 
+                  <Honeypot value={honeypot} onChange={setHoneypot} />
                   <PaymentMethodPicker
                     pay={pay}
                     onChange={setPay}

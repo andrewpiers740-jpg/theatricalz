@@ -10,6 +10,7 @@ import { waPaymentConfirmationLink } from '@/lib/whatsapp';
 function ConfirmPaymentContent() {
   const searchParams = useSearchParams();
   const id = searchParams.get('id') || '';
+  const token = searchParams.get('token') || '';
 
   const [notes, setNotes] = useState('');
   const [txHash, setTxHash] = useState('');
@@ -49,6 +50,7 @@ function ConfirmPaymentContent() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           id,
+          token,
           notes,
           transactionHash: txHash,
           receiptUrl: filePreview,

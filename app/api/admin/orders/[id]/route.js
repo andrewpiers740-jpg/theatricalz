@@ -3,7 +3,7 @@ import { checkAdminPasscode } from '@/lib/adminAuth';
 import { getOrder, deleteOrder, saveOrder } from '@/lib/orderStore';
 
 export async function GET(request, { params }) {
-  const authError = checkAdminPasscode(request);
+  const authError = await checkAdminPasscode(request);
   if (authError) return authError;
 
   const { id } = await params;
@@ -17,7 +17,7 @@ export async function GET(request, { params }) {
 }
 
 export async function DELETE(request, { params }) {
-  const authError = checkAdminPasscode(request);
+  const authError = await checkAdminPasscode(request);
   if (authError) return authError;
 
   const { id } = await params;
@@ -26,7 +26,7 @@ export async function DELETE(request, { params }) {
 }
 
 export async function PATCH(request, { params }) {
-  const authError = checkAdminPasscode(request);
+  const authError = await checkAdminPasscode(request);
   if (authError) return authError;
 
   const { id } = await params;

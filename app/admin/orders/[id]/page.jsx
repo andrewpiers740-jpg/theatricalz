@@ -83,7 +83,7 @@ export default function AdminOrderDetailPage({ params }) {
 
         <div className="flex items-center gap-2">
           <Link
-            href={`/order/payment-details/?id=${encodeURIComponent(ref)}`}
+            href={`/order/payment-details/?id=${encodeURIComponent(ref)}${order.accessToken ? `&token=${encodeURIComponent(order.accessToken)}` : ''}`}
             target="_blank"
             className="inline-flex items-center gap-1 text-xs text-slate-400 hover:text-amber-400 px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 transition"
           >

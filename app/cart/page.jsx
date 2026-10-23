@@ -24,6 +24,7 @@ import { SHOP, SITE, CONTACT } from '@/config/site';
 import { waOrderLink } from '@/lib/whatsapp';
 import CryptoPayModal from '@/components/CryptoPayModal';
 import PaymentMethodPicker from '@/components/PaymentMethodPicker';
+import Honeypot from '@/components/Honeypot';
 import { getToken, getNetwork } from '@/config/wallets';
 
 export default function CartPage() {
@@ -34,6 +35,8 @@ export default function CartPage() {
   const [error, setError] = useState('');
   const [cryptoOpen, setCryptoOpen] = useState(false);
   const [pay, setPay] = useState({ type: 'bank-transfer', token: '', network: '' });
+  const [honeypot, setHoneypot] = useState('');
+  const [startedAt] = useState(() => Date.now());
   const [cryptoChannel, setCryptoChannel] = useState('email');
   const [cryptoRef, setCryptoRef] = useState('');
 
@@ -141,17 +144,22 @@ export default function CartPage() {
           order: orderPayload,
           customer: customerPayload,
           channel,
+customer: customerPayload,
+          _hp: honeypot,
+customer: customerPayload,
+          _t: startedAt,
         }),
       });
 
       const result = await res.json();
       if (res.ok && result.success) {
+        const finalRef = result.ref || orderRef;
         clearCart();
         setCryptoOpen(false);
         router.push(
           opts.crypto
-            ? `/order/confirm-payment/?id=${encodeURIComponent(orderRef)}`
-            : `/thank-you-order/?id=${encodeURIComponent(orderRef)}`
+            ? `/order/confirm-payment/?id=${encodeURIComponent(finalRef)}&token=${encodeURIComponent(result.token || '')}`
+            : `/thank-you-order/?id=${encodeURIComponent(finalRef)}`
         );
       } else {
         setError(result.error || 'Failed to place order.');
@@ -386,6 +394,7 @@ export default function CartPage() {
                   </div>
                 </div>
 
+                <Honeypot value={honeypot} onChange={setHoneypot} />
                 <PaymentMethodPicker
                   pay={pay}
                   onChange={setPay}

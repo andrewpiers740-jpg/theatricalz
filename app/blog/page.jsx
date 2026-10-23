@@ -5,9 +5,9 @@ import { SITE, POSTS } from '@/config/site';
 import JsonLd from '@/components/JsonLd';
 
 export const metadata = {
-  title: 'Camera & Audio Tech Guides — Theatricalz Australia',
+  title: 'Camera, Audio & Music Gear Guides',
   description:
-    'In-depth cinema camera comparisons, 32-bit float audio workflows, and studio LED lighting setups by Melbourne production specialists.',
+    'Camera comparisons, audio workflows, lighting setups and buying guides to help Australian creators choose the right gear.',
   alternates: {
     canonical: `https://${SITE.domain}/blog/`,
   },
@@ -42,10 +42,10 @@ export default function BlogIndexPage() {
             Field Notes & Technical Reviews
           </div>
           <h1 className="text-3xl sm:text-4xl font-black text-white uppercase tracking-tight">
-            Cinema Tech Guides & Workflows
+            Gear Guides & Workflows
           </h1>
           <p className="text-sm text-slate-400 max-w-2xl leading-relaxed">
-            Written by working camera technicians and sound engineers at 3 Kirks Lane, Melbourne. Real set testing, codec breakdowns, and lighting shootouts.
+            Camera comparisons, audio workflows, lighting setups and buying guides from the Theatricalz team in Melbourne.
           </p>
         </div>
 

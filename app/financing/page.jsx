@@ -31,7 +31,7 @@ export default function FinancingPage() {
           Equipment Financing &mdash; Pay in 4 Interest-Free
         </h1>
         <p className="text-sm sm:text-base text-slate-300 leading-relaxed max-w-3xl">
-          Equip your next shoot, production, or studio upgrade today. Split your purchase across 4 equal fortnightly payments with 0% interest and zero surprise account keeping fees.
+          Get the gear you need today, whether it's a camera, microphone, light or instrument. Split your purchase across 4 equal fortnightly payments with 0% interest and zero surprise account keeping fees.
         </p>
       </div>
 
@@ -53,7 +53,7 @@ export default function FinancingPage() {
           </div>
           <h3 className="text-base font-bold text-white">Immediate Gear Dispatch</h3>
           <p className="text-xs text-slate-400 leading-relaxed">
-            No waiting for layby periods. We dispatch your cinema camera, microphone, or lighting kit immediately after the first payment clears.
+            No waiting for layby periods. We dispatch your camera, microphone, lighting kit or instrument immediately after the first payment clears.
           </p>
         </div>
 
@@ -188,7 +188,7 @@ export default function FinancingPage() {
             How Equipment Financing Works
           </h2>
           <p className="text-xs sm:text-sm text-slate-400 mt-1">
-            Getting your professional cinema and audio gear on set has never been faster.
+            Getting the gear you need has never been simpler.
           </p>
         </div>
 
@@ -199,7 +199,7 @@ export default function FinancingPage() {
             </div>
             <h4 className="text-sm font-bold text-white">Add Gear to Cart</h4>
             <p className="text-xs text-slate-400 leading-relaxed">
-              Select any in-stock camera body, prime lenses, microphones, or lighting fixtures up to $4,000 AUD.
+              Select any in-stock camera, lens, microphone, lighting or music item up to $4,000 AUD.
             </p>
           </div>
 

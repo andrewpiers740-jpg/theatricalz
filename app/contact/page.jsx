@@ -77,13 +77,13 @@ export default function ContactPage() {
       {/* Header */}
       <div className="max-w-3xl space-y-3 pb-6 border-b border-slate-800">
         <div className="text-xs font-bold uppercase tracking-wider text-amber-400">
-          Melbourne Pro Facility
+          Melbourne, Victoria
         </div>
         <h1 className="text-3xl sm:text-4xl font-black text-white uppercase tracking-tight">
           Contact Theatricalz Australia
         </h1>
         <p className="text-sm text-slate-300 leading-relaxed">
-          Need a package quote for your next shoot, confirmation of stock in our Melbourne facility, or technical mount advice? Contact our crew below.
+          Need a quote, a stock check, order help or advice on compatibility? Call, message us on WhatsApp or send an enquiry below and our Melbourne team will get back to you.
         </p>
       </div>
 

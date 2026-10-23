@@ -5,7 +5,7 @@
   "schema": "https://ucp.dev/schema/v1.json",
   "site": "https://theatricalz.com.au",
   "name": "Theatricalz",
-  "description": "Australia's Premier Pro Cinema, Photo, Video & Audio Specialists",
+  "description": "Pro Camera, Audio & Music Gear Australia",
   "services": [
     {
       "id": "product-catalog",

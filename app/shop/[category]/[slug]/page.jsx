@@ -221,7 +221,7 @@ export default async function ProductDetailPage({ params }) {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
           {/* Gallery Col */}
           <div className="lg:col-span-7 space-y-4">
-            <div className="relative bg-white aspect-[4/3] rounded-3xl overflow-hidden p-8 flex items-center justify-center border border-slate-800 shadow-2xl">
+            <div className="relative bg-white aspect-[4/3] rounded-3xl overflow-hidden p-8 flex items-center justify-center border border-slate-700/60 shadow-2xl shadow-black/40 ring-1 ring-amber-500/10">
               {product.images?.[0] ? (
                 <Image
                   src={product.images[0]}
@@ -282,7 +282,7 @@ export default async function ProductDetailPage({ params }) {
           </div>
 
           {/* Details & Buy Box */}
-          <div className="lg:col-span-5 space-y-6">
+          <div className="lg:col-span-5 space-y-6 lg:sticky lg:top-28 lg:self-start">
             <div>
               <div className="flex items-center justify-between text-xs mb-1.5">
                 <span className="font-mono font-bold text-amber-400 uppercase tracking-wider">
@@ -295,7 +295,7 @@ export default async function ProductDetailPage({ params }) {
               </div>
 
               {/* Exact Single H1 */}
-              <h1 className="text-2xl sm:text-3xl font-black text-white leading-tight uppercase tracking-tight">
+              <h1 className="text-xl sm:text-2xl lg:text-[1.65rem] font-extrabold text-white leading-snug tracking-tight">
                 {desc?.headline || product.name}
               </h1>
 
@@ -316,7 +316,7 @@ export default async function ProductDetailPage({ params }) {
             </div>
 
             {/* Pricing Section */}
-            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-3">
+            <div className="bg-gradient-to-b from-slate-900 to-slate-900/70 border border-amber-500/20 rounded-2xl p-5 space-y-3 shadow-lg shadow-black/20">
               {priceOnRequest ? (
                 <div>
                   <span className="text-2xl font-black text-white">Price on request</span>
@@ -390,7 +390,7 @@ export default async function ProductDetailPage({ params }) {
                 <p className="text-sm sm:text-base text-slate-200 leading-relaxed">{desc.intro}</p>
                 {desc.content.map((section) => (
                   <section key={section.h2} className="space-y-3">
-                    <h2 className="text-xl font-bold text-white uppercase tracking-tight">{section.h2}</h2>
+                    <h2 className="text-xl font-bold text-white uppercase tracking-tight border-l-4 border-amber-500 pl-3">{section.h2}</h2>
                     {section.body && <p className="text-sm text-slate-300 leading-relaxed">{section.body}</p>}
                     {section.bullets && <DescBullets items={section.bullets} />}
                     {section.sub?.map((sub) => (
@@ -407,7 +407,7 @@ export default async function ProductDetailPage({ params }) {
               <div className="space-y-6">
                 {product.content.map((section) => (
                   <section key={section.h2} className="space-y-3">
-                    <h2 className="text-xl font-bold text-white uppercase tracking-tight">{section.h2}</h2>
+                    <h2 className="text-xl font-bold text-white uppercase tracking-tight border-l-4 border-amber-500 pl-3">{section.h2}</h2>
                     {section.body && <p className="text-sm text-slate-300 leading-relaxed">{section.body}</p>}
                     {section.sub?.map((sub) => (
                       <div key={sub.h3} className="space-y-1.5">

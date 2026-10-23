@@ -17,7 +17,7 @@ export const metadata = {
   openGraph: {
     type: 'website',
     siteName: SITE.name,
-    title: `${SITE.name} — Australia's Premier Pro Cinema, Photo & Audio Supply`,
+    title: `${SITE.name} — ${SITE.tagline}`,
     description: BRAND.description,
     url: `https://${SITE.domain}/`,
     images: [
@@ -25,13 +25,13 @@ export const metadata = {
         url: 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=1200&h=630&fit=crop',
         width: 1200,
         height: 630,
-        alt: `${SITE.name} Pro Cinema & Broadcast Gear Melbourne`,
+        alt: `${SITE.name} — camera, audio and music gear, Melbourne`,
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: `${SITE.name} — Pro Cinema, Photo & Audio Supply`,
+    title: `${SITE.name} — ${SITE.tagline}`,
     description: BRAND.description,
     images: ['https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=1200&h=630&fit=crop'],
   },

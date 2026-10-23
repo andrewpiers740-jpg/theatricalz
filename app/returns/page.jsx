@@ -3,9 +3,9 @@ import { RotateCcw, ShieldCheck, CheckCircle2, ChevronRight, AlertCircle } from 
 import { SITE, CONTACT } from '@/config/site';
 
 export const metadata = {
-  title: 'Returns & Warranty Policy — Theatricalz Australia',
+  title: 'Returns & Warranty Policy',
   description:
-    '14-day pro gear returns, statutory Australian Consumer Law protections, and local manufacturer warranty services for cinema, photo, and audio hardware.',
+    '14-day returns on unopened items, Australian Consumer Law protections and local manufacturer warranty support for camera, audio, lighting and music gear.',
   alternates: {
     canonical: `https://${SITE.domain}/returns/`,
   },

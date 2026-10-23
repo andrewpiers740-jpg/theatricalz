@@ -1,10 +1,11 @@
 import Link from 'next/link';
-import { Film, ShieldCheck, Truck, RefreshCw, Star, Lock, Heart, ArrowUpRight } from 'lucide-react';
+import { ShieldCheck, Truck, RefreshCw, Star, Lock, Heart, ArrowUpRight } from 'lucide-react';
 import { SITE, CONTACT, SHOP, CATEGORIES } from '@/config/site';
 
 export default function Footer() {
   return (
-    <footer className="bg-slate-950 text-slate-300 border-t border-slate-800">
+    <footer className="bg-slate-950 text-slate-300 border-t border-slate-800 relative">
+      <div aria-hidden="true" className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-amber-500/60 to-transparent" />
       {/* Trust & Guarantee Banner */}
       <div className="border-b border-slate-800/80 bg-slate-900/50 py-8 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 text-center sm:text-left">
@@ -56,14 +57,13 @@ export default function Footer() {
           {/* Brand Info & Address */}
           <div className="lg:col-span-2 space-y-4">
             <Link href="/" className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-xl bg-amber-500 flex items-center justify-center text-slate-950 font-bold">
-                <Film className="w-5 h-5" />
-              </div>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/logo.svg" alt="" width={36} height={36} className="w-9 h-9 rounded-xl" />
               <span className="text-2xl font-black text-white tracking-tight uppercase">Theatricalz</span>
             </Link>
 
             <p className="text-sm text-slate-400 leading-relaxed max-w-md">
-              Australia’s premier supplier of pro cinema cameras, anamorphic lenses, wireless broadcast audio, high-output LED lighting, and studio post-production hardware.
+              Genuine Australian-stock cameras, lenses, audio, lighting, music instruments and production gear — shipped from Melbourne with official local warranties.
             </p>
 
             <div className="space-y-1.5 text-xs text-slate-400">
@@ -109,13 +109,13 @@ export default function Footer() {
 
           {/* Pro Categories */}
           <div>
-            <h4 className="text-xs font-bold uppercase tracking-wider text-white mb-4">
+            <h4 className="text-xs font-bold uppercase tracking-[0.15em] text-white mb-5 pb-2 border-b-2 border-amber-500/70 inline-block">
               Pro Equipment
             </h4>
             <ul className="space-y-2.5 text-sm">
               {CATEGORIES.map((cat) => (
                 <li key={cat.slug}>
-                  <Link href={`/shop/${cat.slug}/`} className="text-slate-400 hover:text-amber-400 transition">
+                  <Link href={`/shop/${cat.slug}/`} className="text-slate-400 hover:text-amber-400 hover:translate-x-0.5 inline-block transition">
                     {cat.name}
                   </Link>
                 </li>
@@ -130,37 +130,37 @@ export default function Footer() {
 
           {/* Customer Services & Ordering */}
           <div>
-            <h4 className="text-xs font-bold uppercase tracking-wider text-white mb-4">
+            <h4 className="text-xs font-bold uppercase tracking-[0.15em] text-white mb-5 pb-2 border-b-2 border-amber-500/70 inline-block">
               Customer & Sales
             </h4>
             <ul className="space-y-2.5 text-sm">
               <li>
-                <Link href="/tracking/" className="text-slate-400 hover:text-amber-400 transition">
+                <Link href="/tracking/" className="text-slate-400 hover:text-amber-400 hover:translate-x-0.5 inline-block transition">
                   StarTrack Order Tracking
                 </Link>
               </li>
               <li>
-                <Link href="/financing/" className="text-slate-400 hover:text-amber-400 transition">
+                <Link href="/financing/" className="text-slate-400 hover:text-amber-400 hover:translate-x-0.5 inline-block transition">
                   Pay in 4 Equipment Financing
                 </Link>
               </li>
               <li>
-                <Link href="/compare/" className="text-slate-400 hover:text-amber-400 transition">
+                <Link href="/compare/" className="text-slate-400 hover:text-amber-400 hover:translate-x-0.5 inline-block transition">
                   Gear Compare Tool
                 </Link>
               </li>
               <li>
-                <Link href="/wishlist/" className="text-slate-400 hover:text-amber-400 transition">
+                <Link href="/wishlist/" className="text-slate-400 hover:text-amber-400 hover:translate-x-0.5 inline-block transition">
                   Saved Gear Wishlist
                 </Link>
               </li>
               <li>
-                <Link href="/faq/" className="text-slate-400 hover:text-amber-400 transition">
+                <Link href="/faq/" className="text-slate-400 hover:text-amber-400 hover:translate-x-0.5 inline-block transition">
                   Help Desk & FAQs
                 </Link>
               </li>
               <li>
-                <Link href="/blog/" className="text-slate-400 hover:text-amber-400 transition">
+                <Link href="/blog/" className="text-slate-400 hover:text-amber-400 hover:translate-x-0.5 inline-block transition">
                   Camera & Audio Tech Guides
                 </Link>
               </li>
@@ -174,42 +174,42 @@ export default function Footer() {
 
           {/* Policies & Compliance */}
           <div>
-            <h4 className="text-xs font-bold uppercase tracking-wider text-white mb-4">
+            <h4 className="text-xs font-bold uppercase tracking-[0.15em] text-white mb-5 pb-2 border-b-2 border-amber-500/70 inline-block">
               Policies & Legal
             </h4>
             <ul className="space-y-2.5 text-sm">
               <li>
-                <Link href="/shipping/" className="text-slate-400 hover:text-amber-400 transition">
+                <Link href="/shipping/" className="text-slate-400 hover:text-amber-400 hover:translate-x-0.5 inline-block transition">
                   Delivery & Shipping Policy
                 </Link>
               </li>
               <li>
-                <Link href="/returns/" className="text-slate-400 hover:text-amber-400 transition">
+                <Link href="/returns/" className="text-slate-400 hover:text-amber-400 hover:translate-x-0.5 inline-block transition">
                   Returns & Warranty
                 </Link>
               </li>
               <li>
-                <Link href="/sales-policy/" className="text-slate-400 hover:text-amber-400 transition">
+                <Link href="/sales-policy/" className="text-slate-400 hover:text-amber-400 hover:translate-x-0.5 inline-block transition">
                   Sales Policy & GST
                 </Link>
               </li>
               <li>
-                <Link href="/terms/" className="text-slate-400 hover:text-amber-400 transition">
+                <Link href="/terms/" className="text-slate-400 hover:text-amber-400 hover:translate-x-0.5 inline-block transition">
                   Terms & Conditions
                 </Link>
               </li>
               <li>
-                <Link href="/privacy/" className="text-slate-400 hover:text-amber-400 transition">
+                <Link href="/privacy/" className="text-slate-400 hover:text-amber-400 hover:translate-x-0.5 inline-block transition">
                   Privacy Policy (GDPR / AU)
                 </Link>
               </li>
               <li>
-                <Link href="/about/" className="text-slate-400 hover:text-amber-400 transition">
+                <Link href="/about/" className="text-slate-400 hover:text-amber-400 hover:translate-x-0.5 inline-block transition">
                   About Us & Milestones
                 </Link>
               </li>
               <li>
-                <Link href="/contact/" className="text-slate-400 hover:text-amber-400 transition">
+                <Link href="/contact/" className="text-slate-400 hover:text-amber-400 hover:translate-x-0.5 inline-block transition">
                   Contact Melbourne Desk
                 </Link>
               </li>

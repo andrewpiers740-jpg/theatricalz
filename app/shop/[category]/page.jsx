@@ -136,7 +136,7 @@ export default async function CategoryPage({ params }) {
             .filter((sub) => categoryProducts.some((p) => p.subcategory === sub))
             .map((sub) => (
               <section key={sub} id={subSlug(sub)} className="space-y-4 scroll-mt-28">
-                <h2 className="text-lg sm:text-xl font-black text-white uppercase tracking-tight">{sub}</h2>
+                <h2 className="section-title text-lg sm:text-xl font-black text-white uppercase tracking-tight">{sub}</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                   {categoryProducts.filter((p) => p.subcategory === sub).slice(0, PREVIEW).map((product) => (
                     <ProductCard key={product.slug} product={product} />

@@ -60,7 +60,8 @@ export default function Nav() {
 
   return (
     <>
-      <header className="sticky top-0 z-40 bg-slate-900/95 backdrop-blur-md border-b border-slate-800 text-white">
+      <header className="sticky top-0 z-40 bg-slate-900/90 backdrop-blur-xl border-b border-slate-800 shadow-lg shadow-black/20 text-white">
+        <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-amber-500/60 to-transparent" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
             {/* Mobile Hamburger Button */}
@@ -79,18 +80,16 @@ export default function Nav() {
             {/* Brand Logo & Tagline */}
             <div className="flex items-center gap-3">
               <Link href="/" className="flex items-center gap-3 group">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-400 via-amber-500 to-amber-600 flex items-center justify-center text-slate-950 shadow-lg shadow-amber-500/20 group-hover:scale-105 transition-transform duration-200">
-                  <Film className="w-5 h-5 stroke-[2.5]" />
-                </div>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/logo.svg" alt="" width={40} height={40} className="w-10 h-10 rounded-xl shadow-lg shadow-amber-500/20 group-hover:scale-105 transition-transform duration-200" />
                 <div>
                   <div className="flex items-center gap-1.5">
                     <span className="text-xl sm:text-2xl font-black tracking-tight text-white uppercase font-sans">
                       Theatricalz
                     </span>
-                    <span className="w-2 h-2 rounded-full bg-amber-400"></span>
                   </div>
-                  <p className="hidden sm:block text-[10px] text-slate-400 font-medium tracking-wide uppercase">
-                    Pro Cinema, Photo & Audio Supply
+                  <p className="hidden sm:block text-[10px] text-slate-400 font-semibold tracking-[0.2em] uppercase">
+                    Pro Cinema • Photo • Video • Audio
                   </p>
                 </div>
               </Link>

@@ -3,9 +3,9 @@ import { Truck, ShieldCheck, Clock, MapPin, ChevronRight, CheckCircle2 } from 'l
 import { SITE, CONTACT, SHOP } from '@/config/site';
 
 export const metadata = {
-  title: 'Delivery & Shipping Policy — Theatricalz Australia',
+  title: 'Delivery & Shipping Policy',
   description:
-    'Free StarTrack Express courier delivery across Australia on pro gear orders over $500 AUD with full transit insurance and signature on delivery.',
+    'Free StarTrack Express delivery across Australia on orders over $500 AUD, with transit insurance and signature on delivery. Dispatched from Melbourne.',
   alternates: {
     canonical: `https://${SITE.domain}/shipping/`,
   },
@@ -31,7 +31,7 @@ export default function ShippingPage() {
           Delivery & Shipping Policy
         </h1>
         <p className="text-sm text-slate-300 leading-relaxed">
-          High-value cinema optics, cameras, and audio gear require careful packaging and secure transit. Discover how our Melbourne hub fulfills orders nationwide.
+          Cameras, lenses, audio gear and instruments need careful packaging and secure transit. Here is how we ship orders from Melbourne to the rest of Australia.
         </p>
       </div>
 
@@ -82,7 +82,7 @@ export default function ShippingPage() {
 
         <h2 className="text-xl font-bold text-white uppercase tracking-tight pt-4">Packaging & Signature Security</h2>
         <p>
-          High-precision lenses and cinema bodies are double-boxed using custom shock-absorbing foam inserts. We never ship bare manufacturer boxes. An adult signature is strictly required at delivery; couriers are instructed never to leave items unattended or safe-dropped.
+          High-value items such as lenses, camera bodies and audio gear are double-boxed using custom shock-absorbing foam inserts. We never ship bare manufacturer boxes. An adult signature is strictly required at delivery; couriers are instructed never to leave items unattended or safe-dropped.
         </p>
 
         <h2 className="text-xl font-bold text-white uppercase tracking-tight pt-4">Tracking Your Order</h2>

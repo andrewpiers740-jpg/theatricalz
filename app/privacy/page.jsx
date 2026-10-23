@@ -3,7 +3,7 @@ import { ChevronRight, ShieldCheck } from 'lucide-react';
 import { SITE, CONTACT } from '@/config/site';
 
 export const metadata = {
-  title: 'Privacy Policy — Theatricalz Australia',
+  title: 'Privacy Policy',
   description:
     'Our privacy policy explains how customer information is collected, stored, and protected in compliance with the Privacy Act 1988 (Cth) and GDPR principles.',
   alternates: {
@@ -38,7 +38,7 @@ export default function PrivacyPage() {
       <div className="prose prose-invert max-w-none text-slate-300 space-y-6 text-sm leading-relaxed">
         <h2 className="text-xl font-bold text-white uppercase tracking-tight">Information We Collect</h2>
         <p>
-          We only collect personal information strictly required to process your pro cinema equipment orders, deliver tax invoices, coordinate StarTrack express consignments, and provide technical warranty support. This includes your name, company/ABN, delivery street address, phone number, email address, and order transaction history.
+          We only collect personal information strictly required to process your equipment orders, deliver tax invoices, coordinate StarTrack express consignments, and provide technical warranty support. This includes your name, company/ABN, delivery street address, phone number, email address, and order transaction history.
         </p>
 
         <h2 className="text-xl font-bold text-white uppercase tracking-tight pt-4">No Third-Party Data Selling</h2>

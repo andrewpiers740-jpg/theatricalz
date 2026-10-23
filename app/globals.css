@@ -41,3 +41,12 @@ img, video, iframe {
   }
 }
 
+
+/* Section heading accent */
+.section-title { position: relative; padding-bottom: 0.75rem; }
+.section-title::after {
+  content: ""; position: absolute; left: 0; bottom: 0;
+  width: 3rem; height: 3px; border-radius: 2px;
+  background: linear-gradient(90deg, #f59e0b, #fbbf24);
+}
+.text-center .section-title::after, .section-title.text-center::after { left: 50%; transform: translateX(-50%); }

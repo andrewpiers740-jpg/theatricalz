@@ -3,7 +3,7 @@ import { ChevronRight } from 'lucide-react';
 import { SITE, CONTACT } from '@/config/site';
 
 export const metadata = {
-  title: 'Terms & Conditions — Theatricalz Australia',
+  title: 'Terms & Conditions',
   description:
     'Terms of service, website usage agreements, equipment availability, and consumer rights under Australian law.',
   alternates: {

@@ -2,7 +2,7 @@
 
 export const SITE = {
   name: 'Theatricalz',
-  tagline: "Australia's Premier Pro Cinema, Photo, Video & Audio Specialists",
+  tagline: 'Pro Camera, Audio & Music Gear Australia',
   domain: 'theatricalz.com.au',
   locale: 'en-AU',
   currency: 'AUD',
@@ -140,7 +140,7 @@ export const CHAT = {
 export const BRAND = {
   foundingYear: '2016',
   foundingLocation: 'Melbourne VIC 3000, Australia',
-  description: 'Founded in Melbourne in 2016, Theatricalz is Australia’s leading specialist supplier of cinema cameras, broadcast lenses, wireless audio, professional studio lighting, and post-production systems for cinematographers, production companies, and rental houses.',
+  description: 'Melbourne supplier of genuine Australian-stock cameras, audio, lighting, music gear and more. Prices in AUD inc. GST, free StarTrack Express over $500.',
   milestones: [
     { year: '2016', event: 'Theatricalz established at 3 Kirks Lane in Melbourne to support Victoria’s growing film and commercial production industry.' },
     { year: '2018', event: 'Appointed authorized pro distribution partner for cinema camera systems and broadcast optical packages.' },
@@ -149,11 +149,11 @@ export const BRAND = {
     { year: '2024', event: 'Crossed 15,000+ productions outfitted with gear and achieved 4.9/5 Trustpilot buyer satisfaction.' },
   ],
   differentiation: [
-    '100% Genuine Australian Stock with full manufacturer warranties',
-    'Free nationwide insured StarTrack express shipping on orders over $500',
-    'Dedicated cinema gear specialists with real set experience in Melbourne',
-    '10% Instant discount on cryptocurrency checkout (BTC, USDT, ETH, SOL)',
-    'Pay in 4 interest-free installments on all eligible pro gear',
+    '100% genuine Australian stock with official local manufacturer warranties',
+    'Free insured StarTrack Express shipping on orders over $500',
+    'Over 13,000 products from cinema cameras to guitars, all in one Melbourne store',
+    '10% off when you pay with cryptocurrency (BTC, USDT, ETH, SOL, BNB)',
+    'Pay in 4 interest-free instalments on eligible purchases',
   ],
   sameAs: [
     'https://abr.business.gov.au/ABN/View?abn=28614589481',
@@ -335,28 +335,48 @@ export const POSTS = [
 
 export const FAQ = [
   {
-    question: 'Are all products sold by Theatricalz 100% genuine Australian stock?',
-    answer: 'Yes, absolutely. All equipment supplied by Theatricalz is 100% genuine Australian stock sourced directly through official Australian distributor channels, accompanied by full local manufacturer warranties and Australian Consumer Law guarantees.',
+    question: 'Is everything you sell genuine Australian stock?',
+    answer: 'Yes. Every product is 100% genuine Australian stock, supplied with the official local manufacturer warranty and the guarantees you are entitled to under the Australian Consumer Law.',
   },
   {
-    question: 'What are your delivery timeframes across Australia?',
-    answer: 'Orders over $500 AUD receive free StarTrack Express shipping. Melbourne, Sydney, and Brisbane metro addresses typically receive orders within 1–2 business days. Regional and interstate deliveries generally arrive in 2–4 business days with full transit insurance.',
+    question: 'What does Theatricalz sell?',
+    answer: 'Cameras, lenses, monitors, gimbals and rigging for film and video; photography and studio lighting; microphones, interfaces and streaming gear; guitars, amps, drums, keys and DJ equipment; audio visual and install products; computers, mobile accessories, cables, cases, optics, radio and security gear; and clearly marked prop money for productions.',
   },
   {
-    question: 'How does the 10% cryptocurrency discount work at checkout?',
-    answer: 'When you select Crypto (BTC, USDT, ETH, BNB, or Solana) as your payment method, our system automatically deducts 10% from your order subtotal. You will receive real-time wallet details and instructions to complete your settlement securely.',
+    question: 'Are your prices in Australian dollars and do they include GST?',
+    answer: 'Yes. All prices are quoted in AUD and include 10% Australian GST. The price you see on the product page is the price you pay for the item, before any shipping that applies to orders under $500.',
   },
   {
-    question: 'Can I pay via PayID or direct Australian bank transfer (EFT)?',
-    answer: 'Yes. We support instant PayID transfers using our registered business identifier sales@theatricalz.com.au, as well as direct Australian EFT bank transfers. Use your order reference number (e.g. TH-XXXXXX) when sending payment for instant automatic reconciliation.',
+    question: 'How much does delivery cost and how long does it take?',
+    answer: 'Orders over $500 AUD ship free by StarTrack Express with transit insurance. Melbourne, Sydney and Brisbane metro addresses typically receive orders within 1–2 business days, and regional or interstate deliveries generally arrive in 2–4 business days. Our shipping policy has the full details.',
   },
   {
-    question: 'Do you offer financing or installment payment options?',
-    answer: 'Yes. We offer Pay in 4 interest-free installments on gear purchases, allowing you to split your equipment cost across 4 equal fortnightly payments with 0% interest and instant approval at checkout.',
+    question: 'How do I pay after I place an order?',
+    answer: 'We email you payment details and your order reference once your order is in. You can pay by PayID using sales@theatricalz.com.au, by Australian bank transfer (EFT), or with cryptocurrency. Please quote your order reference (for example TH-XXXXXX) so we can match your payment quickly.',
   },
   {
-    question: 'What is your returns and replacement policy?',
-    answer: 'We provide a comprehensive 14-day return policy for unopened, brand new gear in original factory-sealed packaging. If an item arrives defective or damaged during transit, we provide immediate priority express replacement under our warranty program.',
+    question: 'How does the 10% cryptocurrency discount work?',
+    answer: 'Choose Crypto (BTC, USDT, ETH, BNB or SOL) as your payment method at checkout and 10% is deducted from your order subtotal. We then send you the wallet details and instructions to complete your payment.',
+  },
+  {
+    question: 'Can I pay in instalments?',
+    answer: 'Yes. Eligible purchases can be split into 4 equal fortnightly payments with Pay in 4, with 0% interest.',
+  },
+  {
+    question: 'What do "Special order" and "Price on request" mean?',
+    answer: 'Special order items are not held in Melbourne stock. We confirm availability and lead time with you before you pay. Price on request products have no fixed online price, so use the Get a Quote button and we will reply with a price in AUD including GST.',
+  },
+  {
+    question: 'Can I return something I have bought?',
+    answer: 'You can return unopened, brand-new items in their original factory-sealed packaging within 14 days. If an item arrives defective or damaged in transit, contact us straight away and we will arrange a replacement under warranty. Your rights under the Australian Consumer Law are not affected.',
+  },
+  {
+    question: 'Is your prop money real currency?',
+    answer: 'No. Prop notes are clearly marked as props and are not legal tender. They are sold for film, TV, stage and photography use only and must never be spent or passed off as real money.',
+  },
+  {
+    question: 'Can you help me choose gear or check compatibility?',
+    answer: 'Yes. Call 0489 989 442, message us on WhatsApp or send an enquiry from our contact page with the model you own, and we will help you check mounts, connectors and compatibility before you buy.',
   },
 ];
 

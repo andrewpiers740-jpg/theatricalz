@@ -28,9 +28,9 @@ import TrustpilotReviewsList from '@/components/TrustpilotReviewsList';
 import JsonLd from '@/components/JsonLd';
 
 export const metadata = {
-  title: 'Theatricalz — Pro Cinema, Photo, Video & Audio Specialists Australia',
+  title: 'Theatricalz — Pro Camera, Audio & Music Gear Australia',
   description:
-    'Australia’s premier supplier of pro cinema cameras, lenses, wireless audio, studio lighting & rigging. Melbourne Kirks Lane hub with StarTrack Express shipping.',
+    'Shop over 13,000 genuine Australian-stock cameras, lenses, microphones, lighting, guitars and more from Melbourne. Free StarTrack Express over $500.',
   alternates: {
     canonical: `https://${SITE.domain}/`,
   },
@@ -99,7 +99,7 @@ export default function HomePage() {
     {
       '@context': 'https://schema.org',
       '@type': 'FAQPage',
-      mainEntity: FAQ.map((item) => ({
+      mainEntity: FAQ.slice(0, 6).map((item) => ({
         '@type': 'Question',
         name: item.question,
         acceptedAnswer: {
@@ -144,6 +144,7 @@ export default function HomePage() {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/80 to-transparent"></div>
           <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/90 to-transparent"></div>
+          <div aria-hidden="true" className="absolute -top-24 right-0 w-[40rem] h-[40rem] rounded-full bg-amber-500/10 blur-3xl"></div>
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 lg:py-28">
@@ -156,12 +157,12 @@ export default function HomePage() {
 
               {/* Exact Single H1 containing target keywords */}
               <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.1] uppercase">
-                Pro Cinema, Video & Audio Specialists Australia
+                Pro Camera, Audio & Music Gear <span className="text-amber-400">Australia</span>
               </h1>
 
               {/* Brand Entity Statement */}
               <p className="text-base sm:text-lg text-slate-300 max-w-2xl leading-relaxed">
-                Outfitting Australian cinematographers, broadcast crews, and production studios with genuine factory-authorized cinema cameras, high-speed anamorphic glass, 32-bit float audio, and high-output LED lighting.
+                Cinema cameras, lenses, microphones, LED lighting, guitars, drums, keys and more — over 13,000 genuine Australian-stock products from our Melbourne store, with official local warranties.
               </p>
 
               {/* Highlights List */}
@@ -188,15 +189,15 @@ export default function HomePage() {
               <div className="pt-4 flex flex-wrap items-center gap-4">
                 <Link
                   href="/shop/"
-                  className="px-6 py-3.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-sm tracking-wide uppercase transition duration-150 flex items-center gap-2 shadow-xl shadow-amber-500/20"
+                  className="px-6 py-3.5 rounded-xl bg-amber-500 hover:bg-amber-400 hover:-translate-y-0.5 text-slate-950 font-black text-sm tracking-wide uppercase transition duration-150 flex items-center gap-2 shadow-xl shadow-amber-500/25 hover:shadow-amber-500/40"
                 >
-                  <span>Explore Cinema Catalog</span>
+                  <span>Shop All Gear</span>
                   <ArrowRight className="w-4 h-4" />
                 </Link>
 
                 <Link
                   href="/financing/"
-                  className="px-6 py-3.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 text-white font-semibold text-sm transition border border-slate-700/80 flex items-center gap-2"
+                  className="px-6 py-3.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 hover:-translate-y-0.5 text-white font-semibold text-sm transition border border-slate-700/80 hover:border-amber-500/50 flex items-center gap-2"
                 >
                   <span>Pay in 4 Installments</span>
                 </Link>
@@ -205,7 +206,7 @@ export default function HomePage() {
 
             {/* Hero Showcase Card */}
             <div className="lg:col-span-5">
-              <div className="bg-slate-900/90 border border-slate-800 rounded-3xl p-6 shadow-2xl relative overflow-hidden backdrop-blur-md">
+              <div className="bg-slate-900/90 border border-slate-700/70 rounded-3xl p-6 shadow-2xl shadow-black/40 ring-1 ring-amber-500/10 relative overflow-hidden backdrop-blur-md">
                 <div className="flex items-center justify-between pb-4 border-b border-slate-800">
                   <div className="flex items-center gap-2">
                     <span className="w-3 h-3 rounded-full bg-amber-400 animate-pulse"></span>
@@ -220,7 +221,7 @@ export default function HomePage() {
 
                 <div className="relative aspect-[4/3] bg-white rounded-2xl overflow-hidden my-4 flex items-center justify-center p-4">
                   <Image
-                    src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=800&auto=format&fit=crop&q=80"
+                    src="/images/products/video/sony-fx3-cinema-line-camera.webp"
                     alt="Sony FX3 Cinema Line Full-Frame Camera"
                     fill
                     className="object-contain p-4"
@@ -307,10 +308,10 @@ export default function HomePage() {
         <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4">
           <div>
             <div className="text-xs font-bold uppercase tracking-wider text-amber-400 mb-1">
-              Complete Production Spectrum
+              Shop By Category
             </div>
-            <h2 className="text-2xl sm:text-3xl font-black text-white uppercase tracking-tight">
-              Explore Professional Categories
+            <h2 className="section-title text-2xl sm:text-3xl font-black text-white uppercase tracking-tight">
+              Find Gear For Every Project
             </h2>
           </div>
           <Link
@@ -374,10 +375,10 @@ export default function HomePage() {
           <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4">
             <div>
               <div className="text-xs font-bold uppercase tracking-wider text-amber-400 mb-1">
-                Immediate Dispatch Gear
+                Popular Right Now
               </div>
-              <h2 className="text-2xl sm:text-3xl font-black text-white uppercase tracking-tight">
-                Featured Cinema & Audio Hardware
+              <h2 className="section-title text-2xl sm:text-3xl font-black text-white uppercase tracking-tight">
+                Featured Gear
               </h2>
             </div>
             <Link
@@ -403,7 +404,7 @@ export default function HomePage() {
           <div className="text-xs font-bold uppercase tracking-wider text-emerald-400">
             Customer Feedback & Verification
           </div>
-          <h2 className="text-2xl sm:text-3xl font-black text-white uppercase tracking-tight">
+          <h2 className="section-title text-2xl sm:text-3xl font-black text-white uppercase tracking-tight">
             Rated 4.9/5 by Australian Creators & Crews
           </h2>
           <p className="text-sm text-slate-400">
@@ -419,9 +420,9 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           <div className="lg:col-span-6 space-y-5">
             <div className="text-xs font-bold uppercase tracking-wider text-amber-400">
-              Authority & Industry Standing
+              Who We Are
             </div>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white uppercase tracking-tight leading-tight">
+            <h2 className="section-title text-2xl sm:text-3xl lg:text-4xl font-black text-white uppercase tracking-tight leading-tight">
               About Theatricalz Australia
             </h2>
             <p className="text-sm text-slate-300 leading-relaxed">
@@ -435,7 +436,7 @@ export default function HomePage() {
               </div>
               <div className="p-4 rounded-xl bg-slate-950 border border-slate-800">
                 <div className="text-2xl font-black text-amber-400 font-mono">15,000+</div>
-                <div className="text-xs text-slate-400 font-medium mt-0.5">Film & Broadcast Crews Supplied</div>
+                <div className="text-xs text-slate-400 font-medium mt-0.5">Australian creators outfitted</div>
               </div>
               <div className="p-4 rounded-xl bg-slate-950 border border-slate-800">
                 <div className="text-2xl font-black text-amber-400 font-mono">100%</div>
@@ -443,7 +444,7 @@ export default function HomePage() {
               </div>
               <div className="p-4 rounded-xl bg-slate-950 border border-slate-800">
                 <div className="text-2xl font-black text-amber-400 font-mono">4.9 / 5</div>
-                <div className="text-xs text-slate-400 font-medium mt-0.5">Trustpilot Satisfaction</div>
+                <div className="text-xs text-slate-400 font-medium mt-0.5">Trustpilot average</div>
               </div>
             </div>
 
@@ -452,7 +453,7 @@ export default function HomePage() {
                 href="/about/"
                 className="inline-flex items-center gap-2 text-sm font-bold text-amber-400 hover:text-amber-300"
               >
-                <span>Read Full Founding Story & Milestones</span>
+                <span>Read Our Story</span>
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
@@ -462,7 +463,7 @@ export default function HomePage() {
             <div className="bg-slate-950 border border-slate-800 rounded-2xl p-6 space-y-4">
               <h3 className="text-base font-bold text-white flex items-center gap-2">
                 <Film className="w-5 h-5 text-amber-400" />
-                <span>Our Australian Supply Differentiators</span>
+                <span>Why Shop With Theatricalz</span>
               </h3>
               <ul className="space-y-3 text-xs text-slate-300">
                 {BRAND.differentiation.map((item, idx) => (
@@ -478,11 +479,11 @@ export default function HomePage() {
               <PhoneCall className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
               <div>
                 <strong className="text-white block font-semibold mb-0.5">
-                  Direct Melbourne Pro Facility Support
+                  Talk To Our Melbourne Team
                 </strong>
                 <span>
-                  Our gear desk at 3 Kirks Lane, Melbourne VIC 3000 is staffed by active film techs. Call{' '}
-                  <strong className="text-amber-400">{CONTACT.phoneDisplay}</strong> or message us on WhatsApp for rapid camera package quotes.
+                  Our team at 3 Kirks Lane, Melbourne VIC 3000 can help with stock, compatibility and quotes. Call{' '}
+                  <strong className="text-amber-400">{CONTACT.phoneDisplay}</strong> or message us on WhatsApp.
                 </span>
               </div>
             </div>
@@ -496,13 +497,13 @@ export default function HomePage() {
           <div className="space-y-3 max-w-xl">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 text-amber-400 text-xs font-bold border border-amber-500/20">
               <Sparkles className="w-3.5 h-3.5" />
-              <span>PAY IN 4 INTEREST-FREE INSTALLMENTS</span>
+              <span>PAY IN 4 · INTEREST-FREE</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl font-black text-white uppercase tracking-tight">
-              Flexible Equipment Finance For Australian Productions
+            <h2 className="section-title text-2xl sm:text-3xl font-black text-white uppercase tracking-tight">
+              Split Bigger Purchases Into 4 Payments
             </h2>
             <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-              Equip your next commercial or indie feature without tying up production capital. Split your equipment order across 4 equal fortnightly payments with 0% interest and instant approval at checkout.
+              Get the gear you need now and spread the cost across 4 equal fortnightly payments with 0% interest.
             </p>
           </div>
 
@@ -517,7 +518,7 @@ export default function HomePage() {
               href="/contact/"
               className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-semibold text-sm transition border border-slate-700 text-center"
             >
-              Speak to Finance Desk
+              Ask Our Team
             </Link>
           </div>
         </div>
@@ -530,16 +531,16 @@ export default function HomePage() {
             <div className="text-xs font-bold uppercase tracking-wider text-amber-400">
               Got Questions?
             </div>
-            <h2 className="text-2xl sm:text-3xl font-black text-white uppercase tracking-tight">
+            <h2 className="section-title text-2xl sm:text-3xl font-black text-white uppercase tracking-tight">
               Frequently Asked Questions
             </h2>
             <p className="text-xs sm:text-sm text-slate-400">
-              Clear answers regarding our Australian warranties, StarTrack delivery, cryptocurrency discount, and PayID settlements.
+              Quick answers on genuine stock, delivery, payment options and returns.
             </p>
           </div>
 
           <div className="space-y-4">
-            {FAQ.map((item, idx) => (
+            {FAQ.slice(0, 6).map((item, idx) => (
               <div
                 key={idx}
                 className="bg-slate-900 border border-slate-800 rounded-2xl p-6 space-y-2 hover:border-slate-700 transition"
@@ -560,7 +561,7 @@ export default function HomePage() {
               href="/faq/"
               className="inline-flex items-center gap-1.5 text-xs font-bold text-amber-400 hover:underline"
             >
-              <span>View complete policy documentation and warranty help desk</span>
+              <span>See all help &amp; FAQs</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>

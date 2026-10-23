@@ -102,8 +102,8 @@ export default function ShopIndexPage() {
           return (
             <section key={c.slug} className="space-y-4 pt-2">
               <div className="flex items-end justify-between gap-4">
-                <h2 className="text-lg sm:text-xl font-black text-white uppercase tracking-tight">{c.name}</h2>
-                <Link href={`/shop/${c.slug}/`} className="text-xs font-semibold text-amber-400 hover:text-amber-300 shrink-0">
+                <h2 className="section-title text-lg sm:text-xl font-black text-white uppercase tracking-tight">{c.name}</h2>
+                <Link href={`/shop/${c.slug}/`} className="text-xs font-semibold text-amber-400 hover:text-slate-950 hover:bg-amber-400 border border-amber-500/40 rounded-full px-3 py-1.5 transition shrink-0">
                   View all {items.length} →
                 </Link>
               </div>

@@ -147,7 +147,7 @@ export default function CartDrawer() {
       />
 
       <div className="fixed inset-y-0 right-0 max-w-full flex pl-10">
-        <div className="w-screen max-w-md sm:max-w-lg bg-slate-900 border-l border-slate-800 text-white flex flex-col shadow-2xl">
+        <div className="w-screen max-w-md sm:max-w-lg bg-slate-900 border-l border-amber-500/20 text-white flex flex-col shadow-2xl shadow-black/60">
           {/* Header */}
           <div className="p-4 sm:p-6 border-b border-slate-800 flex items-center justify-between">
             <div className="flex items-center gap-2.5">
@@ -185,7 +185,7 @@ export default function CartDrawer() {
             <div className="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
               <div
                 className={`h-full transition-all duration-300 ${
-                  freeShippingMet ? 'bg-emerald-500' : 'bg-amber-500'
+                  freeShippingMet ? 'bg-gradient-to-r from-emerald-500 to-emerald-400' : 'bg-gradient-to-r from-amber-500 to-amber-300'
                 }`}
                 style={{ width: `${progressPercent}%` }}
               ></div>
@@ -246,7 +246,7 @@ export default function CartDrawer() {
                       value={formData.name}
                       onChange={handleInputChange}
                       placeholder="e.g. Lachlan Murdoch"
-                      className="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-amber-500"
+                      className="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/40 transition"
                       required
                     />
                   </div>
@@ -262,7 +262,7 @@ export default function CartDrawer() {
                         value={formData.email}
                         onChange={handleInputChange}
                         placeholder="pro@production.com.au"
-                        className="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-amber-500"
+                        className="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/40 transition"
                         required
                       />
                     </div>
@@ -276,7 +276,7 @@ export default function CartDrawer() {
                         value={formData.phone}
                         onChange={handleInputChange}
                         placeholder="0489 989 442"
-                        className="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-amber-500"
+                        className="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/40 transition"
                         required
                       />
                     </div>
@@ -292,7 +292,7 @@ export default function CartDrawer() {
                       value={formData.address}
                       onChange={handleInputChange}
                       placeholder="e.g. Studio 4, 3 Kirks Lane"
-                      className="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-amber-500"
+                      className="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/40 transition"
                       required
                     />
                   </div>
@@ -306,7 +306,7 @@ export default function CartDrawer() {
                         value={formData.city}
                         onChange={handleInputChange}
                         placeholder="Melbourne"
-                        className="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-amber-500"
+                        className="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/40 transition"
                       />
                     </div>
                     <div>
@@ -315,7 +315,7 @@ export default function CartDrawer() {
                         name="state"
                         value={formData.state}
                         onChange={handleInputChange}
-                        className="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-1 focus:ring-amber-500"
+                        className="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/40 transition"
                       >
                         <option value="VIC">VIC</option>
                         <option value="NSW">NSW</option>
@@ -335,7 +335,7 @@ export default function CartDrawer() {
                         value={formData.postcode}
                         onChange={handleInputChange}
                         placeholder="3000"
-                        className="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-amber-500"
+                        className="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/40 transition"
                       />
                     </div>
                   </div>
@@ -348,7 +348,7 @@ export default function CartDrawer() {
                       name="paymentMethod"
                       value={formData.paymentMethod}
                       onChange={handleInputChange}
-                      className="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2.5 text-white font-medium focus:outline-none focus:ring-1 focus:ring-amber-500"
+                      className="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2.5 text-white font-medium focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/40 transition"
                     >
                       <option value="crypto-USDT">Crypto (USDT TRC20/ERC20) — Instant 10% Off</option>
                       <option value="crypto-BTC">Crypto (Bitcoin / BTC) — Instant 10% Off</option>
@@ -379,7 +379,7 @@ export default function CartDrawer() {
                       value={formData.notes}
                       onChange={handleInputChange}
                       placeholder="e.g. Leave at front reception with signature, shoot starts Friday."
-                      className="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-amber-500"
+                      className="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/40 transition"
                     />
                   </div>
                 </div>
@@ -390,7 +390,7 @@ export default function CartDrawer() {
                     type="button"
                     disabled={loading}
                     onClick={() => handleProcessCheckout('email')}
-                    className="w-full py-3 px-4 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-xl transition duration-150 flex items-center justify-center gap-2 shadow-lg disabled:opacity-50"
+                    className="w-full py-3 px-4 bg-amber-500 hover:bg-amber-400 active:scale-[0.99] text-slate-950 font-bold rounded-xl transition duration-150 flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20 disabled:opacity-50"
                   >
                     <span>{loading ? 'Processing Order...' : `Place Order — ${money(finalTotal)} AUD`}</span>
                     <ArrowRight className="w-4 h-4" />
@@ -512,7 +512,7 @@ export default function CartDrawer() {
                 <button
                   type="button"
                   onClick={() => setCheckoutMode('form')}
-                  className="w-full py-3.5 px-4 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-xl transition duration-150 flex items-center justify-center gap-2 shadow-lg shadow-amber-500/10 text-sm"
+                  className="w-full py-3.5 px-4 bg-amber-500 hover:bg-amber-400 active:scale-[0.99] text-slate-950 font-bold rounded-xl transition duration-150 flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20 shadow-amber-500/10 text-sm"
                 >
                   <span>Proceed to Checkout</span>
                   <ArrowRight className="w-4 h-4" />

@@ -4,9 +4,9 @@ import { FAQ, SITE, CONTACT } from '@/config/site';
 import JsonLd from '@/components/JsonLd';
 
 export const metadata = {
-  title: 'Frequently Asked Questions & Support — Theatricalz',
+  title: 'Help & FAQ — Delivery, Payment & Returns',
   description:
-    'Common questions regarding genuine Australian warranties, StarTrack delivery timeframes, 10% crypto discount, PayID, and Pay in 4 equipment financing.',
+    'Answers on genuine Australian stock, StarTrack delivery, PayID and crypto payment, Pay in 4, returns, special orders and prop money at Theatricalz.',
   alternates: {
     canonical: `https://${SITE.domain}/faq/`,
   },
@@ -70,7 +70,7 @@ export default function FAQPage() {
             Frequently Asked Questions
           </h1>
           <p className="text-sm text-slate-300 leading-relaxed max-w-2xl">
-            Everything you need to know about our Australian stock authenticity, insured express dispatch, Pay in 4 equipment financing, and 10% cryptocurrency discounts.
+            Quick answers about genuine Australian stock, delivery, payment options, returns and special-order items. Can't find what you need? Our Melbourne team is happy to help.
           </p>
         </div>
 
@@ -94,16 +94,16 @@ export default function FAQPage() {
 
         {/* Still Have Questions Box */}
         <div className="bg-slate-900/60 border border-slate-800 rounded-2xl p-8 text-center space-y-4">
-          <h3 className="text-lg font-bold text-white">Need Further Technical Clarification?</h3>
+          <h3 className="text-lg font-bold text-white">Still Need A Hand?</h3>
           <p className="text-xs sm:text-sm text-slate-400 max-w-lg mx-auto">
-            Our Melbourne cinema gear desk is ready to answer specific technical compatibility questions regarding lens mounts, wireless frequencies, and studio installations.
+            Our Melbourne team can help with compatibility, stock and quotes — whether it's a lens mount, a wireless system, an audio interface or an instrument.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
             <Link
               href="/contact/"
               className="px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs uppercase tracking-wider transition"
             >
-              Contact Gear Desk
+              Contact Our Team
             </Link>
             <a
               href={`tel:${CONTACT.phone}`}

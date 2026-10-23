@@ -3,7 +3,7 @@ import { DollarSign, ChevronRight, FileText, CheckCircle2 } from 'lucide-react';
 import { SITE, CONTACT } from '@/config/site';
 
 export const metadata = {
-  title: 'Sales Policy & Australian GST — Theatricalz',
+  title: 'Sales Policy & Australian GST',
   description:
     'Australian sales policy, 10% GST breakdown on all tax invoices, payment rail verification, and corporate purchase order guidelines.',
   alternates: {

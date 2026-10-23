@@ -17,9 +17,9 @@ export default function ProductCard({ product }) {
   const payInFour = price / 4;
 
   return (
-    <div className="bg-slate-900 border border-slate-800 hover:border-slate-700/80 rounded-2xl overflow-hidden flex flex-col justify-between transition-all duration-200 group hover:shadow-xl hover:shadow-amber-500/5">
+    <div className="bg-slate-900 border border-slate-800 hover:border-amber-500/40 rounded-2xl overflow-hidden flex flex-col justify-between transition-all duration-200 group hover:-translate-y-1 hover:shadow-2xl hover:shadow-amber-500/10 focus-within:border-amber-500/60">
       {/* Product Image Frame */}
-      <div className="relative bg-white aspect-[4/3] w-full overflow-hidden flex items-center justify-center p-4">
+      <div className="relative bg-white aspect-[4/3] w-full overflow-hidden flex items-center justify-center p-4 border-b border-slate-200/10 shadow-[inset_0_-12px_16px_-12px_rgba(15,23,42,0.12)]">
         {product.images?.[0] ? (
           <Image
             src={product.images[0]}
@@ -82,14 +82,14 @@ export default function ProductCard({ product }) {
           </div>
 
           {/* Title */}
-          <h3 className="font-bold text-white text-base leading-snug group-hover:text-amber-400 transition-colors line-clamp-2">
+          <h3 className="font-bold text-white text-base leading-snug min-h-[2.75rem] group-hover:text-amber-400 transition-colors line-clamp-2">
             <Link href={`/shop/${product.category}/${product.slug}/`}>
               {product.name}
             </Link>
           </h3>
 
           {/* Short Description */}
-          <p className="text-xs text-slate-400 line-clamp-2 mt-1.5 leading-relaxed">
+          <p className="text-xs text-slate-400 line-clamp-2 min-h-[2.25rem] mt-1.5 leading-relaxed">
             {product.shortDescription || product.description}
           </p>
 
@@ -147,7 +147,7 @@ export default function ProductCard({ product }) {
           <div className="grid grid-cols-2 gap-2">
             <Link
               href={`/shop/${product.category}/${product.slug}/`}
-              className="py-2.5 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-xs font-semibold text-center transition border border-slate-700"
+              className="py-2.5 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 hover:border-slate-500 text-white text-xs font-semibold text-center transition border border-slate-700"
             >
               Specs & Detail
             </Link>
@@ -155,7 +155,7 @@ export default function ProductCard({ product }) {
             {priceOnRequest ? (
               <Link
                 href={`/contact/?product=${encodeURIComponent(product.name)}`}
-                className="py-2.5 px-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-bold transition flex items-center justify-center gap-1.5 shadow-md shadow-amber-500/10"
+                className="py-2.5 px-3 rounded-xl bg-amber-500 hover:bg-amber-400 active:scale-[0.98] text-slate-950 text-xs font-bold transition flex items-center justify-center gap-1.5 shadow-md shadow-amber-500/20"
               >
                 <span>Get a Quote</span>
               </Link>
@@ -163,7 +163,7 @@ export default function ProductCard({ product }) {
             <button
               type="button"
               onClick={() => addToCart(product, 1)}
-              className="py-2.5 px-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-bold transition flex items-center justify-center gap-1.5 shadow-md shadow-amber-500/10"
+              className="py-2.5 px-3 rounded-xl bg-amber-500 hover:bg-amber-400 active:scale-[0.98] text-slate-950 text-xs font-bold transition flex items-center justify-center gap-1.5 shadow-md shadow-amber-500/20"
               aria-label={`Add ${product.name} to cart`}
             >
               <ShoppingBag className="w-3.5 h-3.5" />

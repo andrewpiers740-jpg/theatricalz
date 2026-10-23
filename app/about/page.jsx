@@ -4,9 +4,9 @@ import { SITE, BRAND, CONTACT } from '@/config/site';
 import JsonLd from '@/components/JsonLd';
 
 export const metadata = {
-  title: 'About Theatricalz — Pro Cinema & Audio Supply Melbourne',
+  title: 'About Us — Melbourne Pro Gear Supplier',
   description:
-    'Founded in 2016 in Melbourne VIC, Theatricalz supplies Australia’s cinema, photo, video, and audio production community with genuine authorized equipment.',
+    'Theatricalz is a Melbourne supplier of genuine Australian-stock cameras, audio, lighting, music gear and more. Founded 2016, ABN 28 614 589 481.',
   alternates: {
     canonical: `https://${SITE.domain}/about/`,
   },
@@ -88,60 +88,69 @@ export default function AboutPage() {
             About Theatricalz Australia
           </h1>
           <p className="text-base sm:text-lg text-slate-300 leading-relaxed max-w-3xl">
-            From our founding headquarters at 3 Kirks Lane, Melbourne, Theatricalz has evolved into Australia’s premier specialist pro cinema, photo, video, and audio gear partner.
+            Theatricalz is a Melbourne-based supplier of cameras, lenses, microphones, lighting, music instruments and production accessories — genuine Australian stock, priced in AUD including GST, and backed by official local warranties.
           </p>
         </div>
 
-        {/* Narrative Section (>700 words entity rich) */}
+        {/* At a glance — verified facts only */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          {[
+            { stat: '2016', label: 'Founded in Melbourne, Victoria' },
+            { stat: '15,000+', label: 'Australian creators and productions outfitted' },
+            { stat: '4.9 / 5', label: 'Average across 300 verified Trustpilot reviews' },
+          ].map((f) => (
+            <div key={f.label} className="p-5 rounded-2xl bg-slate-900 border border-slate-800 text-center sm:text-left">
+              <div className="text-3xl font-black text-amber-400 font-mono">{f.stat}</div>
+              <div className="text-xs text-slate-300 mt-1 leading-relaxed">{f.label}</div>
+            </div>
+          ))}
+        </div>
+
+        {/* Narrative */}
         <div className="prose prose-invert max-w-none text-slate-300 space-y-6 text-sm sm:text-base leading-relaxed">
-          <h2 className="text-xl sm:text-2xl font-bold text-white uppercase tracking-tight">
-            Our Origins in Victoria’s Film Heartland
+          <h2 className="section-title text-xl sm:text-2xl font-bold text-white uppercase tracking-tight">
+            Who We Are
           </h2>
           <p>
-            Established in Melbourne in 2016, Theatricalz was built by working camera technicians and production crew who recognized an urgent gap in the Australian market: filmmakers, commercial production houses, and broadcast networks were struggling to obtain genuine, high-end optical systems, 32-bit float location audio equipment, and professional high-output LED fixtures with swift local dispatch and real technical accountability.
+            Theatricalz Australia Pty Ltd has traded from 3 Kirks Lane, Melbourne VIC 3000 since 2016. We supply the gear that Australian filmmakers, photographers, podcasters, streamers, musicians, venues and schools use every day — and we do it as a local business you can phone, email or message on WhatsApp.
           </p>
           <p>
-            Operating out of our central facility at 3 Kirks Lane, Melbourne VIC 3000, we established direct relationships with authorized Australian factory distributors. Our founding mission was unshakeable: zero grey-market imports, zero dubious overseas stock, and zero unverified warranties. Every cinema camera package, prime lens set, wireless lavalier kit, and motorized camera gimbal we ship carries full Australian Consumer Law statutory protections and comprehensive local manufacturer warranty coverage.
+            Our focus is simple: genuine products, honest descriptions and clear pricing. Every item is sold as 100% genuine Australian stock with the official local manufacturer warranty, and all prices are quoted in AUD including 10% GST. Your rights under the Australian Consumer Law apply to every order.
           </p>
 
-          <h2 className="text-xl sm:text-2xl font-bold text-white uppercase tracking-tight pt-4">
-            National Footprint & Insured StarTrack Express Logistics
+          <h2 className="section-title text-xl sm:text-2xl font-bold text-white uppercase tracking-tight pt-4">
+            What You Can Buy
           </h2>
           <p>
-            What began as a boutique Melbourne film equipment supply desk now serves cinematographers, independent filmmakers, documentary creators, university film faculties, and television stations across all Australian states and territories. Whether delivering a multi-camera Sony FX3 kit to a commercial set in Sydney, outfitting a wildlife film team in Far North Queensland with weather-sealed Canon C70 bodies and Sennheiser shotgun microphones, or supplying cinema prime glass to Perth and Adelaide, our dispatch operations are engineered for set deadlines.
+            Our catalogue covers more than 13,000 products across the full creative chain. <Link href="/shop/video/" className="text-amber-400 hover:underline">Video</Link> includes cinema cameras, lenses, monitors, gimbals, tripods and rigging; <Link href="/shop/photography/" className="text-amber-400 hover:underline">Photography</Link> covers cameras, lenses and accessories; <Link href="/shop/lighting-studio/" className="text-amber-400 hover:underline">Lighting &amp; Studio</Link> stocks LED panels, modifiers and stands; and <Link href="/shop/streaming-podcasting/" className="text-amber-400 hover:underline">Streaming &amp; Podcasting</Link> brings together capture cards, microphones and interfaces.
           </p>
           <p>
-            All Australian orders exceeding $500 AUD receive complimentary StarTrack Express priority courier freight, fully insured against transit loss and requiring an adult signature upon delivery. When production shoot dates are fixed, our clients know our Melbourne fulfillment hub operates on strict same-day dispatch cutoffs.
+            On the audio and music side, <Link href="/shop/music-audio/" className="text-amber-400 hover:underline">Music &amp; Audio</Link> spans microphones, interfaces, monitors, guitars, amps, drums, keys and synths, brass and woodwind, and DJ and live-sound equipment. You will also find <Link href="/shop/audio-visual/" className="text-amber-400 hover:underline">Audio Visual</Link> and install gear, <Link href="/shop/computers/" className="text-amber-400 hover:underline">computers</Link>, <Link href="/shop/mobile/" className="text-amber-400 hover:underline">mobile</Link> accessories, <Link href="/shop/cables-connectors/" className="text-amber-400 hover:underline">cables and connectors</Link>, <Link href="/shop/cases-bags/" className="text-amber-400 hover:underline">cases and bags</Link>, <Link href="/shop/outdoor-optics/" className="text-amber-400 hover:underline">outdoor and optics</Link>, <Link href="/shop/radio-security/" className="text-amber-400 hover:underline">radio and security</Link> products, and clearly marked <Link href="/shop/prop-money/" className="text-amber-400 hover:underline">prop money</Link> for screen and stage productions.
+          </p>
+          <p>
+            We stock ranges from brands including Sony, Blackmagic Design, RODE, Sennheiser, Shure, SmallRig, DJI, Aputure, Yamaha, Roland, Fender and many more. Some items are special-order; where that applies, the product page says so and we confirm stock and lead time with you before you pay.
           </p>
 
-          <h2 className="text-xl sm:text-2xl font-bold text-white uppercase tracking-tight pt-4">
-            Embracing Modern Production Settlement: Crypto & Instant PayID
+          <h2 className="section-title text-xl sm:text-2xl font-bold text-white uppercase tracking-tight pt-4">
+            Delivery Across Australia
           </h2>
           <p>
-            Theatricalz is recognized across Australia as an early pioneer in modern commercial payment rails. We understand the financial complexities of independent film financing, equipment budgets, and international co-productions. In addition to direct Australian EFT interbank transfers via National Australia Bank (NAB) and instant 24/7 PayID settlements, we proudly offer a dedicated 10% discount on orders settled via major cryptocurrencies including Bitcoin (BTC), Tether (USDT), Ethereum (ETH), Solana (SOL), and BNB. This forward-looking capability provides significant savings to forward-thinking production crews and creative studios.
+            We dispatch from Melbourne to every state and territory by StarTrack Express. Orders over $500 AUD ship free, and our <Link href="/shipping/" className="text-amber-400 hover:underline">shipping policy</Link> sets out timeframes, insurance and signature requirements in full.
           </p>
-        </div>
 
-        {/* Milestones Timeline */}
-        <div className="space-y-6 pt-6 border-t border-slate-800">
-          <h2 className="text-xl sm:text-2xl font-bold text-white uppercase tracking-tight">
-            Historical Milestones & Growth
+          <h2 className="section-title text-xl sm:text-2xl font-bold text-white uppercase tracking-tight pt-4">
+            Flexible Ways To Pay
           </h2>
-          <div className="space-y-4">
-            {BRAND.milestones.map((m) => (
-              <div
-                key={m.year}
-                className="flex items-start gap-4 p-4 rounded-2xl bg-slate-900 border border-slate-800"
-              >
-                <div className="px-3 py-1 rounded-xl bg-amber-500/10 text-amber-400 font-mono font-black text-sm border border-amber-500/20 shrink-0">
-                  {m.year}
-                </div>
-                <div className="text-sm text-slate-300 leading-relaxed">
-                  {m.event}
-                </div>
-              </div>
-            ))}
-          </div>
+          <p>
+            Pay by PayID or Australian bank transfer, split larger purchases with <Link href="/financing/" className="text-amber-400 hover:underline">Pay in 4</Link>, or take 10% off when you settle in cryptocurrency (BTC, USDT, ETH, SOL or BNB). After you place an order we email your payment details and order reference so you can pay securely.
+          </p>
+
+          <h2 className="section-title text-xl sm:text-2xl font-bold text-white uppercase tracking-tight pt-4">
+            Talk To A Person
+          </h2>
+          <p>
+            Not sure which lens mount, wireless system or interface fits your setup? <Link href="/contact/" className="text-amber-400 hover:underline">Contact our Melbourne team</Link> on {CONTACT.phoneDisplay} or by email and we will help you check compatibility before you buy.
+          </p>
         </div>
 
         {/* Company Registration Details */}

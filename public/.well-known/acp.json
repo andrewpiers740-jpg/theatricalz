@@ -4,7 +4,7 @@
     "version": "0.1.0"
   },
   "name": "Theatricalz",
-  "description": "Australia's Premier Pro Cinema, Photo, Video & Audio Specialists",
+  "description": "Pro Camera, Audio & Music Gear Australia",
   "api_base_url": "https://theatricalz.com.au",
   "homepage": "https://theatricalz.com.au",
   "transports": [

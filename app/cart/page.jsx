@@ -227,7 +227,7 @@ export default function CartPage() {
 
           {/* Checkout & Delivery Form */}
           <div className="lg:col-span-5 space-y-6">
-            <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 space-y-4">
+            <div className="bg-gradient-to-b from-slate-900 to-slate-900/70 border border-amber-500/20 rounded-3xl p-6 sm:p-8 space-y-4 shadow-xl shadow-black/30">
               <h3 className="text-base font-bold text-white uppercase tracking-tight pb-2 border-b border-slate-800">
                 Delivery & Payment Details
               </h3>
@@ -248,7 +248,7 @@ export default function CartPage() {
                     value={formData.name}
                     onChange={handleInputChange}
                     placeholder="e.g. Lachlan Murdoch"
-                    className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-amber-500"
+                    className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/40 transition"
                     required
                   />
                 </div>
@@ -262,7 +262,7 @@ export default function CartPage() {
                       value={formData.email}
                       onChange={handleInputChange}
                       placeholder="name@production.com.au"
-                      className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-amber-500"
+                      className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/40 transition"
                       required
                     />
                   </div>
@@ -274,7 +274,7 @@ export default function CartPage() {
                       value={formData.phone}
                       onChange={handleInputChange}
                       placeholder="0489 989 442"
-                      className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-amber-500"
+                      className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/40 transition"
                       required
                     />
                   </div>
@@ -288,7 +288,7 @@ export default function CartPage() {
                     value={formData.address}
                     onChange={handleInputChange}
                     placeholder="Studio / Production Address"
-                    className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-amber-500"
+                    className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/40 transition"
                     required
                   />
                 </div>
@@ -384,7 +384,7 @@ export default function CartPage() {
                   type="button"
                   disabled={loading}
                   onClick={() => handleProcessCheckout('email')}
-                  className="w-full py-3.5 px-4 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-xl transition duration-150 flex items-center justify-center gap-2 text-sm shadow-lg disabled:opacity-50"
+                  className="w-full py-3.5 px-4 bg-amber-500 hover:bg-amber-400 active:scale-[0.99] text-slate-950 font-bold rounded-xl transition duration-150 flex items-center justify-center gap-2 text-sm shadow-lg shadow-amber-500/20 disabled:opacity-50"
                 >
                   <span>{loading ? 'Processing Order...' : `Place Order — ${money(finalTotal)} AUD`}</span>
                   <ArrowRight className="w-4 h-4" />

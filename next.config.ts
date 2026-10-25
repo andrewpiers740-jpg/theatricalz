@@ -11,6 +11,8 @@ const nextConfig: NextConfig = {
   },
   // Allow access to remote image placeholder.
   images: {
+    // Optimised images are cached for 30 days instead of being re-checked on every visit.
+    minimumCacheTTL: 2592000,
     remotePatterns: [
       {
         protocol: 'https',
@@ -26,8 +28,14 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async rewrites() {
+    // Extensionless /.well-known documents are served by a route so they get a proper Content-Type.
+    return ['api-catalog', 'oauth-protected-resource', 'oauth-authorization-server', 'openid-configuration', 'ucp'].map((name) => ({
+      source: `/.well-known/${name}`,
+      destination: `/api/wellknown/${name}/`,
+    }));
+  },
   output: 'standalone',
-  transpilePackages: ['motion'],
   webpack: (config, {dev}) => {
     // HMR is disabled in AI Studio via DISABLE_HMR env var.
     // Do not modify—file watching is disabled to prevent flickering during agent edits.

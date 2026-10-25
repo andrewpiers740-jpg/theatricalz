@@ -76,7 +76,13 @@ async function runCrosscheck() {
     'public/js/webmcp.js',
     'vercel.json',
   ];
+  // Extensionless .well-known documents are served by /api/wellknown/[name] (rewritten in next.config.ts), so
+  // they must exist in lib/wellKnown.generated.json rather than as files in public/.
+  let wellKnownDocs = {};
+  try { wellKnownDocs = JSON.parse(fs.readFileSync(path.join(rootDir, 'lib/wellKnown.generated.json'), 'utf8')); } catch { wellKnownDocs = {}; }
   for (const af of agentFiles) {
+    const wkName = af.startsWith('public/.well-known/') ? af.slice('public/.well-known/'.length) : '';
+    if (wkName && wellKnownDocs[wkName]) continue;
     if (!fs.existsSync(path.join(rootDir, af))) {
       fail('B6', `Mandatory agent file ${af} is missing.`);
     }

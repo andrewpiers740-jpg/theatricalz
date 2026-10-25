@@ -1,0 +1,173 @@
+{
+  "api-catalog": {
+    "linkset": [
+      {
+        "anchor": "https://theatricalz.com.au/",
+        "https://www.iana.org/assignments/link-relations/service-doc": [
+          {
+            "href": "https://theatricalz.com.au/faq/"
+          }
+        ],
+        "title": "Theatricalz — Pro Camera, Audio & Music Gear Australia"
+      },
+      {
+        "anchor": "https://theatricalz.com.au/shop/",
+        "type": "text/html",
+        "title": "Theatricalz Pro Equipment Catalog"
+      },
+      {
+        "anchor": "https://theatricalz.com.au/financing/",
+        "type": "text/html",
+        "title": "Theatricalz Equipment Financing & Pay in 4"
+      },
+      {
+        "anchor": "https://theatricalz.com.au/api/products",
+        "type": "application/json",
+        "title": "Theatricalz Products API"
+      },
+      {
+        "anchor": "https://theatricalz.com.au/api/categories",
+        "type": "application/json",
+        "title": "Theatricalz Categories API"
+      },
+      {
+        "anchor": "https://theatricalz.com.au/api/search",
+        "type": "application/json",
+        "title": "Theatricalz Search API"
+      },
+      {
+        "anchor": "https://theatricalz.com.au/api/mcp",
+        "type": "application/json",
+        "https://www.iana.org/assignments/link-relations/service-desc": [
+          {
+            "href": "https://theatricalz.com.au/.well-known/mcp/server-card.json"
+          }
+        ],
+        "title": "Theatricalz MCP Server"
+      }
+    ]
+  },
+  "oauth-protected-resource": {
+    "resource": "https://theatricalz.com.au",
+    "resource_name": "Theatricalz Public Gear Catalog",
+    "authorization_servers": [],
+    "scopes_supported": [],
+    "bearer_methods_supported": [],
+    "resource_documentation": "https://theatricalz.com.au/auth.md",
+    "resource_policy_uri": "https://theatricalz.com.au/terms/",
+    "tls_client_certificate_bound_access_tokens": false,
+    "note": "All resources on theatricalz.com.au are publicly accessible. No OAuth tokens required for discovery."
+  },
+  "oauth-authorization-server": {
+    "issuer": "https://theatricalz.com.au",
+    "authorization_endpoint": null,
+    "token_endpoint": null,
+    "jwks_uri": null,
+    "grant_types_supported": [],
+    "response_types_supported": [],
+    "scopes_supported": [],
+    "note": "Theatricalz does not require OAuth authorization. All catalog resources are publicly accessible.",
+    "public_resources": [
+      "https://theatricalz.com.au/shop/",
+      "https://theatricalz.com.au/blog/",
+      "https://theatricalz.com.au/faq/",
+      "https://theatricalz.com.au/llms.txt",
+      "https://theatricalz.com.au/.well-known/api-catalog",
+      "https://theatricalz.com.au/.well-known/agent-skills/index.json",
+      "https://theatricalz.com.au/.well-known/mcp/server-card.json"
+    ],
+    "agent_auth": {
+      "register_uri": null,
+      "identity_types_supported": [
+        "none"
+      ],
+      "credential_types_supported": [
+        "none"
+      ],
+      "notes": "No registration required. All content publicly accessible to autonomous agents."
+    }
+  },
+  "openid-configuration": {
+    "issuer": "https://theatricalz.com.au",
+    "note": "Theatricalz does not operate an OpenID Connect provider. All resources publicly accessible.",
+    "public_site": true,
+    "authorization_endpoint": null,
+    "token_endpoint": null,
+    "userinfo_endpoint": null,
+    "jwks_uri": null,
+    "scopes_supported": [],
+    "response_types_supported": [],
+    "grant_types_supported": [],
+    "subject_types_supported": [],
+    "id_token_signing_alg_values_supported": []
+  },
+  "ucp": {
+    "ucp": "1.0",
+    "protocol_version": "1.0",
+    "spec": "https://ucp.dev/specification/overview/",
+    "schema": "https://ucp.dev/schema/v1.json",
+    "site": "https://theatricalz.com.au",
+    "name": "Theatricalz",
+    "description": "Pro Camera, Audio & Music Gear Australia",
+    "services": [
+      {
+        "id": "product-catalog",
+        "type": "catalog",
+        "url": "https://theatricalz.com.au/shop/",
+        "description": "Full professional cinema, photo, and audio catalog"
+      },
+      {
+        "id": "mcp-server",
+        "type": "mcp",
+        "url": "https://theatricalz.com.au/api/mcp",
+        "description": "MCP Streamable HTTP server for autonomous pro gear discovery"
+      },
+      {
+        "id": "order",
+        "type": "commerce",
+        "url": "https://wa.me/61489989442",
+        "description": "Place equipment orders via WhatsApp or online checkout"
+      },
+      {
+        "id": "financing",
+        "type": "finance",
+        "url": "https://theatricalz.com.au/financing/",
+        "description": "Pay in 4 interest-free equipment financing"
+      }
+    ],
+    "capabilities": [
+      "browse",
+      "search",
+      "inquiry",
+      "financing",
+      "content",
+      "mcp"
+    ],
+    "endpoints": {
+      "mcp": "https://theatricalz.com.au/api/mcp",
+      "catalog": "https://theatricalz.com.au/shop/",
+      "contact": "https://theatricalz.com.au/contact/",
+      "agent_skills": "https://theatricalz.com.au/.well-known/agent-skills/index.json",
+      "mcp_server_card": "https://theatricalz.com.au/.well-known/mcp/server-card.json",
+      "api_catalog": "https://theatricalz.com.au/.well-known/api-catalog",
+      "llms_txt": "https://theatricalz.com.au/llms.txt"
+    },
+    "currency": "AUD",
+    "minimum_order_aud": 0,
+    "payment_methods": [
+      "crypto-BTC",
+      "crypto-USDT",
+      "crypto-USDC",
+      "crypto-ETH",
+      "crypto-BNB",
+      "crypto-SOL",
+      "payid",
+      "bank-transfer"
+    ],
+    "legal": {
+      "country": "Australia",
+      "abn": "28 614 589 481",
+      "compliance": "Australian Consumer Law (ACL)"
+    }
+  }
+}

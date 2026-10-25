@@ -1,0 +1,4 @@
+Contact: mailto:sales@theatricalz.com.au
+Expires: 2027-10-25T04:09:08.778Z
+Preferred-Languages: en
+Canonical: https://theatricalz.com.au/.well-known/security.txt

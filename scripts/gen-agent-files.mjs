@@ -13,6 +13,10 @@ async function main() {
   const name = SITE.name;
   const tagline = SITE.tagline;
 
+  // Extensionless .well-known documents are served by /api/wellknown/[name] (rewritten from /.well-known/<name>)
+  // so they carry the right Content-Type; a static extensionless file is served as application/octet-stream.
+  const wk = {};
+
   // Ensure directories exist
   const publicDir = path.join(rootDir, 'public');
   const wellKnownDir = path.join(publicDir, '.well-known');
@@ -81,6 +85,15 @@ Allow: /
 `;
   fs.writeFileSync(path.join(publicDir, 'robots.txt'), robotsContent, 'utf8');
 
+  // 1b. RFC 9116 security.txt (how to report a security problem)
+  const expires = new Date(Date.now() + 365 * 24 * 3600 * 1000).toISOString().replace(/.d+Z$/, 'Z');
+  const securityTxt = `Contact: mailto:${CONTACT.email}
+Expires: ${expires}
+Preferred-Languages: en
+Canonical: https://${domain}/.well-known/security.txt
+`;
+  fs.writeFileSync(path.join(wellKnownDir, 'security.txt'), securityTxt, 'utf8');
+
   // 2. llms.txt
   const llmsContent = `# ${name}
 > ${tagline}
@@ -98,8 +111,8 @@ Founded in ${BRAND.foundingYear} in Melbourne, Australia, ${name} is an authoriz
 - Free Shipping: Orders over $${SHOP.freeShippingThreshold} AUD receive complimentary StarTrack Express freight with transit insurance.
 - Shipping Fee: Standard $${SHOP.shippingFee} AUD / Express $${SHOP.expressShippingFee} AUD.
 - Crypto Discount: 10% instant discount when paying with BTC, USDT, ETH, BNB, or SOL.
-- Payment Methods: Cryptocurrency (BTC, USDT, ETH, BNB, SOL), PayID and Australian Bank Transfer (EFT).
-- Financing: Pay in 4 interest-free installments on eligible pro equipment.
+- Payment Methods: Cryptocurrency (BTC, USDT, ETH, BNB, SOL), PayID and Australian Bank Transfer (OSKO).
+- Financing: Pay in 4 interest-free installments on products from $400 AUD (products under $400 AUD are a one-time purchase).
 - Stock Guarantee: 100% Genuine Australian Stock with local manufacturer warranties.
 
 ## Product Categories
@@ -170,7 +183,7 @@ Human-in-the-loop required. Agents may browse catalog items and prepare order dr
       { anchor: `https://${domain}/api/mcp`, type: 'application/json', 'https://www.iana.org/assignments/link-relations/service-desc': [{ href: `https://${domain}/.well-known/mcp/server-card.json` }], title: `${name} MCP Server` },
     ],
   };
-  fs.writeFileSync(path.join(wellKnownDir, 'api-catalog'), JSON.stringify(apiCatalogContent, null, 2), 'utf8');
+  wk['api-catalog'] = apiCatalogContent;
 
   // 5. .well-known/agent-skills/index.json
   const agentSkillsContent = {
@@ -246,7 +259,7 @@ Human-in-the-loop required. Agents may browse catalog items and prepare order dr
     tls_client_certificate_bound_access_tokens: false,
     note: `All resources on ${domain} are publicly accessible. No OAuth tokens required for discovery.`,
   };
-  fs.writeFileSync(path.join(wellKnownDir, 'oauth-protected-resource'), JSON.stringify(oauthResContent, null, 2), 'utf8');
+  wk['oauth-protected-resource'] = oauthResContent;
 
   // 8. .well-known/oauth-authorization-server
   const oauthServerContent = {
@@ -274,7 +287,7 @@ Human-in-the-loop required. Agents may browse catalog items and prepare order dr
       notes: 'No registration required. All content publicly accessible to autonomous agents.',
     },
   };
-  fs.writeFileSync(path.join(wellKnownDir, 'oauth-authorization-server'), JSON.stringify(oauthServerContent, null, 2), 'utf8');
+  wk['oauth-authorization-server'] = oauthServerContent;
 
   // 9. .well-known/openid-configuration
   const oidcContent = {
@@ -291,7 +304,7 @@ Human-in-the-loop required. Agents may browse catalog items and prepare order dr
     subject_types_supported: [],
     id_token_signing_alg_values_supported: [],
   };
-  fs.writeFileSync(path.join(wellKnownDir, 'openid-configuration'), JSON.stringify(oidcContent, null, 2), 'utf8');
+  wk['openid-configuration'] = oidcContent;
 
   // 10. .well-known/acp.json
   const acpContent = {
@@ -355,7 +368,10 @@ Human-in-the-loop required. Agents may browse catalog items and prepare order dr
       compliance: 'Australian Consumer Law (ACL)',
     },
   };
-  fs.writeFileSync(path.join(wellKnownDir, 'ucp'), JSON.stringify(ucpContent, null, 2), 'utf8');
+  wk['ucp'] = ucpContent;
+
+  fs.writeFileSync(path.join(rootDir, 'lib/wellKnown.generated.json'), JSON.stringify(wk, null, 2), 'utf8');
+  for (const n of Object.keys(wk)) fs.rmSync(path.join(wellKnownDir, n), { force: true });
 
   // 12. public/js/webmcp.js
   const webmcpContent = `(function () {
@@ -429,12 +445,24 @@ Human-in-the-loop required. Agents may browse catalog items and prepare order dr
     ],
     headers: [
       {
+        source: '/images/(.*)',
+        headers: [{ key: 'Cache-Control', value: 'public, max-age=2592000, stale-while-revalidate=86400' }],
+      },
+      {
+        source: '/product-index.:hash.json',
+        headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }],
+      },
+      {
         source: '/(.*)',
         headers: [
           { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
           { key: 'X-Content-Type-Options', value: 'nosniff' },
           { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
-          { key: 'Permissions-Policy', value: 'geolocation=(), microphone=(), camera=()' },
+          { key: 'Permissions-Policy', value: 'geolocation=(), microphone=(), camera=(), payment=(), usb=()' },
+          { key: 'Strict-Transport-Security', value: 'max-age=63072000; includeSubDomains' },
+          { key: 'Cross-Origin-Opener-Policy', value: 'same-origin-allow-popups' },
+          // Next.js pages carry inline bootstrap scripts, so script-src keeps 'unsafe-inline'; everything else is locked to this site.
+          { key: 'Content-Security-Policy', value: "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://images.unsplash.com https://picsum.photos; font-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; upgrade-insecure-requests" },
           {
             key: 'Link',
             value: `</.well-known/api-catalog>; rel="api-catalog", </.well-known/agent-skills/index.json>; rel="describedby", </llms.txt>; rel="describedby", </.well-known/mcp/server-card.json>; rel="service-desc", </auth.md>; rel="auth", </.well-known/openid-configuration>; rel="openid-configuration"`,

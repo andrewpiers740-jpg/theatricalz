@@ -1,9 +1,11 @@
 import Link from 'next/link';
+import { fitDescription } from '@/lib/seoText';
 import { notFound } from 'next/navigation';
 import { ChevronRight, Film, Tag } from 'lucide-react';
 import { SITE, CATEGORIES } from '@/config/site';
 import { PRODUCTS } from '@/config/products';
 import ProductCard from '@/components/ProductCard';
+import { cardProduct } from '@/lib/cardProduct';
 import { subSlug } from '@/lib/subcategory';
 import JsonLd from '@/components/JsonLd';
 
@@ -20,8 +22,8 @@ export async function generateMetadata({ params }) {
   }
 
   return {
-    title: `${category.name} — Pro Cinema & Audio Gear Australia`,
-    description: category.description,
+    title: `${category.name} — Buy in Australia`,
+    description: fitDescription(category.description, 'Genuine Australian stock, AUD inc. GST.'),
     alternates: {
       canonical: `https://${SITE.domain}/shop/${category.slug}/`,
     },
@@ -139,7 +141,7 @@ export default async function CategoryPage({ params }) {
                 <h2 className="section-title text-lg sm:text-xl font-black text-white uppercase tracking-tight">{sub}</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                   {categoryProducts.filter((p) => p.subcategory === sub).slice(0, PREVIEW).map((product) => (
-                    <ProductCard key={product.slug} product={product} />
+                    <ProductCard key={product.slug} product={cardProduct(product)} />
                   ))}
                 </div>
                 {categoryProducts.filter((p) => p.subcategory === sub).length > PREVIEW && (
@@ -155,7 +157,7 @@ export default async function CategoryPage({ params }) {
         ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {categoryProducts.map((product) => (
-            <ProductCard key={product.slug} product={product} />
+            <ProductCard key={product.slug} product={cardProduct(product)} />
           ))}
         </div>
         )}

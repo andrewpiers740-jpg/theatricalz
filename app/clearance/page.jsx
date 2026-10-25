@@ -1,11 +1,13 @@
 import Link from 'next/link';
+import PageSchema from '@/components/PageSchema';
 import { Percent, ChevronRight, Tag, ShieldCheck } from 'lucide-react';
 import { SITE } from '@/config/site';
 import { PRODUCTS } from '@/config/products';
 import ProductCard from '@/components/ProductCard';
+import { cardProduct } from '@/lib/cardProduct';
 
 export const metadata = {
-  title: 'Clearance & Ex-Demo Cinema Gear Deals — Theatricalz',
+  title: 'Clearance & Ex-Demo Gear Deals',
   description:
     'Save on factory ex-demo, open box, and clearance cinema cameras, prime lenses, and audio gear. 100% tested with full Australian manufacturer warranties.',
   alternates: {
@@ -21,6 +23,7 @@ export default function ClearancePage() {
 
   return (
     <div className="bg-slate-950 min-h-screen py-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-8">
+      <PageSchema type="WebPage" path="/clearance/" name="Clearance & Ex-Demo Gear Deals" description="Ex-demo, open box and clearance cinema, photo and audio gear." />
       {/* Breadcrumb */}
       <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs text-slate-400">
         <Link href="/" className="hover:text-amber-400 transition">Home</Link>
@@ -43,7 +46,7 @@ export default function ClearancePage() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {clearanceItems.map((product) => (
-          <ProductCard key={product.slug} product={product} />
+          <ProductCard key={product.slug} product={cardProduct(product)} />
         ))}
       </div>
     </div>

@@ -134,7 +134,7 @@ export default function ProductActionBox({ product }) {
           onClick={handleAddToCart}
           className={`flex-1 py-3 px-4 rounded-xl font-bold text-sm transition duration-150 flex items-center justify-center gap-2 shadow-lg ${
             added
-              ? 'bg-emerald-600 text-white'
+              ? 'bg-emerald-700 text-white'
               : 'bg-amber-500 hover:bg-amber-400 text-slate-950 shadow-amber-500/10'
           }`}
         >
@@ -157,7 +157,7 @@ export default function ProductActionBox({ product }) {
       <button
         type="button"
         onClick={handleWhatsAppOrder}
-        className="w-full py-2.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs transition duration-150 flex items-center justify-center gap-2 shadow-md shadow-emerald-950/40"
+        className="w-full py-2.5 px-4 rounded-xl bg-emerald-700 hover:bg-emerald-600 text-white font-semibold text-xs transition duration-150 flex items-center justify-center gap-2 shadow-md shadow-emerald-950/40"
       >
         <MessageCircle className="w-4 h-4" />
         <span>{priceOnRequest ? 'Ask for a Quote on WhatsApp' : 'Order via WhatsApp Direct Desk'}</span>

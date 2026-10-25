@@ -170,9 +170,9 @@ export default function TrustpilotReviewsList({ initialCount = 10, showFilters =
                 </div>
               </div>
 
-              <h4 className="text-sm font-bold text-white leading-snug mb-1.5">
+              <h3 className="text-sm font-bold text-white leading-snug mb-1.5">
                 &ldquo;{rev.title}&rdquo;
-              </h4>
+              </h3>
 
               <p className="text-xs text-slate-300 leading-relaxed font-sans">
                 {rev.content}

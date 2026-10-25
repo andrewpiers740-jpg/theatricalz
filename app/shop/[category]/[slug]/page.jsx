@@ -21,9 +21,11 @@ import JsonLd from '@/components/JsonLd';
 import ProductActionBox from './ProductActionBox';
 import DisclaimerNotice from '@/components/DisclaimerNotice';
 import WarrantyInfo from '@/components/WarrantyInfo';
+import ShippingEstimate from '@/components/ShippingEstimate';
 import SubcategoryListing from '@/components/SubcategoryListing';
 import { subSlug, findSubcategory } from '@/lib/subcategory';
 import { getDescription } from '@/lib/descriptions';
+import { fitTitle, fitDescription } from '@/lib/seoText';
 
 // Bullet list for description sections; "Why You'll Love It" items carry a bold benefit lead.
 function DescBullets({ items }) {
@@ -64,7 +66,7 @@ export async function generateMetadata({ params }) {
     const sub = findSubcategory(category, slug);
     if (sub) {
       return {
-        title: `${sub} — ${category.name}`,
+        title: fitTitle(`${sub} — ${category.name}`),
         description: `Shop ${sub} in ${category.name} at Theatricalz. AUD pricing incl. GST, genuine Australian stock with local warranty, and quotes on request.`.slice(0, 158),
         alternates: { canonical: `https://${SITE.domain}/shop/${category.slug}/${slug}/` },
       };
@@ -73,14 +75,14 @@ export async function generateMetadata({ params }) {
   }
 
   return {
-    title: product.metaTitle || `${product.name} — Buy in Australia | Theatricalz`,
-    description: product.metaDescription || product.description,
+    title: fitTitle(product.metaTitle || product.name),
+    description: fitDescription(product.metaDescription || product.description, 'Genuine Australian stock. Prices in AUD inc. GST.'),
     alternates: {
       canonical: `https://${SITE.domain}/shop/${product.category}/${product.slug}/`,
     },
     openGraph: {
       title: `${product.name} — Theatricalz Pro Cinema & Audio`,
-      description: product.metaDescription || product.description,
+      description: fitDescription(product.metaDescription || product.description, 'Genuine Australian stock. Prices in AUD inc. GST.'),
       images: [{ url: product.images?.[0] || '' }],
     },
     other: {
@@ -114,8 +116,8 @@ export default async function ProductDetailPage({ params }) {
   const priceOnRequest = price == null;
   const cryptoPrice = priceOnRequest ? 0 : price * (1 - (SHOP.cryptoDiscount || 10) / 100);
   const payInFour = priceOnRequest ? 0 : price / 4;
-  const stockLabel = product.stockShort || 'In Stock (Melb Warehouse)';
-  const specialOrder = Boolean(product.stockShort);
+  const payInFourEligible = !priceOnRequest && price >= (SHOP.payInFourMin || 400);
+  const stockLabel = 'In Stock (Melb Warehouse)';
 
   const productSchema = [
     {
@@ -124,7 +126,7 @@ export default async function ProductDetailPage({ params }) {
       name: product.name,
       description: product.description,
       sku: product.sku || product.slug,
-      image: product.images,
+      image: (product.images || []).map((img) => (img.startsWith('http') ? img : `https://${SITE.domain}${img.startsWith('/') ? '' : '/'}${img}`)),
       brand: {
         '@type': 'Brand',
         name: product.brand || 'Theatricalz',
@@ -133,7 +135,7 @@ export default async function ProductDetailPage({ params }) {
         '@type': 'Offer',
         priceCurrency: SITE.currency,
         price: product.price,
-        availability: specialOrder ? 'https://schema.org/PreOrder' : 'https://schema.org/InStock',
+        availability: 'https://schema.org/InStock',
         url: `https://${SITE.domain}/shop/${product.category}/${product.slug}/`,
         priceValidUntil: '2027-12-31',
         itemCondition: 'https://schema.org/NewCondition',
@@ -141,7 +143,7 @@ export default async function ProductDetailPage({ params }) {
           '@type': 'MerchantReturnPolicy',
           applicableCountry: 'AU',
           returnPolicyCategory: 'https://schema.org/MerchantReturnFiniteReturnWindow',
-          merchantReturnDays: 14,
+          merchantReturnDays: 30,
         },
         shippingDetails: {
           '@type': 'OfferShippingDetails',
@@ -149,6 +151,15 @@ export default async function ProductDetailPage({ params }) {
             '@type': 'MonetaryAmount',
             value: product.price >= SHOP.freeShippingThreshold ? 0 : SHOP.shippingFee,
             currency: SITE.currency,
+          },
+          shippingDestination: {
+            '@type': 'DefinedRegion',
+            addressCountry: 'AU',
+          },
+          deliveryTime: {
+            '@type': 'ShippingDeliveryTime',
+            handlingTime: { '@type': 'QuantitativeValue', minValue: 0, maxValue: 1, unitCode: 'DAY' },
+            transitTime: { '@type': 'QuantitativeValue', minValue: 1, maxValue: 4, unitCode: 'DAY' },
           },
         },
       },
@@ -290,8 +301,8 @@ export default async function ProductDetailPage({ params }) {
                 <span className="font-mono font-bold text-amber-400 uppercase tracking-wider">
                   {product.brand || 'Theatricalz'} · SKU: {product.sku || product.slug}
                 </span>
-                <span className={`flex items-center gap-1.5 text-xs font-semibold ${specialOrder ? 'text-amber-300' : 'text-emerald-400'}`}>
-                  <span className={`w-2 h-2 rounded-full ${specialOrder ? 'bg-amber-300' : 'bg-emerald-400 animate-pulse'}`}></span>
+                <span className={`flex items-center gap-1.5 text-xs font-semibold text-emerald-400`}>
+                  <span className={`w-2 h-2 rounded-full bg-emerald-400 animate-pulse`}></span>
                   <span>{stockLabel}</span>
                 </span>
               </div>
@@ -356,9 +367,13 @@ export default async function ProductDetailPage({ params }) {
 
               {/* Pay in 4 Installments */}
               <div className="text-xs text-slate-300 pt-1 space-y-1">
-                <div>
-                  Or 4 fortnightly payments of <strong className="text-white font-mono">{money(payInFour)}</strong> interest-free with <Link href="/financing/" className="text-amber-400 hover:underline">Pay in 4</Link>.
-                </div>
+                {payInFourEligible ? (
+                  <div>
+                    Or 4 fortnightly payments of <strong className="text-white font-mono">{money(payInFour)}</strong> interest-free with <Link href="/financing/" className="text-amber-400 hover:underline">Pay in 4</Link>.
+                  </div>
+                ) : (
+                  <div className="text-slate-400">One-time purchase. <Link href="/financing/" className="text-amber-400 hover:underline">Pay in 4</Link> is available on products from $400 AUD.</div>
+                )}
               </div>
               </>
               )}
@@ -367,6 +382,8 @@ export default async function ProductDetailPage({ params }) {
               <ProductActionBox product={product} />
             </div>
 
+            <ShippingEstimate />
+
             <DisclaimerNotice product={product} />
 
             {/* Fast Dispatch Note */}
@@ -374,12 +391,10 @@ export default async function ProductDetailPage({ params }) {
               <Clock className="w-5 h-5 text-amber-400 shrink-0" />
               <div>
                 <strong className="text-white block font-semibold">
-                  {specialOrder ? 'Special Order Item' : 'Same-Day Dispatch Guarantee'}
+                  Fast Dispatch
                 </strong>
                 <span>
-                  {specialOrder
-                    ? 'Ordered in from the Australian distributor. Contact our gear desk to confirm lead time before you order.'
-                    : 'Order before 2:00 PM AEST for same-day dispatch via StarTrack Express with signature required.'}
+                  Orders placed before 2:00 PM AEST on business days are normally dispatched the same day via StarTrack Express, signature required.
                 </span>
               </div>
             </div>

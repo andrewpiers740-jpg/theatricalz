@@ -36,7 +36,7 @@ export default function CopyField({ label, value, monospace = true }) {
           onClick={handleCopy}
           className={`inline-flex items-center gap-1 text-xs px-2.5 py-1 rounded font-medium transition-all ${
             copied
-              ? 'bg-emerald-600 text-white'
+              ? 'bg-emerald-700 text-white'
               : 'bg-slate-800 text-amber-400 hover:bg-slate-700 border border-slate-700'
           }`}
           aria-label={`Copy ${label}`}

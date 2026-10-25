@@ -3,7 +3,7 @@ import { Film, ArrowRight } from 'lucide-react';
 import { SITE } from '@/config/site';
 
 export const metadata = {
-  title: '404 - Gear Page Not Found — Theatricalz',
+  title: '404 - Page Not Found',
   robots: {
     index: false,
     follow: true,

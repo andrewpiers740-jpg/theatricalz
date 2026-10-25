@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import EmailLink from '@/components/EmailLink';
 import { ShieldCheck, Truck, RefreshCw, Star, Lock, Heart, ArrowUpRight } from 'lucide-react';
 import { SITE, CONTACT, SHOP, CATEGORIES } from '@/config/site';
 
@@ -79,9 +80,7 @@ export default function Footer() {
               </p>
               <p>
                 Email:{' '}
-                <a href={`mailto:${CONTACT.email}`} className="text-amber-400 hover:underline">
-                  sales&#64;theatricalz.com.au
-                </a>
+                <EmailLink className="text-amber-400 hover:underline" />
               </p>
             </div>
 
@@ -109,9 +108,9 @@ export default function Footer() {
 
           {/* Pro Categories */}
           <div>
-            <h4 className="text-xs font-bold uppercase tracking-[0.15em] text-white mb-5 pb-2 border-b-2 border-amber-500/70 inline-block">
+            <h2 className="text-xs font-bold uppercase tracking-[0.15em] text-white mb-5 pb-2 border-b-2 border-amber-500/70 inline-block">
               Pro Equipment
-            </h4>
+            </h2>
             <ul className="space-y-2.5 text-sm">
               {CATEGORIES.map((cat) => (
                 <li key={cat.slug}>
@@ -130,9 +129,9 @@ export default function Footer() {
 
           {/* Customer Services & Ordering */}
           <div>
-            <h4 className="text-xs font-bold uppercase tracking-[0.15em] text-white mb-5 pb-2 border-b-2 border-amber-500/70 inline-block">
+            <h2 className="text-xs font-bold uppercase tracking-[0.15em] text-white mb-5 pb-2 border-b-2 border-amber-500/70 inline-block">
               Customer & Sales
-            </h4>
+            </h2>
             <ul className="space-y-2.5 text-sm">
               <li>
                 <Link href="/tracking/" className="text-slate-400 hover:text-amber-400 hover:translate-x-0.5 inline-block transition">
@@ -174,9 +173,9 @@ export default function Footer() {
 
           {/* Policies & Compliance */}
           <div>
-            <h4 className="text-xs font-bold uppercase tracking-[0.15em] text-white mb-5 pb-2 border-b-2 border-amber-500/70 inline-block">
+            <h2 className="text-xs font-bold uppercase tracking-[0.15em] text-white mb-5 pb-2 border-b-2 border-amber-500/70 inline-block">
               Policies & Legal
-            </h4>
+            </h2>
             <ul className="space-y-2.5 text-sm">
               <li>
                 <Link href="/shipping/" className="text-slate-400 hover:text-amber-400 hover:translate-x-0.5 inline-block transition">
@@ -240,8 +239,6 @@ export default function Footer() {
             <Link href="/privacy/" className="hover:text-slate-400">Privacy</Link>
             <span>·</span>
             <Link href="/terms/" className="hover:text-slate-400">Terms</Link>
-            <span>·</span>
-            <Link href="/llms.txt" className="hover:text-amber-400">llms.txt</Link>
           </div>
         </div>
       </div>

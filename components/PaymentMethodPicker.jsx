@@ -1,12 +1,18 @@
 'use client';
 
+import { useEffect } from 'react';
 import { CRYPTO_TOKENS, WALLETS, getNetworks } from '@/config/wallets';
 
 // Controlled payment picker used by the checkout page and the cart drawer.
 //   pay      : { type: 'bank-transfer' | 'payid' | 'crypto', token: '', network: '' }
 //   onChange : (nextPay) => void
 //   onReady  : (token, networkId) => void  - called once a token (and network, if it has several) is chosen
-export default function PaymentMethodPicker({ pay, onChange, onReady, selectClassName }) {
+export default function PaymentMethodPicker({ pay, onChange, onReady, selectClassName, country = 'Australia' }) {
+  // PayID and OSKO are Australian-only; customers overseas pay by international bank transfer or crypto.
+  const isAU = country === 'Australia';
+  useEffect(() => {
+    if (!isAU && pay.type === 'payid') onChange({ type: 'bank-transfer', token: '', network: '' });
+  }, [isAU, pay.type]); // eslint-disable-line react-hooks/exhaustive-deps
   const tokens = CRYPTO_TOKENS.filter((t) => getNetworks(t).length > 0);
   const networks = pay.token ? getNetworks(pay.token) : [];
   const needsNetwork = networks.length > 1;
@@ -33,23 +39,25 @@ export default function PaymentMethodPicker({ pay, onChange, onReady, selectClas
   return (
     <div className="space-y-3">
       <div>
-        <label className="block text-slate-300 font-semibold mb-1">Payment Method</label>
-        <select value={pay.type} onChange={(e) => setType(e.target.value)} className={cls}>
-          <option value="bank-transfer">Bank Transfer (EFT)</option>
-          <option value="payid">PayID</option>
+        <label htmlFor="pay-method" className="block text-slate-300 font-semibold mb-1">Payment Method</label>
+        <select id="pay-method" value={pay.type} onChange={(e) => setType(e.target.value)} className={cls}>
+          <option value="bank-transfer">{isAU ? 'Bank Transfer (OSKO)' : 'International Bank Transfer'}</option>
+          {isAU ? <option value="payid">PayID</option> : null}
           <option value="crypto">Cryptocurrency — 10% Discount</option>
         </select>
         {pay.type !== 'crypto' ? (
           <p className="mt-1 text-[11px] text-slate-500">
-            We email you payment details after you place your order.
+            {isAU
+              ? 'We email you payment details after you place your order.'
+              : 'We email you international bank transfer details (in AUD) after you place your order. Your bank may charge transfer fees.'}
           </p>
         ) : null}
       </div>
 
       {pay.type === 'crypto' ? (
         <div>
-          <label className="block text-slate-300 font-semibold mb-1">Crypto Token</label>
-          <select value={pay.token} onChange={(e) => setToken(e.target.value)} className={cls}>
+          <label htmlFor="pay-token" className="block text-slate-300 font-semibold mb-1">Crypto Token</label>
+          <select id="pay-token" value={pay.token} onChange={(e) => setToken(e.target.value)} className={cls}>
             <option value="">Select a token…</option>
             {tokens.map((t) => (
               <option key={t} value={t}>
@@ -62,8 +70,8 @@ export default function PaymentMethodPicker({ pay, onChange, onReady, selectClas
 
       {pay.type === 'crypto' && pay.token && needsNetwork ? (
         <div>
-          <label className="block text-slate-300 font-semibold mb-1">Network</label>
-          <select value={pay.network} onChange={(e) => setNetwork(e.target.value)} className={cls}>
+          <label htmlFor="pay-network" className="block text-slate-300 font-semibold mb-1">Network</label>
+          <select id="pay-network" value={pay.network} onChange={(e) => setNetwork(e.target.value)} className={cls}>
             <option value="">Select a network…</option>
             {networks.map((n) => (
               <option key={n.id} value={n.id}>

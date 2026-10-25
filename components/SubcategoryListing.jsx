@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { ChevronRight, ChevronLeft } from 'lucide-react';
 import { SITE } from '@/config/site';
 import ProductCard from '@/components/ProductCard';
+import { cardProduct } from '@/lib/cardProduct';
 import JsonLd from '@/components/JsonLd';
 import { subSlug, PAGE_SIZE, rangePageHref } from '@/lib/subcategory';
 
@@ -62,7 +63,7 @@ export default function SubcategoryListing({ category, sub, products, page = 1 }
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {shown.map((product) => (
-            <ProductCard key={product.slug} product={product} />
+            <ProductCard key={product.slug} product={cardProduct(product)} />
           ))}
         </div>
 

@@ -3,6 +3,8 @@ import { Film, Filter, ChevronRight, SlidersHorizontal } from 'lucide-react';
 import { SITE, CATEGORIES } from '@/config/site';
 import { PRODUCTS } from '@/config/products';
 import ProductCard from '@/components/ProductCard';
+import { cardProduct } from '@/lib/cardProduct';
+import HeroSlideshow from '@/components/HeroSlideshow';
 import JsonLd from '@/components/JsonLd';
 
 export const metadata = {
@@ -52,8 +54,10 @@ export default function ShopIndexPage() {
         </nav>
 
         {/* Page Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-6 border-b border-slate-800">
-          <div>
+        <div className="relative overflow-hidden rounded-3xl border border-slate-800 flex flex-col sm:flex-row sm:items-end justify-between gap-4 p-6 sm:p-10">
+          <HeroSlideshow images={['/images/hero/shop-1.webp', '/images/hero/shop-2.webp', '/images/hero/shop-3.webp']} />
+          <div aria-hidden="true" className="absolute inset-0 z-10 bg-gradient-to-r from-slate-950 via-slate-950/80 to-slate-950/30"></div>
+          <div className="relative z-10">
             <div className="text-xs font-bold uppercase tracking-wider text-amber-400 mb-1">
               Authorized Australian Stock
             </div>
@@ -65,7 +69,7 @@ export default function ShopIndexPage() {
             </p>
           </div>
 
-          <div className="text-xs text-slate-400 bg-slate-900 border border-slate-800 px-3.5 py-2 rounded-xl shrink-0 font-medium">
+          <div className="relative z-10 text-xs text-slate-300 bg-slate-900/90 border border-slate-700 px-3.5 py-2 rounded-xl shrink-0 font-medium">
             Showing <strong className="text-white font-mono">{PRODUCTS.length}</strong> pro items
           </div>
         </div>
@@ -108,8 +112,8 @@ export default function ShopIndexPage() {
                 </Link>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                {items.slice(0, 8).map((product) => (
-                  <ProductCard key={product.slug} product={product} />
+                {items.slice(0, 4).map((product) => (
+                  <ProductCard key={product.slug} product={cardProduct(product)} />
                 ))}
               </div>
             </section>

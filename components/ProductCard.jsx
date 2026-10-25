@@ -16,6 +16,7 @@ export default function ProductCard({ product }) {
   const price = product.price || 0;
   const cryptoPrice = price * (1 - (SHOP.cryptoDiscount || 10) / 100);
   const payInFour = price / 4;
+  const payInFourEligible = price >= (SHOP.payInFourMin || 400);
 
   return (
     <div className="bg-slate-900 border border-slate-800 hover:border-amber-500/40 rounded-2xl overflow-hidden flex flex-col justify-between transition-all duration-200 group hover:-translate-y-1 hover:shadow-2xl hover:shadow-amber-500/10 focus-within:border-amber-500/60">
@@ -45,7 +46,7 @@ export default function ProductCard({ product }) {
                   ? 'bg-slate-950 text-amber-400 border border-amber-500/40'
                   : product.badge === 'New'
                   ? 'bg-blue-600 text-white'
-                  : 'bg-emerald-600 text-white'
+                  : 'bg-emerald-700 text-white'
               }`}
             >
               {product.badge}
@@ -76,9 +77,9 @@ export default function ProductCard({ product }) {
             <span className="font-bold text-amber-400 uppercase tracking-wider font-mono text-[11px]">
               {product.brand || 'Theatricalz'}
             </span>
-            <span className={`flex items-center gap-1 text-[11px] font-medium ${product.stockShort ? 'text-amber-300' : 'text-emerald-400'}`}>
-              <span className={`w-1.5 h-1.5 rounded-full ${product.stockShort ? 'bg-amber-300' : 'bg-emerald-400'}`}></span>
-              <span>{product.stockShort || 'In Stock (Melb)'}</span>
+            <span className={`flex items-center gap-1 text-[11px] font-medium text-emerald-400`}>
+              <span className={`w-1.5 h-1.5 rounded-full bg-emerald-400`}></span>
+              <span>In Stock (Melb)</span>
             </span>
           </div>
 
@@ -148,9 +149,11 @@ export default function ProductCard({ product }) {
               </span>
             </div>
 
-            <div className="text-[11px] text-slate-400 mt-0.5">
-              or 4 payments of <strong className="text-slate-300 font-mono">{money(payInFour)}</strong> interest-free
-            </div>
+            {payInFourEligible && (
+              <div className="text-[11px] text-slate-400 mt-0.5">
+                or 4 payments of <strong className="text-slate-300 font-mono">{money(payInFour)}</strong> interest-free
+              </div>
+            )}
           </div>
           )}
 

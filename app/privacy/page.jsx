@@ -1,4 +1,6 @@
 import Link from 'next/link';
+import PageSchema from '@/components/PageSchema';
+import EmailLink from '@/components/EmailLink';
 import { ChevronRight, ShieldCheck } from 'lucide-react';
 import { SITE, CONTACT } from '@/config/site';
 
@@ -17,6 +19,7 @@ export const metadata = {
 export default function PrivacyPage() {
   return (
     <div className="bg-slate-950 min-h-screen py-10 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto space-y-10 text-white">
+      <PageSchema type="WebPage" path="/privacy/" name="Privacy Policy" description="How Theatricalz collects, uses and protects your personal information under Australian privacy law." />
       <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs text-slate-400">
         <Link href="/" className="hover:text-amber-400 transition">Home</Link>
         <ChevronRight className="w-3.5 h-3.5 text-slate-600" />
@@ -53,7 +56,7 @@ export default function PrivacyPage() {
 
         <h2 className="text-xl font-bold text-white uppercase tracking-tight pt-4">Your Rights & Contacting Us</h2>
         <p>
-          You have the right to request access to the personal data we hold about you, request corrections, or request deletion of your marketing contact details. Enquiries should be directed to our Privacy Officer at <a href={`mailto:${CONTACT.email}`} className="text-amber-400 underline">sales&#64;theatricalz.com.au</a>.
+          You have the right to request access to the personal data we hold about you, request corrections, or request deletion of your marketing contact details. Enquiries should be directed to our Privacy Officer at <EmailLink className="text-amber-400 underline" />.
         </p>
       </div>
     </div>

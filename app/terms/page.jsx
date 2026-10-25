@@ -1,11 +1,12 @@
 import Link from 'next/link';
+import PageSchema from '@/components/PageSchema';
 import { ChevronRight } from 'lucide-react';
 import { SITE, CONTACT } from '@/config/site';
 
 export const metadata = {
   title: 'Terms & Conditions',
   description:
-    'Terms of service, website usage agreements, equipment availability, and consumer rights under Australian law.',
+    'Theatricalz terms of service: website usage, orders and payment, equipment availability, returns, and your consumer rights under Australian law.',
   alternates: {
     canonical: `https://${SITE.domain}/terms/`,
   },
@@ -17,6 +18,7 @@ export const metadata = {
 export default function TermsPage() {
   return (
     <div className="bg-slate-950 min-h-screen py-10 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto space-y-10 text-white">
+      <PageSchema type="WebPage" path="/terms/" name="Terms & Conditions" description="Terms of service for shopping at Theatricalz." />
       <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs text-slate-400">
         <Link href="/" className="hover:text-amber-400 transition">Home</Link>
         <ChevronRight className="w-3.5 h-3.5 text-slate-600" />

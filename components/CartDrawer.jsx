@@ -23,6 +23,8 @@ import { SHOP, SITE, CONTACT } from '@/config/site';
 import { money, generateOrderRef } from '@/lib/order';
 import { waOrderLink } from '@/lib/whatsapp';
 import CryptoPayModal from '@/components/CryptoPayModal';
+import AddressFields from '@/components/AddressFields';
+import { DEFAULT_COUNTRY } from '@/config/countries';
 import PaymentMethodPicker from '@/components/PaymentMethodPicker';
 import Honeypot from '@/components/Honeypot';
 import { getToken, getNetwork } from '@/config/wallets';
@@ -51,6 +53,7 @@ export default function CartDrawer() {
     phone: '',
     address: '',
     city: '',
+    country: DEFAULT_COUNTRY,
     state: 'VIC',
     postcode: '',
     notes: '',
@@ -76,7 +79,7 @@ export default function CartDrawer() {
   };
 
   const formIsComplete = () =>
-    formData.name.trim() && formData.email.trim() && formData.phone.trim() && formData.address.trim();
+    formData.name.trim() && formData.email.trim() && formData.phone.trim() && formData.address.trim() && formData.city.trim() && formData.postcode.trim() && formData.country;
 
   const openCryptoPopup = (channel = 'email') => {
     setCryptoChannel(channel);
@@ -88,7 +91,7 @@ export default function CartDrawer() {
   // Crypto orders open the wallet / QR popup; the order is only placed from "I have paid".
   const startCheckout = (channel) => {
     if (!formIsComplete()) {
-      setError('Please fill in your name, email, phone number, and delivery address.');
+      setError('Please fill in your name, email, phone number, and full delivery address (country, address, city and postcode / ZIP).');
       return;
     }
     setError('');
@@ -105,7 +108,7 @@ export default function CartDrawer() {
 
   const handleProcessCheckout = async (channel, opts = {}) => {
     if (!formIsComplete()) {
-      setError('Please fill in your name, email, phone number, and delivery address.');
+      setError('Please fill in your name, email, phone number, and full delivery address (country, address, city and postcode / ZIP).');
       return;
     }
 
@@ -133,6 +136,7 @@ export default function CartDrawer() {
       phone: formData.phone.trim(),
       address: formData.address.trim(),
       city: formData.city.trim(),
+      country: formData.country,
       state: formData.state,
       postcode: formData.postcode.trim(),
       notes: [formData.notes.trim(), opts.crypto && cryptoNetwork ? `Crypto payment: ${cryptoToken.symbol} on ${cryptoNetwork.label}` : '']
@@ -343,66 +347,11 @@ customer: customerPayload,
                     </div>
                   </div>
 
-                  <div>
-                    <label className="block text-slate-300 font-semibold mb-1">
-                      Street Address (Studio / Production / Home) *
-                    </label>
-                    <input
-                      type="text"
-                      name="address"
-                      value={formData.address}
-                      onChange={handleInputChange}
-                      placeholder="e.g. Studio 4, 3 Kirks Lane"
-                      className="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/40 transition"
-                      required
-                    />
-                  </div>
-
-                  <div className="grid grid-cols-3 gap-2">
-                    <div>
-                      <label className="block text-slate-300 font-semibold mb-1">City / Suburb</label>
-                      <input
-                        type="text"
-                        name="city"
-                        value={formData.city}
-                        onChange={handleInputChange}
-                        placeholder="Melbourne"
-                        className="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/40 transition"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-slate-300 font-semibold mb-1">State</label>
-                      <select
-                        name="state"
-                        value={formData.state}
-                        onChange={handleInputChange}
-                        className="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/40 transition"
-                      >
-                        <option value="VIC">VIC</option>
-                        <option value="NSW">NSW</option>
-                        <option value="QLD">QLD</option>
-                        <option value="WA">WA</option>
-                        <option value="SA">SA</option>
-                        <option value="TAS">TAS</option>
-                        <option value="ACT">ACT</option>
-                        <option value="NT">NT</option>
-                      </select>
-                    </div>
-                    <div>
-                      <label className="block text-slate-300 font-semibold mb-1">Postcode</label>
-                      <input
-                        type="text"
-                        name="postcode"
-                        value={formData.postcode}
-                        onChange={handleInputChange}
-                        placeholder="3000"
-                        className="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/40 transition"
-                      />
-                    </div>
-                  </div>
+                  <AddressFields formData={formData} setFormData={setFormData} />
 
                   <Honeypot value={honeypot} onChange={setHoneypot} />
                   <PaymentMethodPicker
+                    country={formData.country}
                     pay={pay}
                     onChange={setPay}
                     onReady={() => openCryptoPopup(cryptoChannel)}
@@ -459,7 +408,7 @@ customer: customerPayload,
                     type="button"
                     disabled={loading}
                     onClick={() => startCheckout('whatsapp')}
-                    className="w-full py-2.5 px-4 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold rounded-xl transition duration-150 flex items-center justify-center gap-2 text-sm disabled:opacity-50"
+                    className="w-full py-2.5 px-4 bg-emerald-700 hover:bg-emerald-600 text-white font-semibold rounded-xl transition duration-150 flex items-center justify-center gap-2 text-sm disabled:opacity-50"
                   >
                     <MessageCircle className="w-4 h-4" />
                     <span>Order via WhatsApp (Instant Gear Desk Chat)</span>

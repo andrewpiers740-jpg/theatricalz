@@ -23,6 +23,8 @@ import { money, generateOrderRef } from '@/lib/order';
 import { SHOP, SITE, CONTACT } from '@/config/site';
 import { waOrderLink } from '@/lib/whatsapp';
 import CryptoPayModal from '@/components/CryptoPayModal';
+import AddressFields from '@/components/AddressFields';
+import { DEFAULT_COUNTRY } from '@/config/countries';
 import PaymentMethodPicker from '@/components/PaymentMethodPicker';
 import Honeypot from '@/components/Honeypot';
 import { getToken, getNetwork } from '@/config/wallets';
@@ -46,6 +48,7 @@ export default function CartPage() {
     phone: '',
     address: '',
     city: '',
+    country: DEFAULT_COUNTRY,
     state: 'VIC',
     postcode: '',
     notes: '',
@@ -66,12 +69,12 @@ export default function CartPage() {
   };
 
   const formIsComplete = () =>
-    formData.name.trim() && formData.email.trim() && formData.phone.trim() && formData.address.trim();
+    formData.name.trim() && formData.email.trim() && formData.phone.trim() && formData.address.trim() && formData.city.trim() && formData.postcode.trim() && formData.country;
 
   // Crypto orders open the wallet / QR popup first; the order is only placed from "I have paid".
   const startCheckout = (channel) => {
     if (!formIsComplete()) {
-      setError('Please fill in your name, email, phone number, and delivery address.');
+      setError('Please fill in your name, email, phone number, and full delivery address (country, address, city and postcode / ZIP).');
       return;
     }
     setError('');
@@ -95,7 +98,7 @@ export default function CartPage() {
 
   const handleProcessCheckout = async (channel, opts = {}) => {
     if (!formIsComplete()) {
-      setError('Please fill in your name, email, phone number, and delivery address.');
+      setError('Please fill in your name, email, phone number, and full delivery address (country, address, city and postcode / ZIP).');
       return;
     }
 
@@ -123,6 +126,7 @@ export default function CartPage() {
       phone: formData.phone.trim(),
       address: formData.address.trim(),
       city: formData.city.trim(),
+      country: formData.country,
       state: formData.state,
       postcode: formData.postcode.trim(),
       notes: [formData.notes.trim(), opts.crypto && cryptoNetwork ? `Crypto payment: ${cryptoToken.symbol} on ${cryptoNetwork.label}` : '']
@@ -286,9 +290,9 @@ customer: customerPayload,
           {/* Checkout & Delivery Form */}
           <div className="lg:col-span-5 space-y-6">
             <div className="bg-gradient-to-b from-slate-900 to-slate-900/70 border border-amber-500/20 rounded-3xl p-6 sm:p-8 space-y-4 shadow-xl shadow-black/30">
-              <h3 className="text-base font-bold text-white uppercase tracking-tight pb-2 border-b border-slate-800">
+              <h2 className="text-base font-bold text-white uppercase tracking-tight pb-2 border-b border-slate-800">
                 Delivery & Payment Details
-              </h3>
+              </h2>
 
               {error && (
                 <div className="p-3 bg-red-950/60 border border-red-800 rounded-xl text-red-300 text-xs flex items-center gap-2">
@@ -338,64 +342,11 @@ customer: customerPayload,
                   </div>
                 </div>
 
-                <div>
-                  <label className="block text-slate-300 font-semibold mb-1">Street Address *</label>
-                  <input
-                    type="text"
-                    name="address"
-                    value={formData.address}
-                    onChange={handleInputChange}
-                    placeholder="Studio / Production Address"
-                    className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/40 transition"
-                    required
-                  />
-                </div>
-
-                <div className="grid grid-cols-3 gap-2">
-                  <div>
-                    <label className="block text-slate-300 font-semibold mb-1">City</label>
-                    <input
-                      type="text"
-                      name="city"
-                      value={formData.city}
-                      onChange={handleInputChange}
-                      placeholder="Melbourne"
-                      className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-slate-300 font-semibold mb-1">State</label>
-                    <select
-                      name="state"
-                      value={formData.state}
-                      onChange={handleInputChange}
-                      className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white"
-                    >
-                      <option value="VIC">VIC</option>
-                      <option value="NSW">NSW</option>
-                      <option value="QLD">QLD</option>
-                      <option value="WA">WA</option>
-                      <option value="SA">SA</option>
-                      <option value="TAS">TAS</option>
-                      <option value="ACT">ACT</option>
-                      <option value="NT">NT</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label className="block text-slate-300 font-semibold mb-1">Postcode</label>
-                    <input
-                      type="text"
-                      name="postcode"
-                      value={formData.postcode}
-                      onChange={handleInputChange}
-                      placeholder="3000"
-                      className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white"
-                    />
-                  </div>
-                </div>
+                <AddressFields formData={formData} setFormData={setFormData} />
 
                 <Honeypot value={honeypot} onChange={setHoneypot} />
                 <PaymentMethodPicker
+                  country={formData.country}
                   pay={pay}
                   onChange={setPay}
                   onReady={() => openCryptoPopup(cryptoChannel)}
@@ -451,7 +402,7 @@ customer: customerPayload,
                   type="button"
                   disabled={loading}
                   onClick={() => startCheckout('whatsapp')}
-                  className="w-full py-3 px-4 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold rounded-xl transition duration-150 flex items-center justify-center gap-2 text-xs shadow-md disabled:opacity-50"
+                  className="w-full py-3 px-4 bg-emerald-700 hover:bg-emerald-600 text-white font-semibold rounded-xl transition duration-150 flex items-center justify-center gap-2 text-xs shadow-md disabled:opacity-50"
                 >
                   <MessageCircle className="w-4 h-4" />
                   <span>Order via WhatsApp (Instant Gear Desk Notification)</span>

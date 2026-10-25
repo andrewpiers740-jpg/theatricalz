@@ -146,7 +146,7 @@ function PaymentDetailsContent() {
             href={waConfirmLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full py-3 px-4 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold rounded-xl text-xs transition flex items-center justify-center gap-2 shadow"
+            className="w-full py-3 px-4 bg-emerald-700 hover:bg-emerald-600 text-white font-semibold rounded-xl text-xs transition flex items-center justify-center gap-2 shadow"
           >
             <MessageCircle className="w-4 h-4" />
             <span>Confirm Payment via WhatsApp Direct</span>

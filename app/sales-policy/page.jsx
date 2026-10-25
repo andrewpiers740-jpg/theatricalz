@@ -1,4 +1,6 @@
 import Link from 'next/link';
+import PageSchema from '@/components/PageSchema';
+import EmailLink from '@/components/EmailLink';
 import { DollarSign, ChevronRight, FileText, CheckCircle2 } from 'lucide-react';
 import { SITE, CONTACT } from '@/config/site';
 
@@ -17,6 +19,7 @@ export const metadata = {
 export default function SalesPolicyPage() {
   return (
     <div className="bg-slate-950 min-h-screen py-10 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto space-y-10 text-white">
+      <PageSchema type="WebPage" path="/sales-policy/" name="Sales Policy" description="Theatricalz sales terms, payment methods and corporate trading terms." />
       <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs text-slate-400">
         <Link href="/" className="hover:text-amber-400 transition">Home</Link>
         <ChevronRight className="w-3.5 h-3.5 text-slate-600" />
@@ -53,7 +56,7 @@ export default function SalesPolicyPage() {
 
         <h2 className="text-xl font-bold text-white uppercase tracking-tight pt-4">Corporate & Educational Purchase Orders</h2>
         <p>
-          We accommodate formal Purchase Orders (PO) from verified Australian universities, state schools, broadcasters, and registered production agencies. Contact our commercial desk at <a href={`mailto:${CONTACT.email}`} className="text-amber-400 underline">sales&#64;theatricalz.com.au</a> with your requisition documentation to establish 30-day corporate trading terms.
+          We accommodate formal Purchase Orders (PO) from verified Australian universities, state schools, broadcasters, and registered production agencies. Contact our commercial desk at <EmailLink className="text-amber-400 underline" /> with your requisition documentation to establish 30-day corporate trading terms.
         </p>
       </div>
     </div>

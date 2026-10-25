@@ -50,7 +50,7 @@ export default function WhatsAppSendPanel({ customerPhone, messageBody, customer
           onClick={handleCopy}
           className={`inline-flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg font-medium transition ${
             copied
-              ? 'bg-emerald-600 text-white'
+              ? 'bg-emerald-700 text-white'
               : 'bg-slate-800 text-slate-300 hover:text-white hover:bg-slate-700 border border-slate-700'
           }`}
         >
@@ -79,7 +79,7 @@ export default function WhatsAppSendPanel({ customerPhone, messageBody, customer
           href={waUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="w-full inline-flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-sm py-2.5 px-4 rounded-lg transition"
+          className="w-full inline-flex items-center justify-center gap-2 bg-emerald-700 hover:bg-emerald-600 text-white font-semibold text-sm py-2.5 px-4 rounded-lg transition"
         >
           <span>Open in WhatsApp Web / App</span>
           <ExternalLink className="w-4 h-4" />

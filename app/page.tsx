@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import HeroSlideshow from '@/components/HeroSlideshow';
 import Image from 'next/image';
 import {
   Film,
@@ -23,6 +24,7 @@ import {
 import { SITE, BRAND, CATEGORIES, FAQ, CONTACT, SHOP } from '@/config/site';
 import { PRODUCTS } from '@/config/products';
 import ProductCard from '@/components/ProductCard';
+import { cardProduct } from '@/lib/cardProduct';
 import TrustpilotBadge from '@/components/TrustpilotBadge';
 import TrustpilotReviewsList from '@/components/TrustpilotReviewsList';
 import JsonLd from '@/components/JsonLd';
@@ -134,16 +136,9 @@ export default function HomePage() {
       <section className="relative bg-slate-950 overflow-hidden border-b border-slate-800">
         {/* Ambient lighting backdrop */}
         <div className="absolute inset-0 z-0">
-          <Image
-            src="https://images.unsplash.com/photo-1579546929518-9e396f3cc809?w=1920&q=80"
-            alt="Pro cinema camera gear background"
-            fill
-            priority
-            className="object-cover opacity-20 filter blur-xs"
-            referrerPolicy="no-referrer"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/80 to-transparent"></div>
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/90 to-transparent"></div>
+          <HeroSlideshow images={['/images/hero/home-1.webp', '/images/hero/home-2.webp', '/images/hero/home-3.webp']} />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/60 to-slate-950/20"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/80 to-slate-950/10"></div>
           <div aria-hidden="true" className="absolute -top-24 right-0 w-[40rem] h-[40rem] rounded-full bg-amber-500/10 blur-3xl"></div>
         </div>
 
@@ -237,7 +232,7 @@ export default function HomePage() {
                     <span className="text-xs font-mono font-bold text-amber-400 uppercase">Sony Cinema Line</span>
                     <span className="text-xs text-emerald-400 font-medium">In Stock (Melb)</span>
                   </div>
-                  <h3 className="text-lg font-bold text-white">Sony FX3 Full-Frame Cinema Camera</h3>
+                  <h2 className="text-lg font-bold text-white">Sony FX3 Full-Frame Cinema Camera</h2>
                   <div className="flex items-baseline justify-between pt-1">
                     <div>
                       <span className="text-2xl font-black text-white font-mono">$5,999.00 AUD</span>
@@ -392,7 +387,7 @@ export default function HomePage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {featuredProducts.map((product) => (
-              <ProductCard key={product.slug} product={product} />
+              <ProductCard key={product.slug} product={cardProduct(product)} />
             ))}
           </div>
         </div>
@@ -503,7 +498,7 @@ export default function HomePage() {
               Split Bigger Purchases Into 4 Payments
             </h2>
             <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-              Get the gear you need now and spread the cost across 4 equal fortnightly payments with 0% interest.
+              Get the gear you need now and spread the cost of products from $400 AUD across 4 equal fortnightly payments with 0% interest.
             </p>
           </div>
 

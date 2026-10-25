@@ -153,7 +153,7 @@ export default function AdminOrderDetailPage({ params }) {
             <div className="text-slate-300 leading-relaxed">
               {order.customer?.address}<br />
               {order.customer?.city} {order.customer?.state} {order.customer?.postcode}<br />
-              Australia
+              {order.customer?.country || 'Australia'}
             </div>
             {order.customer?.notes && (
               <div className="mt-2 p-2.5 rounded-lg bg-slate-950 border border-slate-800 text-amber-300">

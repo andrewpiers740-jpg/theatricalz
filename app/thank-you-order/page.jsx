@@ -50,7 +50,7 @@ function ThankYouOrderContent() {
           </div>
           <div className="p-3 rounded-xl bg-slate-950 border border-slate-800">
             <Clock className="w-4 h-4 text-amber-400 mx-auto mb-1" />
-            <span>Same-Day Dispatch Ready</span>
+            <span>Fast Dispatch</span>
           </div>
         </div>
 

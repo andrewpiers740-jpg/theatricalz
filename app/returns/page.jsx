@@ -1,4 +1,6 @@
 import Link from 'next/link';
+import PageSchema from '@/components/PageSchema';
+import EmailLink from '@/components/EmailLink';
 import { RotateCcw, ShieldCheck, CheckCircle2, ChevronRight, AlertCircle } from 'lucide-react';
 import { SITE, CONTACT } from '@/config/site';
 
@@ -17,6 +19,7 @@ export const metadata = {
 export default function ReturnsPage() {
   return (
     <div className="bg-slate-950 min-h-screen py-10 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto space-y-10 text-white">
+      <PageSchema type="WebPage" path="/returns/" name="Returns & Warranty" description="30-day returns on eligible products and manufacturer warranty support." />
       <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs text-slate-400">
         <Link href="/" className="hover:text-amber-400 transition">Home</Link>
         <ChevronRight className="w-3.5 h-3.5 text-slate-600" />
@@ -53,7 +56,7 @@ export default function ReturnsPage() {
 
         <h2 className="text-xl font-bold text-white uppercase tracking-tight pt-4">How to Initiate a Return or Warranty Claim</h2>
         <ol className="list-decimal pl-5 space-y-2 text-xs sm:text-sm">
-          <li>Email our returns desk at <a href={`mailto:${CONTACT.email}`} className="text-amber-400 underline">sales&#64;theatricalz.com.au</a> or message our WhatsApp desk at <strong>+61 489 989 442</strong> with your order reference (e.g. TH-XXXXXX).</li>
+          <li>Email our returns desk at <EmailLink className="text-amber-400 underline" /> or message our WhatsApp desk at <strong>+61 489 989 442</strong> with your order reference (e.g. TH-XXXXXX).</li>
           <li>Our technicians will verify your serial number and provide an authorized Return Merchandise Authorization (RMA) shipping label.</li>
           <li>Carefully re-pack the gear into its protective shipping outer carton and drop off at any StarTrack or Australia Post outlet.</li>
           <li>Upon inspection at 3 Kirks Lane, Melbourne, your refund or replacement will be processed within 2 business days.</li>

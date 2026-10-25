@@ -3,7 +3,7 @@ import { CheckCircle2, ArrowRight } from 'lucide-react';
 import { SITE } from '@/config/site';
 
 export const metadata = {
-  title: 'Wholesale Application Received — Theatricalz',
+  title: 'Wholesale Application Received',
   robots: {
     index: false,
     follow: true,

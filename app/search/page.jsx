@@ -53,9 +53,9 @@ function SearchContent() {
     <div className="bg-slate-950 min-h-screen py-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-8">
       {/* Search Header */}
       <div className="max-w-3xl mx-auto text-center space-y-4">
-        <h1 className="text-2xl sm:text-4xl font-black text-white uppercase tracking-tight">
+        <h2 className="text-2xl sm:text-4xl font-black text-white uppercase tracking-tight">
           Search Pro Gear Catalog
-        </h1>
+        </h2>
         <p className="text-xs sm:text-sm text-slate-400">
           Find pro cinema cameras, cine lenses, audio recorders, LED lighting, and broadcast gear.
         </p>
@@ -186,8 +186,11 @@ function SearchContent() {
 
 export default function SearchPage() {
   return (
+    <>
+    <h1 className="sr-only">Search Pro Gear Catalog</h1>
     <Suspense fallback={<div className="min-h-screen bg-slate-950 p-12 text-center text-slate-400 text-sm">Loading search...</div>}>
       <SearchContent />
     </Suspense>
+    </>
   );
 }

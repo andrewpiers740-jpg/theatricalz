@@ -188,7 +188,7 @@ const BASE_PRODUCTS = [
     featured: true,
     rating: 5.0,
     reviewsCount: 8,
-    stock: 'Special Order / In Stock',
+    stock: 'In Stock (Melb)',
     sku: 'TH-CKE-SP3-SET',
     specs: {
       'Focal Lengths': '25mm, 32mm, 50mm, 75mm, 100mm',

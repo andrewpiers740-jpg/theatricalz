@@ -1,5 +1,7 @@
 'use client';
 
+import PageSchema from '@/components/PageSchema';
+import EmailLink from '@/components/EmailLink';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
@@ -72,6 +74,7 @@ export default function ContactPage() {
 
   return (
     <div className="bg-slate-950 min-h-screen py-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-10">
+      <PageSchema type="ContactPage" path="/contact/" name="Contact Theatricalz" description="Contact the Theatricalz Melbourne team for gear advice, quotes, orders and support." />
       {/* Breadcrumb */}
       <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs text-slate-400">
         <Link href="/" className="hover:text-amber-400 transition">Home</Link>
@@ -96,9 +99,9 @@ export default function ContactPage() {
         {/* Contact Info Sidebar */}
         <div className="lg:col-span-5 space-y-6">
           <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 space-y-6">
-            <h3 className="text-base font-bold text-white uppercase tracking-tight">
+            <h2 className="text-base font-bold text-white uppercase tracking-tight">
               Contact Details
-            </h3>
+            </h2>
 
             <div className="space-y-4 text-xs">
               <div className="flex items-start gap-3">
@@ -125,9 +128,7 @@ export default function ContactPage() {
                 <Mail className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
                 <div>
                   <strong className="text-white block text-sm font-semibold">Sales & Quotes</strong>
-                  <a href={`mailto:${CONTACT.email}`} className="text-slate-300 hover:text-amber-400 text-sm">
-                    sales&#64;theatricalz.com.au
-                  </a>
+                  <EmailLink className="text-slate-300 hover:text-amber-400 text-sm" />
                   <span className="block text-[11px] text-slate-500 mt-0.5">Invoicing, quotes, and equipment financing</span>
                 </div>
               </div>
@@ -148,7 +149,7 @@ export default function ContactPage() {
                 href={greetingWa}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full flex items-center justify-center gap-2 py-3 px-4 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold uppercase tracking-wider transition shadow-lg shadow-emerald-950/40"
+                className="w-full flex items-center justify-center gap-2 py-3 px-4 bg-emerald-700 hover:bg-emerald-600 text-white rounded-xl text-xs font-bold uppercase tracking-wider transition shadow-lg shadow-emerald-950/40"
               >
                 <MessageCircle className="w-4 h-4" />
                 <span>Message on WhatsApp</span>
@@ -164,9 +165,9 @@ export default function ContactPage() {
             className="bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8 space-y-4"
           >
             <Honeypot value={honeypot} onChange={setHoneypot} />
-            <h3 className="text-base font-bold text-white uppercase tracking-tight mb-2">
+            <h2 className="text-base font-bold text-white uppercase tracking-tight mb-2">
               Send an Equipment Enquiry
-            </h3>
+            </h2>
 
             {error && (
               <div className="p-3 rounded-xl bg-red-950/50 border border-red-800/80 text-red-300 text-xs flex items-center gap-2">
@@ -214,8 +215,9 @@ export default function ContactPage() {
               </div>
 
               <div>
-                <label className="block font-semibold text-slate-300 mb-1">Enquiry Topic</label>
+                <label htmlFor="enquiry-topic" className="block font-semibold text-slate-300 mb-1">Enquiry Topic</label>
                 <select
+                  id="enquiry-topic"
                   value={formData.subject}
                   onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                   className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:ring-1 focus:ring-amber-500"

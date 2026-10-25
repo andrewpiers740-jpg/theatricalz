@@ -6,7 +6,7 @@ import JsonLd from '@/components/JsonLd';
 export const metadata = {
   title: 'Help & FAQ — Delivery, Payment & Returns',
   description:
-    'Answers on genuine Australian stock, StarTrack delivery, PayID and crypto payment, Pay in 4, returns, special orders and prop money at Theatricalz.',
+    'Answers on genuine Australian stock, StarTrack delivery, PayID and crypto payment, Pay in 4, returns and prop money at Theatricalz.',
   alternates: {
     canonical: `https://${SITE.domain}/faq/`,
   },
@@ -70,7 +70,7 @@ export default function FAQPage() {
             Frequently Asked Questions
           </h1>
           <p className="text-sm text-slate-300 leading-relaxed max-w-2xl">
-            Quick answers about genuine Australian stock, delivery, payment options, returns and special-order items. Can't find what you need? Our Melbourne team is happy to help.
+            Quick answers about genuine Australian stock, delivery, payment options, and returns. Can't find what you need? Our Melbourne team is happy to help.
           </p>
         </div>
 

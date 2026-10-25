@@ -1,5 +1,6 @@
 'use client';
 
+import PageSchema from '@/components/PageSchema';
 import { useState } from 'react';
 import Link from 'next/link';
 import { Search, Truck, Package, Clock, CheckCircle2, ChevronRight, AlertCircle, PhoneCall } from 'lucide-react';
@@ -43,6 +44,7 @@ export default function TrackingPage() {
 
   return (
     <div className="bg-slate-950 min-h-screen py-10 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto space-y-10 text-white">
+      <PageSchema type="WebPage" path="/tracking/" name="Track Your Order" description="Check the status of your Theatricalz order." />
       <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs text-slate-400">
         <Link href="/" className="hover:text-amber-400 transition">Home</Link>
         <ChevronRight className="w-3.5 h-3.5 text-slate-600" />

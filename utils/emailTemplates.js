@@ -152,7 +152,7 @@ export function orderNotificationAdminEmail(order, customer, appUrl = '') {
           ${field('Full Name', escapeHtml(customer.name), 8)}
           ${field('Email Address', `<a href="mailto:${escapeHtml(customer.email)}" style="color: #0284c7; text-decoration: none;">${escapeHtml(customer.email)}</a>`, 8)}
           ${field('Phone Number', escapeHtml(customer.phone), 8)}
-          ${field('Delivery Address', `${escapeHtml(customer.address)}, ${escapeHtml(customer.city || '')} ${escapeHtml(customer.state || '')} ${escapeHtml(customer.postcode || '')}`, 8)}
+          ${field('Delivery Address', `${escapeHtml(customer.address)}, ${escapeHtml(customer.city || '')} ${escapeHtml(customer.state || '')} ${escapeHtml(customer.postcode || '')}, ${escapeHtml(customer.country || 'Australia')}`, 8)}
           ${customer.notes ? field('Order Notes', escapeHtml(customer.notes), 8) : ''}
         </td>
       </tr>
@@ -235,7 +235,7 @@ export function orderConfirmationEmail(order, customer, appUrl = '') {
     <h3 style="font-size: 16px; color: #0f172a; margin: 0 0 8px 0;">Delivery Destination</h3>
     <p style="font-size: 14px; color: #475569; margin: 0; line-height: 1.5;">
       ${escapeHtml(customer.name)}<br>
-      ${escapeHtml(customer.address)}, ${escapeHtml(customer.city || '')} ${escapeHtml(customer.state || '')} ${escapeHtml(customer.postcode || '')}<br>
+      ${escapeHtml(customer.address)}, ${escapeHtml(customer.city || '')} ${escapeHtml(customer.state || '')} ${escapeHtml(customer.postcode || '')}, ${escapeHtml(customer.country || 'Australia')}<br>
       Phone: ${escapeHtml(customer.phone)}
     </p>
 

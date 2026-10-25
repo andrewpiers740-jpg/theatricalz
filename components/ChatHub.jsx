@@ -73,7 +73,7 @@ export default function ChatHub() {
                 href={greetingWa}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full flex items-center justify-between p-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-sm transition group shadow-md shadow-emerald-950/40"
+                className="w-full flex items-center justify-between p-3 rounded-xl bg-emerald-700 hover:bg-emerald-600 text-white font-semibold text-sm transition group shadow-md shadow-emerald-950/40"
               >
                 <div className="flex items-center gap-2.5">
                   <MessageCircle className="w-5 h-5" />
@@ -94,7 +94,11 @@ export default function ChatHub() {
               </a>
 
               <a
-                href={`mailto:${CONTACT.email}`}
+                href="mailto:"
+                onClick={(e) => {
+                  e.preventDefault();
+                  window.location.href = `mailto:${CONTACT.email}`;
+                }}
                 className="w-full flex items-center justify-between p-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-medium text-sm transition group border border-slate-700"
               >
                 <div className="flex items-center gap-2.5">

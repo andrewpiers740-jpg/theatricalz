@@ -1,5 +1,35 @@
 @import "tailwindcss";
 
+/* Theme: Midnight & Gold. Deep navy surfaces blended from the logo's navy, with the logo's gold as the accent.
+   Overriding the Tailwind palette here restyles the whole site from one place. The green used for reviews
+   (emerald) is deliberately NOT changed. */
+@theme {
+  --color-slate-50: #f3f6fd;
+  --color-slate-100: #e6ecf8;
+  --color-slate-200: #d5dcec;
+  --color-slate-300: #b4bfd9;
+  --color-slate-400: #8b9abf;
+  --color-slate-500: #7e8fb8;
+  --color-slate-600: #3a4d7a;
+  --color-slate-700: #22345f;
+  --color-slate-800: #14234a;
+  --color-slate-900: #0b1530;
+  --color-slate-950: #060b1a;
+  --color-amber-300: #fcd462;
+  --color-amber-400: #fbbf24;
+  --color-amber-500: #f5a30c;
+  --color-amber-600: #d98a06;
+}
+
+/* Gold gradient on primary calls to action */
+.bg-amber-500:is(a, button) {
+  background-image: linear-gradient(135deg, #fcd462, #f5a30c);
+}
+.bg-amber-500:is(a, button):hover {
+  background-image: linear-gradient(135deg, #fde08a, #fbb024);
+}
+
+
 /* WebForge v11.1 Global Mobile Overflow Guard & Responsive Rules */
 html, body {
   overflow-x: hidden;
@@ -28,7 +58,7 @@ img, video, iframe {
 
 /* Custom scrollbars and focus outlines */
 :focus-visible {
-  outline: 2px solid #f59e0b;
+  outline: 2px solid #fbbf24;
   outline-offset: 2px;
 }
 
@@ -50,3 +80,51 @@ img, video, iframe {
   background: linear-gradient(90deg, #f59e0b, #fbbf24);
 }
 .text-center .section-title::after, .section-title.text-center::after { left: 50%; transform: translateX(-50%); }
+
+/* Midnight & Gold polish */
+aside[aria-label="Store Announcements"] {
+  background-image: linear-gradient(90deg, #0d1b3d, #16295a 50%, #0d1b3d) !important;
+}
+header.sticky {
+  background-image: linear-gradient(180deg, #0f1c40, #0a1330) !important;
+  border-bottom-color: #22345f !important;
+  box-shadow: 0 1px 0 rgba(251, 191, 36, 0.18), 0 10px 30px rgba(2, 6, 23, 0.45) !important;
+}
+footer {
+  background-image: linear-gradient(180deg, #0a1330, #060b1a) !important;
+  border-top: 1px solid rgba(251, 191, 36, 0.25) !important;
+}
+::selection {
+  background: rgba(251, 191, 36, 0.35);
+  color: #fff;
+}
+
+/* Links inside running text are underlined so they do not rely on colour alone (WCAG 1.4.1) */
+p a[class*="text-amber"],
+li a[class*="text-amber"] {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* Touch targets: stand-alone links are at least 24px tall (WCAG 2.2 target size). Links inside sentences are exempt. */
+footer a {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+}
+a.inline-flex,
+a.flex[class*="text-xs"],
+a[class*="text-xs"][class*="font-bold"] {
+  min-height: 24px;
+}
+nav[aria-label="Breadcrumb"] a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+}
+h2 > a,
+h3 > a {
+  display: inline-block;
+  min-height: 24px;
+}

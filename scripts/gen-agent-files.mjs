@@ -449,6 +449,14 @@ Human-in-the-loop required. Agents may browse catalog items and prepare order dr
         headers: [{ key: 'Cache-Control', value: 'public, max-age=2592000, stale-while-revalidate=86400' }],
       },
       {
+        source: '/compare-index.:hash.json',
+        headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }],
+      },
+      {
+        source: '/brands.:hash.json',
+        headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }],
+      },
+      {
         source: '/product-index.:hash.json',
         headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }],
       },
@@ -462,7 +470,7 @@ Human-in-the-loop required. Agents may browse catalog items and prepare order dr
           { key: 'Strict-Transport-Security', value: 'max-age=63072000; includeSubDomains' },
           { key: 'Cross-Origin-Opener-Policy', value: 'same-origin-allow-popups' },
           // Next.js pages carry inline bootstrap scripts, so script-src keeps 'unsafe-inline'; everything else is locked to this site.
-          { key: 'Content-Security-Policy', value: "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://images.unsplash.com https://picsum.photos; font-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; upgrade-insecure-requests" },
+          { key: 'Content-Security-Policy', value: "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://images.unsplash.com https://picsum.photos; font-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-src 'none'; worker-src 'self'; manifest-src 'self'; media-src 'self'; frame-ancestors 'self'; upgrade-insecure-requests" },
           {
             key: 'Link',
             value: `</.well-known/api-catalog>; rel="api-catalog", </.well-known/agent-skills/index.json>; rel="describedby", </llms.txt>; rel="describedby", </.well-known/mcp/server-card.json>; rel="service-desc", </auth.md>; rel="auth", </.well-known/openid-configuration>; rel="openid-configuration"`,

@@ -6,6 +6,8 @@ import Nav from '@/components/Nav';
 import Footer from '@/components/Footer';
 import CartDrawer from '@/components/CartDrawer';
 import ChatHub from '@/components/ChatHub';
+import { Analytics } from '@vercel/analytics/next';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 export const metadata = {
   metadataBase: new URL(`https://${SITE.domain}`),
@@ -70,6 +72,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <CartDrawer />
           <ChatHub />
         </CartProvider>
+        {/* Cookie-free page-view counts and real-visitor speed (Core Web Vitals). Active once switched on in the Vercel project. */}
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

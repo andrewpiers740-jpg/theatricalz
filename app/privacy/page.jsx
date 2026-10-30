@@ -49,6 +49,11 @@ export default function PrivacyPage() {
           Theatricalz never sells, rents, or monetizes customer records to external marketing networks or data brokers. Information is shared strictly with essential operational partners: courier logistics networks (StarTrack / Australia Post) for delivery completion and payment rails for transaction settlement.
         </p>
 
+        <h2 className="text-xl font-bold text-white uppercase tracking-tight pt-4">Website Analytics</h2>
+        <p>
+          We use cookie-free website analytics and performance measurement (Vercel Web Analytics and Speed Insights) to count page views and measure how quickly pages load. This data is aggregated and does not identify you personally.
+        </p>
+
         <h2 className="text-xl font-bold text-white uppercase tracking-tight pt-4">Data Security & Storage</h2>
         <p>
           All electronic communications, checkout submissions, and payment instructions are transmitted across 256-bit TLS encrypted SSL connections. Our internal database records are safeguarded with strict role-based access control and passcode authentication.

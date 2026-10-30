@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { fitTitle, fitDescription } from '@/lib/seoText';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { Calendar, Clock, ChevronRight, ArrowRight, Share2, Film } from 'lucide-react';
@@ -19,8 +20,8 @@ export async function generateMetadata({ params }) {
   }
 
   return {
-    title: post.title,
-    description: post.excerpt,
+    title: fitTitle(post.title),
+    description: fitDescription(post.excerpt, 'Theatricalz buying guide for Australian creators.'),
     alternates: {
       canonical: `https://${SITE.domain}/blog/${post.slug}/`,
     },

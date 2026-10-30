@@ -11,3 +11,5 @@ coverage/
 # generated at build
 data/products/index.json
 public/product-index*.json
+public/brands.*.json
+public/compare-index*.json

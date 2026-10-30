@@ -8,7 +8,8 @@ import ProductCard from '@/components/ProductCard';
 
 export default function WishlistPage() {
   const { wishlist } = useCart();
-  const { products: PRODUCTS } = useProductIndex();
+  // only download the product list when something has been saved
+  const { products: PRODUCTS } = useProductIndex(wishlist.length > 0);
   const wishlistedProducts = PRODUCTS.filter((p) => wishlist.includes(p.slug));
 
   return (

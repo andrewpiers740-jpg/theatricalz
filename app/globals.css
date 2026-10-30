@@ -128,3 +128,19 @@ h3 > a {
   display: inline-block;
   min-height: 24px;
 }
+
+/* Brand index rows: short class names keep the 560-link brands page small */
+.brand-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding-block: 0.25rem;
+  font-size: 0.875rem;
+  color: var(--color-slate-200);
+  break-inside: avoid;
+  transition: color 0.15s;
+}
+.brand-link:hover { color: var(--color-amber-400); }
+.brand-link span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.brand-link i { font-style: normal; font-size: 0.75rem; color: var(--color-slate-400); font-family: ui-monospace, monospace; }

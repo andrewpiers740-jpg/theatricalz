@@ -1,16 +1,26 @@
-// app/sitemap.js - Image-aware split sitemaps for Theatricalz
+// app/sitemap.js - Split sitemaps for Theatricalz: /sitemap/pages.xml plus /sitemap/products-<n>.xml (5,000 products each).
+// /sitemap.xml is a sitemap index listing them (app/sitemap.xml/route.js).
 import { SITE, CATEGORIES, POSTS } from '@/config/site';
 import { PRODUCTS } from '@/config/products';
 import { subSlug } from '@/lib/subcategory';
 import lastmod from '@/data/lastmod.json';
+import { getBrands } from '@/lib/brands';
 
-export default async function sitemap() {
+// Products are split into files of this many URLs so no single sitemap grows large
+export const PRODUCTS_PER_SITEMAP = 5000;
+
+export async function generateSitemaps() {
+  const n = Math.max(1, Math.ceil(PRODUCTS.length / PRODUCTS_PER_SITEMAP));
+  return [{ id: 'pages' }, ...Array.from({ length: n }, (_, i) => ({ id: `products-${i + 1}` }))];
+}
+
+export default async function sitemap({ id }) {
+  const sid = String(await id);
   const domain = `https://${SITE.domain}`;
   // lastModified is the date the content actually changed (data/lastmod.json, built by scripts/gen-product-index.mjs).
   // Pages with no tracked change date leave it out rather than claiming the build time.
   const dateOf = (slug) => (lastmod[slug] ? lastmod[slug].d : undefined);
   const newest = (items) => items.map((p) => dateOf(p.slug)).filter(Boolean).sort().pop();
-  const abs = (u) => (u && u.startsWith('http') ? u : `${domain}${u && u.startsWith('/') ? '' : '/'}${u || ''}`);
 
   // 1. Static Pages
   const staticPages = [
@@ -28,7 +38,6 @@ export default async function sitemap() {
     '/returns/',
     '/privacy/',
     '/tracking/',
-    '/compare/',
   ].map((route) => ({
     url: `${domain}${route}`,
     changeFrequency: route === '/' ? 'daily' : 'weekly',
@@ -56,13 +65,12 @@ export default async function sitemap() {
   );
 
   // 3. Product Pages (with image rich result metadata)
-  const productPages = PRODUCTS.map((prod) => ({
+  const productsOf = (n) => PRODUCTS.slice((n - 1) * PRODUCTS_PER_SITEMAP, n * PRODUCTS_PER_SITEMAP);
+  const productPages = (sid.startsWith('products-') ? productsOf(parseInt(sid.slice(9), 10) || 1) : []).map((prod) => ({
     url: `${domain}/shop/${prod.category}/${prod.slug}/`,
     lastModified: dateOf(prod.slug),
     changeFrequency: 'daily',
     priority: 0.95,
-    // Next.js writes <image:image> entries from plain absolute URLs (objects would print as [object Object])
-    images: (prod.images || []).map((imgUrl) => abs(imgUrl)),
   }));
 
   // 4. Blog Posts
@@ -73,5 +81,12 @@ export default async function sitemap() {
     priority: 0.7,
   }));
 
-  return [...staticPages, ...categoryPages, ...rangePages, ...productPages, ...blogPages];
+  // 5. Brand pages
+  const brandPages = [
+    { url: `${domain}/brands/`, changeFrequency: 'weekly', priority: 0.8 },
+    ...getBrands().map((b) => ({ url: `${domain}/brands/${b.slug}/`, changeFrequency: 'weekly', priority: 0.7 })),
+  ];
+
+  if (sid.startsWith('products-')) return productPages;
+  return [...staticPages, ...categoryPages, ...rangePages, ...brandPages, ...blogPages];
 }

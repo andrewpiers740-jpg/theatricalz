@@ -1,11 +1,10 @@
 'use client';
 
-import { useState, useEffect, Suspense } from 'react';
+import { useState, useEffect, useRef, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { Search, Film, ArrowRight, Sparkles } from 'lucide-react';
 import { POSTS, CATEGORIES } from '@/config/site';
-import { useProductIndex } from '@/lib/useProductIndex';
 import ProductCard from '@/components/ProductCard';
 
 const MIN_QUERY = 2;
@@ -20,34 +19,54 @@ function SearchContent() {
     setQuery(searchParams.get('q') || '');
   }, [searchParams]);
 
-  const { products: PRODUCTS } = useProductIndex();
-  const trimmed = query.trim().toLowerCase();
+  // Search runs on the server (/api/search), so the whole catalogue is never downloaded to the browser.
+  const trimmed = query.trim();
   const cleanQ = trimmed.length >= MIN_QUERY ? trimmed : '';
-  const [visible, setVisible] = useState(PAGE_SIZE);
+  const [state, setState] = useState({ items: [], total: 0, hasMore: false, posts: [], loading: false, error: '' });
+  const reqId = useRef(0);
+
+  const fetchPage = async (q, offset, append) => {
+    const id = ++reqId.current;
+    setState((s) => ({ ...s, loading: true, error: '' }));
+    try {
+      const r = await fetch(`/api/search/?q=${encodeURIComponent(q)}&limit=${PAGE_SIZE}&offset=${offset}`);
+      if (r.status === 429) throw new Error('Too many searches in a short time. Please wait a moment and try again.');
+      const d = await r.json();
+      if (id !== reqId.current) return;
+      const items = (d.products || []).map((p) => ({
+        slug: p.slug,
+        name: p.name,
+        brand: p.brand,
+        category: p.category,
+        price: p.price,
+        images: p.image ? [p.image] : [],
+        shortDescription: p.shortDescription,
+      }));
+      setState((s) => ({
+        items: append ? [...s.items, ...items] : items,
+        total: d.totalProducts ?? d.total ?? 0,
+        hasMore: Boolean(d.hasMore),
+        posts: append ? s.posts : d.posts || [],
+        loading: false,
+        error: '',
+      }));
+    } catch (e) {
+      if (id === reqId.current) setState((s) => ({ ...s, loading: false, error: e.message || 'Search is unavailable right now.' }));
+    }
+  };
 
   useEffect(() => {
-    setVisible(PAGE_SIZE);
+    if (!cleanQ) {
+      reqId.current += 1;
+      setState({ items: [], total: 0, hasMore: false, posts: [], loading: false, error: '' });
+      return undefined;
+    }
+    const timer = setTimeout(() => fetchPage(cleanQ, 0, false), 250);
+    return () => clearTimeout(timer);
   }, [cleanQ]);
 
-  const matchingProducts = cleanQ
-    ? PRODUCTS.filter(
-        (p) =>
-          p.name.toLowerCase().includes(cleanQ) ||
-          p.shortDescription?.toLowerCase().includes(cleanQ) ||
-          p.category.toLowerCase().includes(cleanQ) ||
-          p.brand?.toLowerCase().includes(cleanQ) ||
-          p.sku?.toLowerCase().includes(cleanQ)
-      )
-    : [];
-
-  const matchingPosts = cleanQ
-    ? POSTS.filter(
-        (post) =>
-          post.title.toLowerCase().includes(cleanQ) ||
-          post.excerpt.toLowerCase().includes(cleanQ) ||
-          post.category.toLowerCase().includes(cleanQ)
-      )
-    : [];
+  const matchingProducts = state.items;
+  const matchingPosts = state.posts;
 
   return (
     <div className="bg-slate-950 min-h-screen py-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-8">
@@ -94,7 +113,7 @@ function SearchContent() {
         <div className="space-y-8 pt-4">
           <div className="flex items-center justify-between pb-3 border-b border-slate-800 text-xs">
             <span className="text-slate-400">
-              Found <strong className="text-amber-400 font-mono">{matchingProducts.length}</strong> matching products and <strong className="text-amber-400 font-mono">{matchingPosts.length}</strong> articles for &ldquo;{query}&rdquo;
+              {state.loading && matchingProducts.length === 0 ? 'Searching…' : (<>Found <strong className="text-amber-400 font-mono">{state.total}</strong> matching products and</>)} {!(state.loading && matchingProducts.length === 0) && (<><strong className="text-amber-400 font-mono">{matchingPosts.length}</strong> articles for &ldquo;{query}&rdquo;</>)}
             </span>
           </div>
 
@@ -102,24 +121,29 @@ function SearchContent() {
           {matchingProducts.length > 0 ? (
             <div className="space-y-6">
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                {matchingProducts.slice(0, visible).map((product) => (
+                {matchingProducts.map((product) => (
                   <ProductCard key={product.slug} product={product} />
                 ))}
               </div>
-              {visible < matchingProducts.length && (
+              {state.hasMore && (
                 <div className="text-center space-y-2">
                   <p className="text-xs text-slate-400">
-                    Showing {Math.min(visible, matchingProducts.length)} of {matchingProducts.length} products
+                    Showing {matchingProducts.length} of {state.total} products
                   </p>
                   <button
                     type="button"
-                    onClick={() => setVisible((v) => v + PAGE_SIZE)}
+                    onClick={() => fetchPage(cleanQ, matchingProducts.length, true)}
+                    disabled={state.loading}
                     className="px-6 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 text-sm font-bold transition"
                   >
                     Show more products
                   </button>
                 </div>
               )}
+            </div>
+          ) : state.loading ? null : state.error ? (
+            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-8 text-center">
+              <p className="text-sm text-amber-300 font-semibold">{state.error}</p>
             </div>
           ) : (
             <div className="bg-slate-900 border border-slate-800 rounded-2xl p-8 text-center space-y-2">

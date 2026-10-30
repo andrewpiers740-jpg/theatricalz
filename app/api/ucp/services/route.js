@@ -1,7 +1,10 @@
 // app/api/ucp/services/route.js - Live UCP Services endpoint (WebForge v11.1 Section V3)
+import { guardApi } from '@/lib/apiGuard';
 import { SITE, SHOP, CONTACT } from '@/config/site';
 
-export async function GET() {
+export async function GET(request) {
+  const limited = await guardApi(request, 'ucp');
+  if (limited) return limited;
   return Response.json(
     {
       ucp: '1.0',

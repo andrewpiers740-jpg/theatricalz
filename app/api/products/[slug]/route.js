@@ -1,8 +1,11 @@
 // app/api/products/[slug]/route.js - Single product detail endpoint
+import { guardApi } from '@/lib/apiGuard';
 import { SITE } from '@/config/site';
 import { PRODUCTS } from '@/config/products';
 
 export async function GET(request, { params }) {
+  const limited = await guardApi(request, 'product');
+  if (limited) return limited;
   const { slug } = await params;
   const product = PRODUCTS.find((p) => p.slug === slug);
 

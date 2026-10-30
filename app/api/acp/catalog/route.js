@@ -1,11 +1,14 @@
 // app/api/acp/catalog/route.js - Live ACP Catalog endpoint (WebForge v11.1 Section V3)
 // Bounded: with no category it lists the categories and their product counts; with ?category=<slug> it returns
 // one page of products (limit 1-50, default 24; use offset to page), so a request never returns the whole catalogue.
+import { guardApi } from '@/lib/apiGuard';
 import { CATEGORIES, SHOP, SITE } from '@/config/site';
 import { PRODUCTS } from '@/config/products';
 import { clampLimit, clampOffset } from '@/lib/searchProducts';
 
 export async function GET(request) {
+  const limited = await guardApi(request, 'acp-catalog');
+  if (limited) return limited;
   const { searchParams } = new URL(request.url);
   const categorySlug = (searchParams.get('category') || '').trim();
   const limit = clampLimit(searchParams.get('limit'));

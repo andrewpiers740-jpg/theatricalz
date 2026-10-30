@@ -1,4 +1,5 @@
 // app/api/mcp/route.js - MCP Streamable HTTP JSON-RPC 2.0 Server (WebForge v11.1)
+import { guardApi } from '@/lib/apiGuard';
 import { searchCatalogue, clampLimit, clampOffset, MIN_QUERY } from '@/lib/searchProducts';
 import { CATEGORIES, SHOP, SITE, BRAND, CONTACT } from '@/config/site';
 import { PRODUCTS } from '@/config/products';
@@ -82,7 +83,9 @@ export async function OPTIONS() {
   });
 }
 
-export async function GET() {
+export async function GET(request) {
+  const limited = await guardApi(request, 'mcp-get');
+  if (limited) return limited;
   return Response.json(
     {
       name: SITE.name,
@@ -101,6 +104,8 @@ export async function GET() {
 }
 
 export async function POST(request) {
+  const limited = await guardApi(request, 'mcp', 60, 60);
+  if (limited) return limited;
   let body;
   try {
     body = await request.json();

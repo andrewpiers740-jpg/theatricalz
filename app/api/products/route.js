@@ -1,13 +1,16 @@
 // app/api/products/route.js - V2 JSON Catalog API
+import { guardApi } from '@/lib/apiGuard';
 import { SITE } from '@/config/site';
 import { PRODUCTS } from '@/config/products';
 
 export async function GET(request) {
+  const limited = await guardApi(request, 'products');
+  if (limited) return limited;
   const { searchParams } = new URL(request.url);
   const category = searchParams.get('category');
   const q = searchParams.get('q')?.toLowerCase();
-  // The catalogue runs to thousands of items, so responses are paged: ?limit (default 100, max 500) and ?offset.
-  const limit = Math.min(Math.max(parseInt(searchParams.get('limit') || '100', 10) || 100, 1), 500);
+  // The catalogue runs to thousands of items, so responses are paged: ?limit (default 24, max 100) and ?offset.
+  const limit = Math.min(Math.max(parseInt(searchParams.get('limit') || '24', 10) || 24, 1), 100);
   const offset = Math.max(parseInt(searchParams.get('offset') || '0', 10) || 0, 0);
 
   let results = [...PRODUCTS];

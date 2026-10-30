@@ -22,6 +22,8 @@ import ProductActionBox from './ProductActionBox';
 import DisclaimerNotice from '@/components/DisclaimerNotice';
 import WarrantyInfo from '@/components/WarrantyInfo';
 import ShippingEstimate from '@/components/ShippingEstimate';
+import ProductGallery from '@/components/ProductGallery';
+import ProductTabs from '@/components/ProductTabs';
 import SubcategoryListing from '@/components/SubcategoryListing';
 import { subSlug, findSubcategory } from '@/lib/subcategory';
 import { getDescription } from '@/lib/descriptions';
@@ -118,6 +120,19 @@ export default async function ProductDetailPage({ params }) {
   const payInFour = priceOnRequest ? 0 : price / 4;
   const payInFourEligible = !priceOnRequest && price >= (SHOP.payInFourMin || 400);
   const stockLabel = 'In Stock (Melb Warehouse)';
+
+  // Specification rows: the product's spec table when it has one, otherwise the facts held for every product
+  const specRows = product.specs
+    ? Object.entries(product.specs)
+    : [
+        ['Brand', product.brand || 'Theatricalz'],
+        // imported items carry a long slug-style SKU, which is not a model code, so it is left out
+        ...(product.sku && !/^[a-z0-9]+(-[a-z0-9]+){3,}$/.test(product.sku) ? [['Model / SKU', product.sku]] : []),
+        ['Category', category.name],
+        ...(product.subcategory ? [['Range', product.subcategory]] : []),
+        ['Condition', 'New, genuine Australian stock'],
+        ['Warranty', 'Official local manufacturer warranty'],
+      ];
 
   const productSchema = [
     {
@@ -234,48 +249,7 @@ export default async function ProductDetailPage({ params }) {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
           {/* Gallery Col */}
           <div className="lg:col-span-7 space-y-4">
-            <div className="relative bg-white aspect-[4/3] rounded-3xl overflow-hidden p-8 flex items-center justify-center border border-slate-700/60 shadow-2xl shadow-black/40 ring-1 ring-amber-500/10">
-              {product.images?.[0] ? (
-                <Image
-                  src={product.images[0]}
-                  alt={product.name}
-                  fill
-                  priority
-                  className="object-contain p-6"
-                  referrerPolicy="no-referrer"
-                />
-              ) : (
-                <div className="text-slate-400">No Image Available</div>
-              )}
-
-              {product.badge && (
-                <div className="absolute top-4 left-4">
-                  <span className="px-3 py-1 rounded-lg bg-slate-950 text-amber-400 border border-amber-500/40 text-xs font-black uppercase tracking-wider shadow">
-                    {product.badge}
-                  </span>
-                </div>
-              )}
-            </div>
-
-            {/* Thumbnail Row */}
-            {product.images && product.images.length > 1 && (
-              <div className="flex gap-3">
-                {product.images.map((imgUrl, i) => (
-                  <div
-                    key={i}
-                    className="w-20 h-20 rounded-xl bg-white p-2 border border-slate-700 relative overflow-hidden"
-                  >
-                    <Image
-                      src={imgUrl}
-                      alt={`${product.name} view ${i + 1}`}
-                      fill
-                      className="object-contain p-1"
-                      referrerPolicy="no-referrer"
-                    />
-                  </div>
-                ))}
-              </div>
-            )}
+            <ProductGallery images={product.images || []} name={product.name} badge={product.badge} />
 
             {/* Trust Points Panel */}
             <div className="grid grid-cols-3 gap-3 pt-4 border-t border-slate-800 text-xs text-slate-300">
@@ -382,8 +356,6 @@ export default async function ProductDetailPage({ params }) {
               <ProductActionBox product={product} />
             </div>
 
-            <ShippingEstimate />
-
             <DisclaimerNotice product={product} />
 
             {/* Fast Dispatch Note */}
@@ -401,109 +373,138 @@ export default async function ProductDetailPage({ params }) {
           </div>
         </div>
 
-        {/* Specifications & Description */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 pt-8 border-t border-slate-800">
-          <div className="lg:col-span-7 space-y-6">
-            {desc ? (
-              <div className="space-y-6">
-                <p className="text-sm sm:text-base text-slate-200 leading-relaxed">{desc.intro}</p>
-                {desc.content.map((section) => (
-                  <section key={section.h2} className="space-y-3">
-                    <h2 className="text-xl font-bold text-white uppercase tracking-tight border-l-4 border-amber-500 pl-3">{section.h2}</h2>
-                    {section.body && <p className="text-sm text-slate-300 leading-relaxed">{section.body}</p>}
-                    {section.bullets && <DescBullets items={section.bullets} />}
-                    {section.sub?.map((sub) => (
-                      <div key={sub.h3} className="space-y-1.5">
-                        <h3 className="text-base font-bold text-amber-400 tracking-tight">{sub.h3}</h3>
-                        {sub.body && <p className="text-sm text-slate-300 leading-relaxed">{sub.body}</p>}
-                        {sub.bullets && <DescBullets items={sub.bullets} />}
-                      </div>
-                    ))}
-                  </section>
-                ))}
-              </div>
-            ) : product.content ? (
-              <div className="space-y-6">
-                {product.content.map((section) => (
-                  <section key={section.h2} className="space-y-3">
-                    <h2 className="text-xl font-bold text-white uppercase tracking-tight border-l-4 border-amber-500 pl-3">{section.h2}</h2>
-                    {section.body && <p className="text-sm text-slate-300 leading-relaxed">{section.body}</p>}
-                    {section.sub?.map((sub) => (
-                      <div key={sub.h3} className="space-y-1.5">
-                        <h3 className="text-base font-bold text-amber-400 tracking-tight">{sub.h3}</h3>
-                        <p className="text-sm text-slate-300 leading-relaxed">{sub.body}</p>
-                      </div>
-                    ))}
-                  </section>
-                ))}
-              </div>
-            ) : (
-              <>
-                <h2 className="text-xl font-bold text-white uppercase tracking-tight">
-                  Product Overview & Architecture
-                </h2>
-                <div className="text-sm text-slate-300 leading-relaxed space-y-4">
-                  <p>{product.description}</p>
-                  <p>
-                    Engineered specifically for demanding on-set cinema workflows, documentary location sound, and broadcast live studio installations. Built to withstand rigours of Australian field production from Melbourne studios to remote outback shooting environments.
-                  </p>
-                </div>
-              </>
-            )}
-
-            {/* Technical Specifications Table */}
-            {product.specs && (
-              <div className="space-y-3 pt-4">
-                <h3 className="text-base font-bold text-white uppercase tracking-tight">
-                  Technical Specifications
-                </h3>
-                <div className="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden divide-y divide-slate-800/80">
-                  {Object.entries(product.specs).map(([label, val]) => (
-                    <div key={label} className="grid grid-cols-3 p-3.5 text-xs">
-                      <span className="font-semibold text-slate-400">{label}</span>
-                      <span className="col-span-2 text-white font-medium">{val}</span>
+        {/* Tabbed information: Description, Technical Specifications, Australian Warranty & Support, Estimated Delivery */}
+        <ProductTabs
+          tabs={[
+            {
+              id: 'description',
+              label: 'Description',
+              content: (
+                <div className="space-y-6 max-w-4xl">
+                  {desc ? (
+                    <div className="space-y-6">
+                      <p className="text-sm sm:text-base text-slate-200 leading-relaxed">{desc.intro}</p>
+                      {desc.content.map((section) => (
+                        <section key={section.h2} className="space-y-3">
+                          <h2 className="text-xl font-bold text-white uppercase tracking-tight border-l-4 border-amber-500 pl-3">{section.h2}</h2>
+                          {section.body && <p className="text-sm text-slate-300 leading-relaxed">{section.body}</p>}
+                          {section.bullets && <DescBullets items={section.bullets} />}
+                          {section.sub?.map((sub) => (
+                            <div key={sub.h3} className="space-y-1.5">
+                              <h3 className="text-base font-bold text-amber-400 tracking-tight">{sub.h3}</h3>
+                              {sub.body && <p className="text-sm text-slate-300 leading-relaxed">{sub.body}</p>}
+                              {sub.bullets && <DescBullets items={sub.bullets} />}
+                            </div>
+                          ))}
+                        </section>
+                      ))}
                     </div>
-                  ))}
+                  ) : product.content ? (
+                    <div className="space-y-6">
+                      {product.content.map((section) => (
+                        <section key={section.h2} className="space-y-3">
+                          <h2 className="text-xl font-bold text-white uppercase tracking-tight border-l-4 border-amber-500 pl-3">{section.h2}</h2>
+                          {section.body && <p className="text-sm text-slate-300 leading-relaxed">{section.body}</p>}
+                          {section.sub?.map((sub) => (
+                            <div key={sub.h3} className="space-y-1.5">
+                              <h3 className="text-base font-bold text-amber-400 tracking-tight">{sub.h3}</h3>
+                              <p className="text-sm text-slate-300 leading-relaxed">{sub.body}</p>
+                            </div>
+                          ))}
+                        </section>
+                      ))}
+                    </div>
+                  ) : (
+                    <>
+                      <h2 className="text-xl font-bold text-white uppercase tracking-tight">
+                        Product Overview & Architecture
+                      </h2>
+                      <div className="text-sm text-slate-300 leading-relaxed space-y-4">
+                        <p>{product.description}</p>
+                        <p>
+                          Engineered specifically for demanding on-set cinema workflows, documentary location sound, and broadcast live studio installations. Built to withstand rigours of Australian field production from Melbourne studios to remote outback shooting environments.
+                        </p>
+                      </div>
+                    </>
+                  )}
+
                 </div>
-              </div>
-            )}
-          </div>
+              ),
+            },
+            {
+              id: 'specifications',
+              label: 'Technical Specifications',
+              content: (
+                <div className="space-y-3">
+                  <h2 className="text-xl font-bold text-white uppercase tracking-tight border-l-4 border-amber-500 pl-3">Technical Specifications</h2>
+                  <div className="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden divide-y divide-slate-800/80">
+                    {specRows.map(([label, val]) => (
+                      <div key={label} className="grid grid-cols-3 p-3.5 text-sm">
+                        <span className="font-semibold text-slate-400">{label}</span>
+                        <span className="col-span-2 text-white font-medium">{val}</span>
+                      </div>
+                    ))}
+                  </div>
+                  {!product.specs && (
+                    <p className="text-xs text-slate-400 leading-relaxed">
+                      Need the full manufacturer specification sheet for this model? Ask our Melbourne gear desk on {CONTACT.phoneDisplay} and we will send it through.
+                    </p>
+                  )}
+                </div>
+              ),
+            },
+            {
+              id: 'warranty',
+              label: 'Australian Warranty & Support',
+              content: (
+                <div className="space-y-4 max-w-3xl">
+                  <h2 className="text-xl font-bold text-white uppercase tracking-tight border-l-4 border-amber-500 pl-3 flex items-center gap-2">
+                    <ShieldCheck className="w-5 h-5 text-amber-400" />
+                    <span>Australian Warranty & Support</span>
+                  </h2>
+                  <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 space-y-4">
+                    <WarrantyInfo product={product} />
+                    <ul className="space-y-3 text-xs text-slate-300">
+                      <li className="flex items-start gap-2">
+                        <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                        <span>Full official Australian manufacturer warranty with local repair centers.</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                        <span>Australian Consumer Law (ACL) consumer guarantees apply to all purchases.</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                        <span>Complimentary technical setup assistance via Melbourne gear desk.</span>
+                      </li>
+                    </ul>
 
-          {/* Australian Warranty & Support Desk Sidebar */}
-          <div className="lg:col-span-5 space-y-6">
-            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 space-y-4">
-              <h3 className="text-base font-bold text-white flex items-center gap-2">
-                <ShieldCheck className="w-5 h-5 text-amber-400" />
-                <span>Australian Warranty & Support</span>
-              </h3>
-              <WarrantyInfo product={product} />
-              <ul className="space-y-3 text-xs text-slate-300">
-                <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
-                  <span>Full official Australian manufacturer warranty with local repair centers.</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
-                  <span>Australian Consumer Law (ACL) consumer guarantees apply to all purchases.</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
-                  <span>Complimentary technical setup assistance via Melbourne gear desk.</span>
-                </li>
-              </ul>
+                    <div className="pt-2 border-t border-slate-800">
+                      <a
+                        href={`tel:${CONTACT.phone}`}
+                        className="w-full py-2.5 px-4 bg-slate-800 hover:bg-slate-700 text-white rounded-xl text-xs font-semibold flex items-center justify-center gap-2 transition"
+                      >
+                        <PhoneCall className="w-4 h-4 text-amber-400" />
+                        <span>Speak with Gear Tech: {CONTACT.phoneDisplay}</span>
+                      </a>
+                    </div>
+                  </div>
 
-              <div className="pt-2 border-t border-slate-800">
-                <a
-                  href={`tel:${CONTACT.phone}`}
-                  className="w-full py-2.5 px-4 bg-slate-800 hover:bg-slate-700 text-white rounded-xl text-xs font-semibold flex items-center justify-center gap-2 transition"
-                >
-                  <PhoneCall className="w-4 h-4 text-amber-400" />
-                  <span>Speak with Gear Tech: {CONTACT.phoneDisplay}</span>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
+                </div>
+              ),
+            },
+            {
+              id: 'delivery',
+              label: 'Estimated Delivery',
+              content: (
+                <div className="space-y-4 max-w-3xl">
+                  <h2 className="text-xl font-bold text-white uppercase tracking-tight border-l-4 border-amber-500 pl-3">Estimated Delivery</h2>
+                  <ShippingEstimate />
+                </div>
+              ),
+            },
+          ]}
+        />
 
         {/* Customer Reviews for this Product */}
         {hasRating && (

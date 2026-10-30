@@ -4,14 +4,14 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { SlidersHorizontal, ChevronRight, Check, X, ShoppingBag } from 'lucide-react';
-import { useProductIndex } from '@/lib/useProductIndex';
+import { useCompareIndex } from '@/lib/useProductIndex';
 import { money } from '@/lib/order';
 import { useCart } from '@/lib/cartContext';
 
 export default function ComparePage() {
   const { addToCart } = useCart();
-  const { products: PRODUCTS } = useProductIndex();
-  const pickerProducts = PRODUCTS.filter((p) => !p.imported);
+  const { products: PRODUCTS } = useCompareIndex();
+  const pickerProducts = PRODUCTS;
   const [selectedSlugs, setSelectedSlugs] = useState([
     'sony-fx3-cinema-line-camera',
     'canon-eos-c70-cinema-camera',
@@ -79,13 +79,15 @@ export default function ComparePage() {
                   {prod && (
                     <div className="space-y-2">
                       <div className="relative aspect-[4/3] bg-white rounded-xl overflow-hidden p-2 flex items-center justify-center">
-                        <Image
-                          src={prod.images?.[0] || ''}
-                          alt={prod.name}
-                          fill
-                          className="object-contain p-2"
-                          referrerPolicy="no-referrer"
-                        />
+                        <Link href={`/shop/${prod.category}/${prod.slug}/`} aria-label={`View ${prod.name}`} className="absolute inset-0 block">
+                          <Image
+                            src={prod.images?.[0] || ''}
+                            alt={prod.name}
+                            fill
+                            className="object-contain p-2"
+                            referrerPolicy="no-referrer"
+                          />
+                        </Link>
                       </div>
                       <div className="text-xs font-bold text-white line-clamp-1">{prod.name}</div>
                       <div className="text-sm font-black text-amber-400 font-mono">{prod.price == null ? 'Price on request' : money(prod.price)}</div>

@@ -228,13 +228,15 @@ customer: customerPayload,
                 <div key={item.slug} className="py-4 first:pt-0 last:pb-0 flex items-start gap-4">
                   <div className="w-20 h-20 rounded-xl bg-white p-2 relative overflow-hidden shrink-0 border border-slate-800">
                     {item.image && (
-                      <Image
-                        src={item.image}
-                        alt={item.name}
-                        fill
-                        className="object-contain p-1"
-                        referrerPolicy="no-referrer"
-                      />
+                      <Link href={`/shop/${item.category}/${item.productSlug || item.slug}/`} aria-label={`View ${item.name}`} className="absolute inset-0 block">
+                        <Image
+                          src={item.image}
+                          alt={item.name}
+                          fill
+                          className="object-contain p-1"
+                          referrerPolicy="no-referrer"
+                        />
+                      </Link>
                     )}
                   </div>
 

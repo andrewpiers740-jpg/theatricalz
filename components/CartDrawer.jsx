@@ -427,13 +427,15 @@ customer: customerPayload,
                 >
                   <div className="w-16 h-16 rounded-lg bg-slate-900 overflow-hidden relative shrink-0 border border-slate-800">
                     {item.image && (
-                      <Image
-                        src={item.image}
-                        alt={item.name}
-                        fill
-                        className="object-cover"
-                        referrerPolicy="no-referrer"
-                      />
+                      <Link href={`/shop/${item.category}/${item.productSlug || item.slug}/`} onClick={() => setIsCartOpen(false)} aria-label={`View ${item.name}`} className="absolute inset-0 block">
+                        <Image
+                          src={item.image}
+                          alt={item.name}
+                          fill
+                          className="object-cover"
+                          referrerPolicy="no-referrer"
+                        />
+                      </Link>
                     )}
                   </div>
 

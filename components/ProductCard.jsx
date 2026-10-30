@@ -1,6 +1,6 @@
 'use client';
 
-import Image from 'next/image';
+import ZoomImage from '@/components/ZoomImage';
 import Link from 'next/link';
 import { Star, ShoppingBag, Heart, Check, Coins, Truck } from 'lucide-react';
 import { useCart } from '@/lib/cartContext';
@@ -8,7 +8,9 @@ import { money } from '@/lib/order';
 import { SHOP } from '@/config/site';
 import { hasDisclaimer } from '@/lib/disclaimers';
 
-export default function ProductCard({ product }) {
+// headingLevel: 3 when the card sits under a section heading (h2); 2 when the cards follow the page's h1 directly
+export default function ProductCard({ product, headingLevel = 3 }) {
+  const Heading = headingLevel === 2 ? 'h2' : 'h3';
   const { addToCart, toggleWishlist, isWishlisted } = useCart();
   const wishlisted = isWishlisted(product.slug);
 
@@ -22,22 +24,24 @@ export default function ProductCard({ product }) {
     <div className="bg-slate-900 border border-slate-800 hover:border-amber-500/40 rounded-2xl overflow-hidden flex flex-col justify-between transition-all duration-200 group hover:-translate-y-1 hover:shadow-2xl hover:shadow-amber-500/10 focus-within:border-amber-500/60">
       {/* Product Image Frame */}
       <div className="relative bg-white aspect-[4/3] w-full overflow-hidden flex items-center justify-center p-4 border-b border-slate-200/10 shadow-[inset_0_-12px_16px_-12px_rgba(15,23,42,0.12)]">
-        {product.images?.[0] ? (
-          <Image
-            src={product.images[0]}
-            alt={product.name}
-            fill
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            className="object-contain p-4 group-hover:scale-105 transition-transform duration-300"
-            referrerPolicy="no-referrer"
-          />
-        ) : (
-          <div className="text-slate-400 text-xs">No image preview</div>
-        )}
+        {/* The whole image opens the product page; the magnifier shows detail while the mouse moves over it */}
+        <Link href={`/shop/${product.category}/${product.slug}/`} aria-label={`View ${product.name}`} className="absolute inset-0 block">
+          {product.images?.[0] ? (
+            <ZoomImage
+              src={product.images[0]}
+              alt={product.name}
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              zoom={1.8}
+              imageClassName="object-contain p-4"
+            />
+          ) : (
+            <div className="absolute inset-0 flex items-center justify-center text-slate-400 text-xs">No image preview</div>
+          )}
+        </Link>
 
         {/* Badge */}
         {product.badge && (
-          <div className="absolute top-3 left-3 z-10">
+          <div className="absolute top-3 left-3 z-10 pointer-events-none">
             <span
               className={`px-2.5 py-1 rounded-md text-[11px] font-extrabold uppercase tracking-wider shadow-md ${
                 product.badge === 'Popular'
@@ -84,11 +88,11 @@ export default function ProductCard({ product }) {
           </div>
 
           {/* Title */}
-          <h3 className="font-bold text-white text-base leading-snug min-h-[2.75rem] group-hover:text-amber-400 transition-colors line-clamp-2">
+          <Heading className="font-bold text-white text-base leading-snug min-h-[2.75rem] group-hover:text-amber-400 transition-colors line-clamp-2">
             <Link href={`/shop/${product.category}/${product.slug}/`}>
               {product.name}
             </Link>
-          </h3>
+          </Heading>
 
           {hasDisclaimer(product) && (
             <Link

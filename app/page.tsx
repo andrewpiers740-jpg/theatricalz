@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import HeroSlideshow from '@/components/HeroSlideshow';
+import ZoomImage from '@/components/ZoomImage';
 import Image from 'next/image';
 import {
   Film,
@@ -215,14 +216,17 @@ export default function HomePage() {
                 </div>
 
                 <div className="relative aspect-[4/3] bg-white rounded-2xl overflow-hidden my-4 flex items-center justify-center p-4">
-                  <Image
-                    src="/images/products/video/sony-fx3-cinema-line-camera.webp"
-                    alt="Sony FX3 Cinema Line Full-Frame Camera"
-                    fill
-                    className="object-contain p-4"
-                    referrerPolicy="no-referrer"
-                  />
-                  <div className="absolute top-3 left-3 bg-slate-950 text-amber-400 text-[10px] font-bold px-2.5 py-1 rounded-md border border-amber-500/30">
+                  <Link href="/shop/video/sony-fx3-cinema-line-camera/" aria-label="View Sony FX3 Full-Frame Cinema Camera" className="absolute inset-0 block">
+                    <ZoomImage
+                      src="/images/products/video/sony-fx3-cinema-line-camera.webp"
+                      alt="Sony FX3 Cinema Line Full-Frame Camera"
+                      sizes="(max-width: 1024px) 100vw, 40vw"
+                      zoom={1.8}
+                      priority
+                      imageClassName="object-contain p-4"
+                    />
+                  </Link>
+                  <div className="absolute top-3 left-3 z-10 pointer-events-none bg-slate-950 text-amber-400 text-[10px] font-bold px-2.5 py-1 rounded-md border border-amber-500/30">
                     TOP SELLER
                   </div>
                 </div>

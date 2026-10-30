@@ -19,6 +19,7 @@ import {
 } from 'lucide-react';
 import { SITE, CATEGORIES, CONTACT } from '@/config/site';
 import { useCart } from '@/lib/cartContext';
+import BrandsMenu from '@/components/BrandsMenu';
 import { money } from '@/lib/order';
 
 export default function Nav() {
@@ -168,6 +169,8 @@ export default function Nav() {
                   </div>
                 )}
               </div>
+
+              <BrandsMenu />
 
               <Link
                 href="/clearance/"
@@ -320,6 +323,12 @@ export default function Nav() {
                 ))}
               </div>
 
+              <Link
+                href="/brands/"
+                className="px-3 py-2.5 rounded-lg text-base font-semibold text-slate-200 hover:bg-slate-800"
+              >
+                Brands
+              </Link>
               <Link
                 href="/clearance/"
                 className="px-3 py-2.5 rounded-lg text-base font-semibold text-red-400 hover:bg-slate-800 flex items-center gap-2"

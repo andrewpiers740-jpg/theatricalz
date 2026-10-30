@@ -25,8 +25,31 @@ const money0 = (n) => `$${fmt(n)}`;
 // Shop page layout: filter sidebar on the left. With no filter chosen the server-rendered category previews
 // (children) are shown; choosing any filter switches the right-hand side to live, filtered results.
 export default function ShopBrowser({ categories, children }) {
+  // The fallback is what is in the page HTML before the filters hydrate. It keeps the same two-column layout and
+  // lists the categories as plain links, so nothing jumps sideways when the interactive filters take over.
+  const fallback = (
+    <div className="lg:grid lg:grid-cols-[16.5rem_minmax(0,1fr)] lg:gap-8 lg:items-start">
+      <aside aria-label="Categories" className="mb-6 lg:mb-0 hidden lg:block">
+        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4">
+          <h2 className="text-sm font-black uppercase tracking-wider text-white mb-3 flex items-center gap-2">
+            <SlidersHorizontal className="w-4 h-4 text-amber-400" /> Filters
+          </h2>
+          <ul className="space-y-0.5">
+            {categories.map((c) => (
+              <li key={c.slug}>
+                <a href={`/shop/${c.slug}/`} className="block px-2 py-1.5 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white">
+                  {c.name}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </aside>
+      <div className="min-w-0 space-y-6">{children}</div>
+    </div>
+  );
   return (
-    <Suspense fallback={children}>
+    <Suspense fallback={fallback}>
       <ShopBrowserInner categories={categories}>{children}</ShopBrowserInner>
     </Suspense>
   );

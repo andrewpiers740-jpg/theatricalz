@@ -1,4 +1,4 @@
-// middleware.js - Markdown content negotiation with q-value parser (WebForge v11.1 Section V5)
+// proxy.js (called middleware.js before Next.js 16) - Markdown content negotiation with q-value parser (WebForge v11.1 Section V5)
 import { NextResponse } from 'next/server';
 
 export const config = {
@@ -23,7 +23,7 @@ function prefersMarkdownOverHtml(accept) {
   return mdQ > -1 && mdQ > htmlQ;
 }
 
-export function middleware(request) {
+export function proxy(request) {
   const accept = request.headers.get('accept') || '';
 
   if (prefersMarkdownOverHtml(accept)) {

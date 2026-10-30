@@ -5,6 +5,7 @@ import { PRODUCTS } from '@/config/products';
 import ProductCard from '@/components/ProductCard';
 import { cardProduct } from '@/lib/cardProduct';
 import HeroSlideshow from '@/components/HeroSlideshow';
+import ShopBrowser from '@/components/ShopBrowser';
 import JsonLd from '@/components/JsonLd';
 
 export const metadata = {
@@ -74,31 +75,8 @@ export default function ShopIndexPage() {
           </div>
         </div>
 
-        {/* Category Pills Filter */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
-          <Link
-            href="/shop/"
-            className="px-4 py-2 rounded-xl bg-amber-500 text-slate-950 font-bold text-xs shrink-0 shadow-md shadow-amber-500/10"
-          >
-            All Pro Gear ({PRODUCTS.length})
-          </Link>
-          {CATEGORIES.map((c) => (
-            <Link
-              key={c.slug}
-              href={`/shop/${c.slug}/`}
-              className="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white text-xs font-medium shrink-0 border border-slate-800 transition"
-            >
-              {c.name}
-            </Link>
-          ))}
-          <Link
-            href="/clearance/"
-            className="px-4 py-2 rounded-xl bg-red-950/40 hover:bg-red-900/50 text-red-300 text-xs font-semibold shrink-0 border border-red-900/40 transition"
-          >
-            Clearance Deals
-          </Link>
-        </div>
-
+        {/* Filter sidebar (left) + category previews, or filtered results once a filter is chosen */}
+        <ShopBrowser categories={CATEGORIES.map((c) => ({ slug: c.slug, name: c.name, subcategories: c.subcategories || [] }))}>
         {/* Product previews per category (full ranges live on each category page) */}
         {CATEGORIES.map((c) => {
           const items = PRODUCTS.filter((p) => p.category === c.slug);
@@ -111,7 +89,7 @@ export default function ShopIndexPage() {
                   View all {items.length} →
                 </Link>
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                 {items.slice(0, 4).map((product) => (
                   <ProductCard key={product.slug} product={cardProduct(product)} />
                 ))}
@@ -119,6 +97,7 @@ export default function ShopIndexPage() {
             </section>
           );
         })}
+        </ShopBrowser>
       </div>
     </>
   );
